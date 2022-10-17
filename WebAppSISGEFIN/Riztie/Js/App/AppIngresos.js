@@ -16,6 +16,7 @@ var dataImport = "";
 var dataCab = "";
 var dataDeta = "";
 var base64;
+var tipoProceso;
 
 window.onload = function () {
     getConfigMn();
@@ -255,6 +256,7 @@ function grabarDatos() {
     else if (vista == "ReciboIngreso") {
         data += "¯" + txtFechaInicio.value + '|' + txtFechaFinal.value;
         frm.append("data", data);
+
         Http.post("General/guardar/?tbl=" + controller + vista, mostrarGrabar, frm);
     }
     else {
@@ -921,11 +923,19 @@ function configurarBotones() {
                 cancelButtonText: 'No'
             }).then((result) => {
                 if (result.value) {
+
                     Http.post("General/guardar/?tbl=" + controller + vista + 'Aprobar', mostrarGrabar, frm);
                 }
             })
 
         }
+    }
+
+    var btnReporte = document.getElementById("btnReporte");
+    if (btnReporte != null) btnReporte.onclick = function () {
+        var data = "";
+        archivo = "REGISTRO DE VENTAS E INGRESOS.xlsx";
+        Http.getDownloadBytes("General/exportarOnline/?ori=V&tbl=" + controller + vista + "RegistroVenta&idx=" + data, mostrarExportar)
     }
 
     var btnPendiente = document.getElementById("btnPendiente");
@@ -970,7 +980,12 @@ function configurarBotones() {
                 }).then((result) => {
                     if (result.value) {
                         divPopupContainerForm1.style.display = "none";
-                        Http.post("General/guardar/?tbl=" + controller + vista + 'Pendientes', mostrarGrabar, frm);
+                        if (tipoProceso == "C") {
+                            Http.post("General/guardar/?tbl=" + controller + vista + 'Pendientecxc', mostrarGrabar, frm);
+                        }
+                        else {
+                            Http.post("General/guardar/?tbl=" + controller + vista + 'PendienteAbono', mostrarGrabar, frm);
+                        }
                     }
                 })
             }
@@ -1396,6 +1411,17 @@ function seleccionarFila(fila, id, prefijo) {
         divPopupContainer.style.display = 'none';
         getObtenerEStadoCuenta(idRegistro);
     }
+    else if (vista == "ReciboIngreso") {
+        var tipoAbono = fila.childNodes[6].innerHTML;
+        if (tipoAbono == "ABONADO") {
+            btnGenerarRI.innerHTML = "Abonar ingresos"
+            tipoProceso = "A";
+        }
+        else {
+            btnGenerarRI.innerHTML = "Generar RI"
+            tipoProceso = "C";
+        }
+    }
 }
 
 function getObtenerEStadoCuenta(idAsegurado) {
@@ -1809,4 +1835,39 @@ function mostrarListadoAsegurado(rpta) {
         divPopupContainer.style.display = 'block';
         var grilla = new GrillaScroll(lista, "divListaAsegurado", 500, 2, vista, "Ingresos", null, null, null, null, 26);
     }
+}
+
+function mostrarExportar(rpta) {
+    spnLoad.style.display = 'none';
+    descargarArchivo(rpta, obtenerMime());
+}
+
+function obtenerMime() {
+    var campos = archivo.split('.');
+    var n = campos.length;
+    var extension = campos[n - 1].toLowerCase();
+    switch (extension) {
+        case "xlsx":
+            tipoMime = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet";
+            break;
+        case "docx":
+            tipoMime = "application/vnd.openxmlformats-officedocument.wordprocessingml.document";
+            break;
+        case "pdf":
+            tipoMime = "aplication/pdf";
+            break;
+        default:
+            tipoMime = "aplication/octect-stream";
+            break;
+    }
+    return tipoMime;
+}
+
+function descargarArchivo(contenido, tipoMime) {
+    var blob = new Blob([contenido], { "type": tipoMime });
+    var enlace = document.createElement("a");
+    enlace.href = URL.createObjectURL(blob);
+    enlace.download = archivo;
+    enlace.click();
+    document.removeChild(enlace);
 }

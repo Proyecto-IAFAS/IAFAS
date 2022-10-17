@@ -361,6 +361,8 @@
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Patrimonio\TasaUIT.cshtml" />
     <Content Include="Views\Ingresos\EstadoCuenta.cshtml" />
+    <Content Include="Views\Patrimonio\Asignacion.cshtml" />
+    <Content Include="Views\Patrimonio\MantoActivo.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
