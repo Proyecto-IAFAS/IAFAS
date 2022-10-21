@@ -32,7 +32,7 @@
                                         <div class="row">
                                             <div class="form-group col-sm-10">
                                                 <input type="hidden" class="control-form Popup" id="txtIdRegistro">
-                                                <label class="control-label">Ingreso</label>
+                                                <label class="control-label">Nombre del Ingreso</label>
                                                 <input type="text" autocomplete="off" class="control-form Reque Popup" maxlength="50" id="txtIngreso">
                                             </div>
                                         </div>
@@ -41,39 +41,69 @@
                                                 <label class="control-label">Abrevitura</label>
                                                 <input type="text" autocomplete="off" class="control-form Reque Popup" maxlength="20" id="txtAbreviatura">
                                             </div>
-                                        </div>
-                                        <div class="row">
-                                            <div class="form-group col-sm-10">
-                                                <label class="control-label">Cuenta Mayor</label>
-                                                <select id="cboCuentaMayor" class="SelectSearch control-form Reque Popup"></select>
-                                            </div>
-                                        </div>
-                                        <div class="row">
-                                            <div class="form-group col-sm-12">
-                                                <label class="control-label">Sub Cuenta</label>
-                                                <select id="cboSubCuenta" class="SelectSearch control-form Reque Popup"></select>
-                                            </div>
-                                        </div>
-                                        <div class="row">
-                                            <div class="form-group col-sm-12">
-                                                <label class="control-label">Clasificador</label>
-                                                <select id="cboClasificador" class="SelectSearch control-form Reque Popup"></select>
-                                            </div>
-                                        </div>
-                                        <div class="row">
-                                            <div class="form-group col-sm-6">
-                                                <label class="control-label">Código Cuenta por Cobrar </label>
-                                                <input type="text" autocomplete="off" class="control-form Reque Popup" maxlength="10" id="txtCodigoCuentaxCC">
-                                            </div>
-                                            <div class="form-group col-sm-6">
-                                                <label class="control-label">Código Cuenta por Abono </label>
-                                                <input type="text" autocomplete="off" class="control-form Reque Popup" maxlength="10" id="txtCodigoCuentaAbono">
-                                            </div>
-                                        </div>
-                                        <div class="row">
                                             <div class="form-group col-sm-4">
                                                 <label class="control-label">Estado</label>
                                                 <select id="cboEstado" class="control-lectura Reque Popup"></select>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-sm-6">
+                                                <fieldset class="fieldset">
+                                                    <legend class="legend">Cuentas Cobrar</legend>
+                                                    <div class="row">
+                                                        <div class="form-group col-sm-12">
+                                                            <label class="control-label">Código Cuenta por Cobrar </label>
+                                                            <input type="text" autocomplete="off" class="control-form Popup" maxlength="10" id="txtCodigoCuentaxCC">
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="form-group col-sm-12">
+                                                            <label class="control-label">Cuenta Mayor</label>
+                                                            <select id="cboCuentaMayor" class="SelectSearch control-form Reque Popup"></select>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="form-group col-sm-12">
+                                                            <label class="control-label">Sub Cuenta</label>
+                                                            <select id="cboSubCuenta" class="SelectSearch control-form Reque Popup"></select>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="form-group col-sm-12">
+                                                            <label class="control-label">Clasificador</label>
+                                                            <select id="cboClasificador" class="SelectSearch control-form Reque Popup"></select>
+                                                        </div>
+                                                    </div>
+                                                </fieldset>
+                                            </div>
+                                            <div class="col-sm-6">
+                                                <fieldset class="fieldset">
+                                                    <legend class="legend">Cuentas Abono</legend>
+                                                    <div class="row">
+                                                        <div class="form-group col-sm-6">
+                                                            <label class="control-label">Código Cuenta por Abono </label>
+                                                            <input type="text" autocomplete="off" class="control-form Popup" maxlength="10" id="txtCodigoCuentaAbono">
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="form-group col-sm-12">
+                                                            <label class="control-label">Cuenta Mayor</label>
+                                                            <select id="cboCuentaMayorAbono" class="SelectSearch control-form Reque Popup"></select>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="form-group col-sm-12">
+                                                            <label class="control-label">Sub Cuenta</label>
+                                                            <select id="cboSubCuentaAbono" class="SelectSearch control-form Reque Popup"></select>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="form-group col-sm-12">
+                                                            <label class="control-label">Clasificador</label>
+                                                            <select id="cboClasificadorAbono" class="SelectSearch control-form Reque Popup"></select>
+                                                        </div>
+                                                    </div>
+                                                </fieldset>
                                             </div>
                                         </div>
                                     </div>

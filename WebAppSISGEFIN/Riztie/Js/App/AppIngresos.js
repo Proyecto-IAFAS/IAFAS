@@ -1067,9 +1067,12 @@ function mostrarReporte(rpta) {
 
         tdLineaIngreso.innerHTML = cabecera[0];
         tdNumeroRecibo.innerHTML = cabecera[1];
-        tdFecha.innerHTML ='FECHA: '+ cabecera[2];
-        spnGlosa.innerHTML ='GLOSA: '+ cabecera[3];
-        tdTotal.innerHTML = formatoNumeroDecimal(cabecera[4]*1);
+        tdFecha.innerHTML = cabecera[2];
+        tdDNI.innerHTML = cabecera[3];
+        tdGlosaSecundaria.innerHTML = cabecera[4];
+        tdTotal.innerHTML = formatoNumeroDecimal(cabecera[5] * 1);
+        tdSubdiario.innerHTML = cabecera[6];
+        tdGlosaPrincipal.innerHTML = cabecera[7];
        
         var contenido = "";
         var contenidoResumen = "";
@@ -1090,16 +1093,13 @@ function mostrarReporte(rpta) {
                 contenido += "<td width='130' style='text-align: right;vertical-align: top;font-size: 12px'>";
                 contenido += formatoNumeroDecimal(campos[2]*1);
                 contenido += "</td > ";
-                contenido += "<td width='150' style='text-align: right;vertical-align: top;font-size: 12px'>";
-                contenido += formatoNumeroDecimal(campos[2]*1);
-                contenido += "</td >";
                 contenido += "</tr>";
             }
             
             for (var i = 0; i < nRegistrosResumen; i++) {
                 campos = resumenconta[i].split("|");
                 contenidoResumen += "<tr>";
-                contenidoResumen += "<td width='73' style=''>";
+                contenidoResumen += "<td width='420' style='height: 25px'>";
                 contenidoResumen += campos[0];
                 contenidoResumen += "</td > ";
                 contenidoResumen += "<td width='148' style='text-align: right;'>";
@@ -1110,7 +1110,8 @@ function mostrarReporte(rpta) {
                 contenidoResumen += "</td > ";
                 contenidoResumen += "</tr>";
             }
-
+             contenidoResumen += "<tr>";
+             contenidoResumen += "</tr>";
             tbDetalleReporte.innerHTML = contenido;
             tblResumenContable.innerHTML = contenidoResumen;
         }

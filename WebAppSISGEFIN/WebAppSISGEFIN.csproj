@@ -172,6 +172,7 @@
     <Content Include="Riztie\Images\logo.png" />
     <Content Include="Riztie\Images\logoEmpresa.png" />
     <Content Include="Riztie\Images\logoiafas.png" />
+    <Content Include="Riztie\Images\logoReporte.png" />
     <Content Include="Riztie\Images\navbar-img-1.jpg" />
     <Content Include="Riztie\Images\navbar-img-2.jpg" />
     <Content Include="Riztie\Images\navbar-img-3.jpg" />
@@ -363,6 +364,7 @@
     <Content Include="Views\Ingresos\EstadoCuenta.cshtml" />
     <Content Include="Views\Patrimonio\Asignacion.cshtml" />
     <Content Include="Views\Patrimonio\MantoActivo.cshtml" />
+    <Content Include="Views\Ingresos\NotaAbono.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
