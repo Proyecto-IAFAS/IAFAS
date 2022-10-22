@@ -161,8 +161,7 @@ namespace WebAppSISGEFIN.Controllers
         
 
         [FiltroAutenticacion]
-        public ActionResult MantoActivo()
-        public ActionResult MantoActivo()
+       public ActionResult MantoActivo()
         {
             DateTime fechaActual = DateTime.Now;
             string Mes = fechaActual.ToString("MMMM").ToUpper();

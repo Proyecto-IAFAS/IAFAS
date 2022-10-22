@@ -181,7 +181,7 @@ function mostrarlistas(rpta) {
             grillaItem = new GrillaScroll(lista, "divLista", 100, 6, vista, controller, null, null, true, botones, 38, false, null);
 
             crearCombo(listaEntidad, "cboEntidadFinanciera", "Seleccione");
-            crearCombo(listaEntidad, "cboEntidadFinancieraCarga", "Seleccione");
+            //crearCombo(listaEntidad, "cboEntidadFinancieraCarga", "Seleccione");
             crearCombo(listaEstado, "cboEstado", "Seleccione");
         }
         else if (vista == "ReciboIngreso") {
@@ -240,10 +240,10 @@ function grabarDatos() {
             dataImport += "¯" + txtAnio.value;
         }
 
-        var cboEntidad = document.getElementById("cboEntidadFinancieraCarga");
-        if (cboEntidad != null) {
-            dataImport += "¯" + cboEntidad.value;
-        }
+        //var cboEntidad = document.getElementById("cboEntidadFinancieraCarga");
+        //if (cboEntidad != null) {
+        //    dataImport += "¯" + cboEntidad.value;
+        //}
 
         frm.append("data", dataImport);
         if (operacion == 1) {
@@ -641,19 +641,19 @@ function configurarBotones() {
         vizualizar.style.display = 'none';
         divListaExcel.innerHTML = "";
         spanPendiente.innerHTML = "";
-        cboEntidadFinancieraCarga.value = "";
+        //cboEntidadFinancieraCarga.value = "";
         //   cboTipoRecaudacion.value = "";
     }
 
     var btnCargarCXC = document.getElementById("btnCargarCXC");
     if (btnCargarCXC != null) btnCargarCXC.onclick = function () {
 
-        let entidad = cboEntidadFinancieraCarga.value;
+        //let entidad = cboEntidadFinancieraCarga.value;
 
-        if (entidad == "") {
-            mostrarMensaje("Seleccionar Entidad Financiera", "error")
-            return;
-        }
+        //if (entidad == "") {
+        //    mostrarMensaje("Seleccionar Entidad Financiera", "error")
+        //    return;
+        //}
 
         divPopupContainerForm1.style.display = 'block';
         fupExcel.value = "";
@@ -677,7 +677,7 @@ function configurarBotones() {
     if (btnLimpiar != null) btnLimpiar.onclick = function () {
         divListaExcel.innerHTML = "";
         dataImport = "";
-        cboEntidadFinancieraCarga.value = "";
+        //cboEntidadFinancieraCarga.value = "";
     }
 
     var btnNuevo = document.getElementById("btnNuevo");
@@ -823,15 +823,16 @@ function configurarBotones() {
             }
         }
         else if (vista == "Recaudacion") {
-            let entidad = cboEntidadFinancieraCarga.value;
+            //let entidad = cboEntidadFinancieraCarga.value;
 
             if (fupExcel.value = "") {
                 mostrarMensaje("Seleccione el archivo excel a importar", "error");
-            }
-            else if (entidad == "") {
-                mostrarMensaje("Seleccionar Entidad Financiera", "error")
                 return;
             }
+            //else if (entidad == "") {
+            //    mostrarMensaje("Seleccionar Entidad Financiera", "error")
+            //    return;
+            //}
 
         }
 
@@ -1759,32 +1760,32 @@ function importarExcel(divForm, divLista, dataCab, dataDeta) {
                         contenido += celda.v;
                     }
 
-                    if (i == 3) {
-                        if (direc == "D" || direc == "S" || direc == "Z") {
-                            dataCab += celda.w;
-                            dataCab += "|";
-                            //imprimir contenido
-                            contenido += celda.w;
-                        }
-                        else {
-                            dataCab += celda.v;
-                            dataCab += "|";
-                            //imprimir contenido
-                            contenido += celda.v;
-                        }
-                    }
+                    //if (i == 3) {
+                    //    if (direc == "D" || direc == "S" || direc == "Z") {
+                    //        dataCab += celda.w;
+                    //        dataCab += "|";
+                    //        //imprimir contenido
+                    //        contenido += celda.w;
+                    //    }
+                    //    else {
+                    //        dataCab += celda.v;
+                    //        dataCab += "|";
+                    //        //imprimir contenido
+                    //        contenido += celda.v;
+                    //    }
+                    //}
                     //if (i > 3) {
                     if (i > 2) {
 
                         if (direc == "D" || direc == "S" || direc == "Z") {
-                            dataDeta += celda.w;
-                            dataDeta += "|";
+                            dataImport += celda.w;
+                            dataImport += "|";
                             //imprimir contenido
                             contenido += celda.w;
                         }
                         else {
-                            dataDeta += celda.v;
-                            dataDeta += "|";
+                            dataImport += celda.v;
+                            dataImport += "|";
                             //imprimir contenido
                             contenido += celda.v;
                         }
@@ -1793,21 +1794,21 @@ function importarExcel(divForm, divLista, dataCab, dataDeta) {
                 contenido += "</td>";
             }
             if (i > 0) {
-                dataCab = dataCab.substr(0, dataCab.length - 1);
-                dataCab += "¬";
-                dataDeta = dataDeta.substr(0, dataDeta.length - 1);
-                dataDeta += "¬";
+                //dataCab = dataCab.substr(0, dataCab.length - 1);
+                //dataCab += "¬";
+                dataImport = dataImport.substr(0, dataImport.length - 1);
+                dataImport += "¬";
             }
             contenido += "</tr>";
         }
         //****** dataDebe Eliminar ultimo caracter
-        dataCab = dataCab.substr(0, dataCab.length - 1);
-        dataCab = dataCab.slice(1, -1);
+        dataImport = dataImport.substr(0, dataImport.length - 1);
+        dataImport = dataImport.slice(1, -1);
         //****** dataHaber Eliminar ultimo y primer  caracter
-        dataDeta = dataDeta.substr(0, dataDeta.length - 1);
-        dataDeta = dataDeta.slice(1, -1);
+        //dataDeta = dataDeta.substr(0, dataDeta.length - 1);
+        //dataDeta = dataDeta.slice(1, -1);
  
-           dataImport = dataCab + '¯' + dataDeta + '¯' + file.name;
+        dataImport = dataImport + '¯' + file.name;
         contenido += "<table>";
         document.getElementById(divLista).innerHTML = contenido;
     }

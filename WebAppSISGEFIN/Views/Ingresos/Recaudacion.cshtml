@@ -7,7 +7,7 @@
         <div class="main-body">
             <div class="card">
                 <div class="card-header bg-primary">
-                    <h3><i class="fa fa-institution" aria-hidden="true"></i> Recaudación FOSMAR-CORE</h3>
+                    <h3><i class="fa fa-institution" aria-hidden="true"></i>Gestión archivos FOSMAR-CORE</h3>
                 </div>
                 <div class="card-block">
                     <div class="row">
@@ -26,7 +26,7 @@
                             <div class="tab-header card">
                                 <ul class="nav nav-tabs md-tabs tab-timeline" role="tablist" id="mytab">
                                     <li class="nav-item">
-                                        <a class="nav-link active" id="btnCuentasxCobrar" data-toggle="tab" href="#items" role="tab">Cuentas por Cobrar</a>
+                                        <a class="nav-link active" id="btnCuentasxCobrar" data-toggle="tab" href="#items" role="tab">Recibos por Cobrar</a>
                                         <div class="slide"></div>
                                     </li>
                                     <li class="nav-item">
@@ -62,14 +62,14 @@
                                     <div id="divCuerpo" class="modal-body">
                                         <div id="importarDataExcel">
                                             <div class="row">
-                                                <div class="form-group col-sm-5">
+                                                @*<div class="form-group col-sm-5">
                                                     <label class="control-label">Entidad Financiera</label>
                                                     <select id="cboEntidadFinancieraCarga" class="control-form"></select>
-                                                </div>
+                                                </div>*@
                                                 <div class="form-group col-sm-3" style="margin-top: 15px;margin-bottom: 2px;">
-                                                    <button class="btn btn-out waves-effect waves-light btn-warning btn-square" id="btnLimpiar" data-toggle="tooltip" data-placement="bottom" title="Limpiar Registro"><i class="fa fa-paint-brush fa-lg" aria-hidden="true"></i>Limpiar</button>
-                                                    &nbsp;&nbsp;&nbsp;
                                                     <button class="btn btn-out waves-effect waves-light btn-info btn-square" id="btnCargarCXC" data-toggle="tooltip" data-placement="bottom" title="Cargar Archivo"><i class="fa fa-upload fa-lg" aria-hidden="true"></i>Cargar</button>
+                                                    &nbsp;&nbsp;&nbsp;
+                                                    <button class="btn btn-out waves-effect waves-light btn-warning btn-square" id="btnLimpiar" data-toggle="tooltip" data-placement="bottom" title="Limpiar Registro"><i class="fa fa-paint-brush fa-lg" aria-hidden="true"></i>Limpiar</button>
                                                     <h4 id="spanPendiente" style="color:red"></h4>
                                                 </div>
                                                 <div class="form-group col-sm-4">
