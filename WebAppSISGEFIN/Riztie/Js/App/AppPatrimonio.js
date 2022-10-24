@@ -49,6 +49,12 @@ window.onload = function () {
     });
 }
 
+var botonesAsignacion = [
+    { "cabecera": "Ver", "clase": "fa fa-search btn btn-info btnCirculo", "id": "Ver" },
+    { "cabecera": "Editar", "clase": "fa fa-pencil btn btn-info btnCirculo", "id": "Editar" },
+    { "cabecera": "Anular", "clase": "fa fa-minus-circle btn btn-danger btnCirculo", "id": "Eliminar" },
+]
+
 var botonInventarioGeneral = [
     { "cabecera": "Editar", "clase": "fa fa-search btn btn-info btnCirculo", "id": "Editar" },
 ];
@@ -59,7 +65,7 @@ var botonTiposPatrimonio = [
 
 function getIniciarConfiguracion() {
     var data = ""
-    if (vista == "Bajas" || vista == "General" || vista == "MantoActivo") {
+    if (vista == "Bajas" || vista == "General" || vista == "MantoActivo" || vista == "Asignacion") {
         Http.get("General/listarTabla?tbl=" + controller + vista + "Configuracion&data=" + data, configurarValores);
         var controlesPopup = document.getElementsByClassName("Popup");
         var controlesPopupValContable = document.getElementsByClassName("PopupValContable");
@@ -90,6 +96,11 @@ function getListar() {
         var anioConsulta = document.getElementById('txtPeriodoCons')?.value;
         var idTab = (idTabActivo == "tabAltas" ? TIPO_ALTAS : TIPO_BAJAS);
         data = idTab + '|' + anioConsulta;
+    }
+
+    if (vista == "Asignacion") {
+        var anioConsulta = document.getElementById('txtPeriodoCons')?.value;
+        data = anioConsulta;
     }
 
     Http.get("General/listarTabla?tbl=" + controller + vista + "&data=" + data, mostrarlistas);
@@ -260,6 +271,23 @@ function mostrarlistas(rpta) {
             crearCombo(listaTipoMov, "cboTipoMovCab", "Seleccione");
             crearCombo(listaCausalBajas, "cboCausalBaja", "Seleccione");
             crearCombo(listaEstadoMov, "cboEstadoCab", "Seleccione");
+        }
+        else if (vista == "Asignacion") {
+            anioFiscal = listas[1].split("|")[0];
+            periodo = listas[1].split("|")[1];
+
+            var listaOficinas = listas[2].split("¬");
+            listaUbicaFisica_v = listas[3].split("¬");
+            var listaEmpleados = listas[4].split("¬");
+            var listaEstados = listas[5].split("¬");
+
+            crearCombo(listaOficinas, "cboOfiActual", "Seleccione");
+            crearCombo(listaOficinas, "cboOfiNuevo", "Seleccione");
+            crearCombo(listaEmpleados, "cboAutoriza", "Seleccione");
+            crearCombo(listaEmpleados, "cboResItemNuevo", "Seleccione");
+            crearCombo(listaEstados, "cboEstadoCab", "Seleccione");
+
+            grillaItem = new GrillaScroll(lista, "divLista", 100, 6, vista, controller, null, null, true, botonesAsignacion, 38, false, null);
         }
         else if (vista == "General") {
             grillaItem = new GrillaScroll(lista, "divLista", 100, 6, vista, controller, null, null, true, botonInventarioGeneral, 38, false, null);
@@ -444,6 +472,29 @@ function configurarBotones() {
             btnGuardarMov.innerHTML = "<i class='fa fa-save'></i> Grabar";
             btnGuardarMov.disabled = false;
         }
+
+        if (vista == "Asignacion") {
+            esOrdenAprobado = false;
+
+            btnGuardarAsignacion.style.display = 'block';
+            document.querySelectorAll('.section-orden-aprobada').forEach(function (el) {
+                el.removeAttribute("hidden");
+            });
+
+            listaItemAsignacion.innerHTML = '';
+
+            var txtAnioCab = document.getElementById("txtAnioCab");
+            if (txtAnioCab != null) txtAnioCab.value = anioFiscal;
+
+            var cboEstadoCab = document.getElementById("cboEstadoCab");
+            if (cboEstadoCab != null) cboEstadoCab.value = 1; // 1: PENDIENTE, 2:APROBADO
+
+            var dttFechaAsig = document.getElementById("dttFechaAsig");
+            if (dttFechaAsig != null) dttFechaAsig.value = obtenerFechaActualYYYMMDD();
+
+            btnGuardarAsignacion.innerHTML = "<i class='fa fa-save'></i> Grabar";
+            btnGuardarAsignacion.disabled = false;
+        }
     }
 
     var btnNuevo = document.getElementById("btnNuevo");
@@ -562,6 +613,44 @@ function configurarBotones() {
                     else {
                         grabarDatosMov();
                     }
+
+                    Swal.fire({
+                        title: 'Procesando...',
+                        allowEscapeKey: false,
+                        allowOutsideClick: false,
+                        onOpen: () => {
+                            Swal.showLoading()
+                        }
+                    })
+                }
+            })
+        }
+    }
+
+    var btnGuardarAsignacion = document.getElementById("btnGuardarAsignacion");
+    if (btnGuardarAsignacion != null) btnGuardarAsignacion.onclick = function () {
+        var validar = false;
+
+        if (validarInformacion("RequeMov") == true) {
+            validar = true;
+        }
+
+        if (!esAsignacionValido()) {
+            validar = false;
+        }
+
+        if (validar == true) {
+            Swal.fire({
+                title: '¿Desea grabar la información?',
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Si',
+                cancelButtonText: 'No'
+            }).then((result) => {
+                if (result.value) {
+                    grabarAsignacion();
 
                     Swal.fire({
                         title: 'Procesando...',
@@ -896,6 +985,27 @@ function configurarCombos() {
             }
         }
     }
+    if (vista == "Asignacion") {
+        var cboOfiActual = document.getElementById("cboOfiActual");
+        if (cboOfiActual != null) cboOfiActual.onchange = function () {
+            listarUbicaFisica("cboOfiActual", 'cboUbiFisicaActual');
+
+            var oficina = cboOfiActual.value;
+            ConsultarItemsAsignables(oficina, '');
+        }
+
+        var cboUbiFisicaActual = document.getElementById("cboUbiFisicaActual");
+        if (cboUbiFisicaActual != null) cboUbiFisicaActual.onchange = function () {
+            var oficina = cboOfiActual.value;
+            var ubiFisica = cboUbiFisicaActual.value;
+            ConsultarItemsAsignables(oficina, ubiFisica);
+        }
+
+        var cboOfiNuevo = document.getElementById("cboOfiNuevo");
+        if (cboOfiNuevo != null) cboOfiNuevo.onchange = function () {
+            listarUbicaFisica("cboOfiNuevo", 'cboUbiFisicaNuevo');
+        }
+    }
 }
 
 function seleccionarBoton(idGrilla, idRegistro, idBoton) {
@@ -903,6 +1013,13 @@ function seleccionarBoton(idGrilla, idRegistro, idBoton) {
     //limpiarForm("PopupMov");
 
     if (idGrilla == "divLista") {
+        if (vista == "") {
+            if (idBoton == "Asignacion") {
+                var ids = idRegistro.split('-');
+                editarRegistroActivo(ids[1]);
+            }
+        }
+
         if (idBoton == "Editar") {
             let tituloModal = document.getElementById("tituloModal");
             if (tituloModal != null) {
@@ -938,6 +1055,10 @@ function editarRegistro(id) {
     }
     else if (vista == "MantoActivo") {
         Http.get("General/obtenerTabla/?tbl=" + controller + vista + '&id=' + id, mostrarRegistroMov);
+    }
+    else if (vista == "Asignacion") {
+        var ids = id.split('-');
+        Http.get("General/obtenerTabla/?tbl=" + controller + vista + '&id=' + ids[0], mostrarRegistroMov);
     }
     else {
         Http.get("General/obtenerTabla/?tbl=" + controller + vista + '&id=' + id, mostrarRegistro);
@@ -992,7 +1113,46 @@ function mostrarRegistroMov(rpta) {
                 else
                     el.removeAttribute("hidden");
             });
+        }
+        if (vista == "Asignacion") {
+            txtSecuenciaAsig.value = campos[0];
+            txtAnioCab.value = campos[1];
+            txtNroTramite.value = campos[2];
+            cboEstadoCab.value = campos[3];
 
+            cboOfiActual.value = campos[4];
+            listarUbicaFisica("cboOfiActual", 'cboUbiFisicaActual');
+
+            cboOfiNuevo.value = campos[5];
+            listarUbicaFisica("cboOfiNuevo", 'cboUbiFisicaNuevo');
+
+            cboUbiFisicaActual.value = campos[6];
+            cboUbiFisicaNuevo.value = campos[7];
+            cboResItemNuevo.value = campos[8];
+
+            cboAutoriza.value = campos[9];
+            dttFechaAsig.value = formatearFechaYYYMMDD(campos[10]);
+            txtReferencia.value = campos[11];
+            ttaMotivo.value = campos[12];
+
+            var detalles = campos[13].split(',');
+
+            esOrdenAprobado = campos[3] == EST_APROBADO;
+
+            document.getElementById("divPopupContainerMov").style.display = 'block';
+
+            ConsultarItemsAsignables(
+                !esOrdenAprobado ? cboOfiActual.value : cboOfiNuevo.value,
+                !esOrdenAprobado ? cboUbiFisicaActual.value : cboUbiFisicaNuevo.value,
+                detalles
+            );
+
+            document.querySelectorAll('.section-orden-aprobada').forEach(function (el) {
+                if (esOrdenAprobado)
+                    el.setAttribute("hidden", "hidden");
+                else
+                    el.removeAttribute("hidden");
+            });
         }
     }
     else {
@@ -1236,6 +1396,14 @@ function eliminarRegistro(id) {
                 frm.append("data", data);
                 Http.post("General/eliminar/?tbl=" + controller + vista, mostrarEliminar, frm);
             }
+            else if (vista == "Asignacion") {
+                var ids = id.split('-');
+                var filtroAnio = txtPeriodoCons.value;
+                var dataAsignacion = ids[0] + "|" + filtroAnio;
+
+                frm.append("data", dataAsignacion);
+                Http.post("General/eliminar/?tbl=" + controller + vista, mostrarEliminar, frm);
+            }
             else {
                 frm.append("data", data);
                 Http.post("General/eliminar/?tbl=" + controller + vista, mostrarEliminar, frm);
@@ -1266,6 +1434,9 @@ function mostrarEliminar(rpta) {
         }
         else if (vista == 'Altas') {
             grillaItem = new GrillaScroll(lista, "divListaActivo", 100, 6, vista, controller, null, null, true, botones, 38, false, null);
+        }
+        else if (vista == 'Asignacion') {
+            grillaItem = new GrillaScroll(lista, "divLista", 100, 6, vista, controller, null, null, true, botonesAsignacion, 38, false, null);
         }
         else {
             grillaItem = new GrillaScroll(lista, "divLista", 100, 6, vista, controller, null, null, true, botones, 38, false, null);
@@ -1580,6 +1751,29 @@ function mostrarListadoOrdenes(rpta) {
     }
 }
 
+function mostrarListadoItemsAsignacion(indices, rpta) {
+    if (rpta) {
+        var listas = rpta.split('¯');
+        lista = listas[0].split("¬");
+        grillaItems = new GrillaScroll(lista, "listaItemAsignacion", 1000, 6, "listaItemsAsignacion", "Admon", null, null, null, null, 25, false, true);
+
+        if (indices?.length > 0) {
+            var divListaItemsCheck = document.getElementById('tbDatalistaItemAsignacion');
+            var allcheck = divListaItemsCheck.getElementsByClassName("selcheckbox");
+            console.log(allcheck);
+
+            for (var p = 0; p < allcheck.length; p++) {
+                var fila = allcheck[p].parentNode.parentNode;
+                var id = fila.childNodes[1].innerText;
+
+                if (indices.indexOf(id) != -1) {
+                    allcheck[p].click();
+                }
+            }
+        }
+    }
+}
+
 function mostrarListadoItems(rpta) {
     if (rpta) {
         //spnLoad.style.display = 'none';
@@ -1645,6 +1839,31 @@ function grabarMantoActivos() {
 
     btnGuardarMov.innerHTML = "Guardando <i class='fa fa-circle-o-notch fa-spin' style='color:white'></i>";
     btnGuardarMov.disabled = true;
+}
+
+function grabarAsignacion() {
+    var data = "";
+    var ids = grillaItems.obtenerIdsChecks();
+    var filtroAnio = txtPeriodoCons.value;
+
+    data = obtenerDatosGrabar("PopupMov");
+
+    data += "|";
+
+    data += "¯";
+
+    data += ids.join(',')
+
+    data += "¯" + filtroAnio;
+
+    var frm = new FormData();
+    frm.append("data", data);
+
+    console.log(data);
+    Http.post("General/guardar?tbl=" + controller + vista, mostrarGrabar, frm);
+
+    btnGuardarAsignacion.innerHTML = "Guardando <i class='fa fa-circle-o-notch fa-spin' style='color:white'></i>";
+    btnGuardarAsignacion.disabled = true;
 }
 
 function grabarBajas() {
@@ -1767,7 +1986,8 @@ function obtenerDatosGrabar(clase) {
                 if (control.id.substr(0, 3) == "num") data += control.value;
                 if (control.id.substr(0, 3) == "dtt") {
                     if (control.value != "") {
-                        if (vista == "InventarioInicial" || vista == "Altas" || vista == "Bajas" || vista == "MantoActivo") {
+                        if (vista == "InventarioInicial" || vista == "Altas" || vista == "Bajas"
+                            || vista == "MantoActivo" || vista == "Asignacion") {
                             data += control.value;
                         }
                         else {
@@ -1797,6 +2017,12 @@ function obtenerDatosGrabar(clase) {
     data = data.substr(0, data.length - 1);
 
     return data;
+}
+
+function ConsultarItemsAsignables(oficina, ubiFisica, ids = null) {
+    var data = anioFiscal + '|' + oficina + '|' + ubiFisica;
+
+    Http.get("General/listarTabla?tbl=" + controller + vista + "Items&data=" + data, mostrarListadoItemsAsignacion.bind(null, ids));
 }
 
 function mostrarEspecificacionesTecnicas(rpta) {
@@ -1947,6 +2173,16 @@ function retirarItem(col, id) {
     var nFilas = 0;
     nFilas = tbDetalleActivos.rows.length;
     spnNroItems.innerHTML = "Items: " + (nFilas);
+}
+
+function esAsignacionValido() {
+    var ids = grillaItems.obtenerIdsChecks();
+
+    if (ids.length == 0) {
+        mostrarMensaje("No hay items seleccionados", "error");
+        return false;
+    }
+    return true;
 }
 
 function esMantenimientoActivoValido() {
@@ -2441,6 +2677,9 @@ function mostrarGrabar(rpta) {
             limpiarListaActivos();
             getListar();
         }
+        else if (vista == "Asignacion") {
+            grillaItem = new GrillaScroll(lista, "divLista", 100, 6, vista, controller, null, null, true, botonesAsignacion, 38, false, null);
+        }
         else {
             grillaItem = new GrillaScroll(lista, "divLista", 100, 6, vista, controller, null, null, true, botones, 38, false, null);
         }
@@ -2474,6 +2713,12 @@ function mostrarGrabar(rpta) {
 
         btnGuardarBajas.innerHTML = "<i class='fa fa-save'></i> Grabar";
         btnGuardarBajas.disabled = false;
+    }
+    else if (vista == "Asignacion") {
+        divPopupContainerMov.style.display = 'none'
+
+        btnGuardarAsignacion.innerHTML = "<i class='fa fa-save'></i> Grabar";
+        btnGuardarAsignacion.disabled = false;
     }
     else {
         btnGuardar.innerHTML = "<i class='fa fa-save'></i> Grabar";

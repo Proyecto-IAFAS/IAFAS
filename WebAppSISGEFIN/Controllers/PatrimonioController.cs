@@ -160,6 +160,21 @@ namespace WebAppSISGEFIN.Controllers
         }
 
         [FiltroAutenticacion]
+        public ActionResult Asignacion()
+        {
+            DateTime fechaActual = DateTime.Now;
+            string Mes = fechaActual.ToString("MMMM").ToUpper();
+            int Anio = DateTime.Now.Year;
+            string[] Data = Session["DataUsuario"].ToString().Split('|');
+            string IdPerfil = Data[3];
+            ViewBag.Menu = new Menu().Listar(IdPerfil);
+            ViewBag.Anio = Anio;
+            ViewBag.Mes = Mes;
+            ViewBag.Fecha = fechaActual.ToShortDateString();
+            return View();
+        }
+
+        [FiltroAutenticacion]
         public ActionResult Devoluciones()
         {
             DateTime fechaActual = DateTime.Now;
