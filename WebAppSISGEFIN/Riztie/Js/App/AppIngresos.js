@@ -1747,7 +1747,6 @@ function importarExcel(divForm, divLista, dataCab, dataDeta) {
             contenido += "<th style='width:50px;background-color:lightgray'>";
             contenido += i + 1;
             contenido += "</th>";
-            //alert(celda.v)
             for (var j = range.s.c; j <= range.e.c; j++) {
                 contenido += "<td>";
                 var direccion = XLSX.utils.encode_cell({ c: j, r: i });
@@ -1760,32 +1759,32 @@ function importarExcel(divForm, divLista, dataCab, dataDeta) {
                         contenido += celda.v;
                     }
 
-                    //if (i == 3) {
-                    //    if (direc == "D" || direc == "S" || direc == "Z") {
-                    //        dataCab += celda.w;
-                    //        dataCab += "|";
-                    //        //imprimir contenido
-                    //        contenido += celda.w;
-                    //    }
-                    //    else {
-                    //        dataCab += celda.v;
-                    //        dataCab += "|";
-                    //        //imprimir contenido
-                    //        contenido += celda.v;
-                    //    }
-                    //}
-                    //if (i > 3) {
-                    if (i > 2) {
-
+                    if (i == 3) {
                         if (direc == "D" || direc == "S" || direc == "Z") {
-                            dataImport += celda.w;
-                            dataImport += "|";
+                            dataCab += celda.w;
+                            dataCab += "|";
                             //imprimir contenido
                             contenido += celda.w;
                         }
                         else {
-                            dataImport += celda.v;
-                            dataImport += "|";
+                            dataCab += celda.v;
+                            dataCab += "|";
+                            //imprimir contenido
+                            contenido += celda.v;
+                        }
+                    }
+                    //if (i > 3) {
+                    if (i > 2) {
+
+                        if (direc == "D" || direc == "S" || direc == "Z") {
+                            dataDeta += celda.w;
+                            dataDeta += "|";
+                            //imprimir contenido
+                            contenido += celda.w;
+                        }
+                        else {
+                            dataDeta += celda.v;
+                            dataDeta += "|";
                             //imprimir contenido
                             contenido += celda.v;
                         }
@@ -1794,21 +1793,21 @@ function importarExcel(divForm, divLista, dataCab, dataDeta) {
                 contenido += "</td>";
             }
             if (i > 0) {
-                //dataCab = dataCab.substr(0, dataCab.length - 1);
-                //dataCab += "¬";
-                dataImport = dataImport.substr(0, dataImport.length - 1);
-                dataImport += "¬";
+                dataCab = dataCab.substr(0, dataCab.length - 1);
+                dataCab += "¬";
+                dataDeta = dataDeta.substr(0, dataDeta.length - 1);
+                dataDeta += "¬";
             }
             contenido += "</tr>";
         }
         //****** dataDebe Eliminar ultimo caracter
-        dataImport = dataImport.substr(0, dataImport.length - 1);
-        dataImport = dataImport.slice(1, -1);
+        dataCab = dataCab.substr(0, dataCab.length - 1);
+        dataCab = dataCab.slice(1, -1);
         //****** dataHaber Eliminar ultimo y primer  caracter
-        //dataDeta = dataDeta.substr(0, dataDeta.length - 1);
-        //dataDeta = dataDeta.slice(1, -1);
+        dataDeta = dataDeta.substr(0, dataDeta.length - 1);
+        dataDeta = dataDeta.slice(1, -1);
  
-        dataImport = dataImport + '¯' + file.name;
+        dataImport = dataCab + '¯' + dataDeta + '¯' +file.name;
         contenido += "<table>";
         document.getElementById(divLista).innerHTML = contenido;
     }
