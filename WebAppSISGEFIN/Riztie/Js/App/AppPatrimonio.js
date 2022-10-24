@@ -864,10 +864,18 @@ function configurarBotones() {
         }
 
         if (vista == 'General') {
-            var filtroAnio = txtPeriodoCons.value;
-            var data = filtroAnio;
+            //var filtroAnio = txtPeriodoCons.value;
+            //var data = filtroAnio;
+            //getObtenerReporteGeneralAltas(data);
+            var data = obtenerDatosGrabar("PopupRep");
+            var url = location.origin + '/Reportes/ShowRpt/?area=Patrimonio&name=Inventario1&type=rInv1&par=' + data + '&r=1'
 
-            getObtenerReporteGeneralAltas(data);
+            ifrmVistaPrevia.src = url;
+
+            document.getElementById("divPopupContainerReporte").style.display = 'block';
+
+            btnSeleccionarOpcionReporte.innerHTML = "<i class='fa fa-search'></i> Ver Reporte";
+            btnSeleccionarOpcionReporte.disabled = false;
         }
     }
 
