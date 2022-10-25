@@ -17,6 +17,8 @@ NombreCompleto	String	100
 UbicaciónFisica	String	100
 CausaIngreso	String	100
 TipoIngreso	String	100
+UsuarioItem	String	100
+SerieItem	String	100
 MES_PROCESO	Number
 OC_NEA	Number
 FECHA_EA	String	10

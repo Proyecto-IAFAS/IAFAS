@@ -41,6 +41,8 @@ namespace WebAppSISGEFIN.Models
         public string DescripcionMarca { get; set; }
         public string DescripcionModelo { get; set; }
         public string NombreResponsable { get; set; }
+        public string SerieItem { get; set; }
+        public string UsuarioItem { get; set; }
         public decimal OC_NEA { get; set; }
         public string FECHA_EA { get; set; }
         public decimal Valor_Compra { get; set; }
@@ -60,6 +62,8 @@ namespace WebAppSISGEFIN.Models
         public string DescripcionMarca { get; set; }
         public string DescripcionModelo { get; set; }
         public string NombreResponsable { get; set; }
+        public string SerieItem { get; set; }
+        public string UsuarioItem { get; set; }
         public string FECHA_OC { get; set; }
         public string FECH_MOVIM { get; set; }
         public string NRO_OC { get; set; }
