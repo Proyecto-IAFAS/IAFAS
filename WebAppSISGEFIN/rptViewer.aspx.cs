@@ -28,6 +28,16 @@ namespace WebAppSISGEFIN
                     ReportDocument _Report = Runs.OpenDocumRPT(_FileNm);
                     _Report.Database.Tables[0].SetDataSource(_rptData.Content);
                     _Report.ReadRecords();
+                    string _user = "...";
+
+                    dynamic _session = Session["DataUsuario"];
+                    if (_session != null) {
+                        string[] _split = _session.Split('|');
+                        _user = _split[2];
+                    }                 
+
+                    _Report.DataDefinition.FormulaFields[0].Text = "'" + _user + "'";
+
                     if (_Option == "1")
                     {
                         CrystalReportViewer1.ReportSource = _Report;
