@@ -253,7 +253,7 @@ namespace WebAppTurnera.Controllers
         public string enviarCorreo(bool grabarBD = false)
         {
             string rpta = "";
-            string contenidoMail = "datos de prueba";
+            //string contenidoMail = "datos de prueba";
             string correo = Request.Form["correo"];
             //string data = Request.Form["data"];
             string idOrden = Request.Form["idx"];
@@ -288,7 +288,7 @@ namespace WebAppTurnera.Controllers
         public string enviarOrden(string tbl)
         {
             string rpta = "";
-            string contenidoMail = "Envio de orden de compra al proveedor";
+            //string contenidoMail = "Envio de orden de compra al proveedor";
             string correo = Request.Form["correo"];
             string idOrden = Request.Form["idx"];
             if (Request.Files.Count > 0)
@@ -433,5 +433,8 @@ namespace WebAppTurnera.Controllers
             }
             return rpta;
         }
+
+
     }
+
 }
