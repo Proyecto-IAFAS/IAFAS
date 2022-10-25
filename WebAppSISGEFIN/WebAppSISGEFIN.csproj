@@ -1580,6 +1580,7 @@
     <Content Include="Reportes\e0a231b8-99dc-49ab-a532-73790e3f3df9.pdf" />
     <Content Include="Reportes\f06fcac7-51fe-42ab-89f8-5643873509cc.pdf" />
     <Content Include="Reportes\f22de13f-fdcf-4dc7-9c40-d2fe93ad4d06.pdf" />
+    <Content Include="Views\Patrimonio\Cierre.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

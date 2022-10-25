@@ -64,40 +64,30 @@
                                                 <label class="control-label">Estado</label>
                                                 <select class="control-form RequeMov PopupMov" id="cboEstadoCab"></select>
                                             </div>
-                                        </div>
-                                        <hr />
-                                        <div class="row">
                                             <div class="form-group col-sm-3">
                                                 <label class="control-label">Tipo de Mantenimiento</label>
                                                 <select class="control-form RequeMov PopupMov" id="cboTipoMantenimientoCab"></select>
                                             </div>
-                                            <div class="form-group col-sm-2">
-                                                <input type="hidden" class="control-lectura RequeMov PopupMov" readonly id="txtNroOrdenSecuenciaCab">
-                                                <label class="control-label">Nro O/C</label>
-                                                <input type="text" class="control-lectura RequeMov" readonly id="txtNroOrdenCab">
-                                            </div>
                                             <div class="form-group col-sm-1 mt-2 section-orden-aprobada">
                                                 <button class="btn btn-secondary" id="btnConsutarOrdenes"><i class="fa fa-search" aria-hidden="true"></i></button>
                                             </div>
-                                            <div class="form-group col-sm-2">
-                                                <label class="control-label">Nro Contrato</label>
-                                                <input type="text" class="control-form PopupMov" id="txtNroContratoCab">
+                                        </div>
+                                        <hr />
+                                        <div class="row">
+                                            <div class="form-group col-sm-3">
+                                                <input type="hidden" class="control-lectura PopupMov" readonly id="txtNroOrdenSecuenciaCab">
+                                                <label class="control-label">Nro O/C</label>
+                                                <input type="text" class="control-lectura NoPopupMov" readonly id="txtNroOrdenCab">
                                             </div>
-                                            <div class="form-group col-sm-4">
+                                            <div class="form-group col-sm-3">
+                                                <label class="control-label">Fecha Orden</label>
+                                                <input type="date" class="control-lectura NoPopupMov" readonly id="dttFechaOrdenCab">
+                                            </div>
+                                            <div class="form-group col-sm-3">
                                                 <label class="control-label">Proveedor</label>
                                                 <select class="control-lectura RequeMov PopupMov" disabled id="cboProveedorCab"></select>
                                             </div>
-                                        </div>
-                                        <div class="row">
-                                            <div class="form-group col-sm-4">
-                                                <label class="control-label">Sub Total</label>
-                                                <input type="text" class="control-lectura NoPopupMov" readonly id="txtSubTotalCab">
-                                            </div>
-                                            <div class="form-group col-sm-4">
-                                                <label class="control-label">IGV</label>
-                                                <input type="text" class="control-lectura NoPopupMov" readonly id="txtIGVCab">
-                                            </div>
-                                            <div class="form-group col-sm-4">
+                                            <div class="form-group col-sm-3">
                                                 <label class="control-label">Total</label>
                                                 <input type="text" class="control-lectura NoPopupMov" readonly id="txtTotalCab">
                                             </div>
@@ -107,17 +97,11 @@
                                                 <label class="control-label">Glosa</label>
                                                 <textarea class="control-form PopupMov" rows="4" id="ttaGlosaCab"></textarea>
                                             </div>
-                                        </div>
-                                        <hr />
-                                        <div class="row section-orden-aprobada">
-                                            <div class="form-group col-sm-2 ">
-                                                <label class="control-label">Periodo</label>
-                                                <input type="number" id="txtPeriodoItemsCons" class="control-form PopupCons">
-                                            </div>
-                                            <div class="form-group col-sm-1 mt-3">
+                                            <div class="form-group col-sm-1 mt-3 d-flex align-items-center">
                                                 <button class="btn btn-out waves-effect waves-light btn-info btn-square" id="btnConsutarItems"><i class="fa fa-search-plus" aria-hidden="true"></i></button>
                                             </div>
                                         </div>
+                                        <hr />
                                         <div class="row mt-2">
                                             <div class="form-group col-sm-12">
                                                 <div class="table-responsive" style="height:315px;">
