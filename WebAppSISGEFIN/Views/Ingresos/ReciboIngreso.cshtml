@@ -27,15 +27,15 @@
                         <div class="form-group col-sm-4 m-3">
                             <button class="input-group-inverse btn btn-inverse" id="btnConsultar" data-toggle="tooltip" data-placement="bottom" title="Consultar"><i class="fa fa-search fa-lg" aria-hidden="true"></i></button>
                             <button class="input-group-inverse btn btn-primary" id="btnNuevo" data-toggle="tooltip" data-placement="bottom" title="Nuevo"><i class="fa fa-plus-circle fa-lg" aria-hidden="true"></i></button>
-                            <button class="btn btn-out waves-effect waves-light btn-primary btn-square" id="btnPendiente" data-toggle="tooltip" data-placement="bottom" title="Recaudación pendiente"><i class="fa fa-paypal fa-lg" aria-hidden="true"></i></button>
+                            @*<button class="btn btn-out waves-effect waves-light btn-primary btn-square" id="btnPendiente" data-toggle="tooltip" data-placement="bottom" title="Recaudación pendiente"><i class="fa fa-paypal fa-lg" aria-hidden="true"></i></button>*@
                             <button class="btn btn-out waves-effect waves-light btn-info btn-square" id="btnImprimir" data-toggle="tooltip" data-placement="bottom" title="Imprimir Recibo Ingreso"><i class="fa fa-print fa-lg" aria-hidden="true"></i></button>
-                            <button class="btn btn-out waves-effect waves-light btn-warning btn-square" id="btnReporte" data-toggle="tooltip" data-placement="bottom" title="Registro Venta"><i class="fa fa-file fa-lg" aria-hidden="true"></i></button>
+                            @*<button class="btn btn-out waves-effect waves-light btn-warning btn-square" id="btnReporte" data-toggle="tooltip" data-placement="bottom" title="Registro Venta"><i class="fa fa-file fa-lg" aria-hidden="true"></i></button>*@
 
                         </div>
                         @*<div class="form-group col-sm-3">
-                                <span style="color:black;font-weight:bold;font-size:30px;text-align:right">Total: </span>
-                                <span id="spnTotalIngresos" style="color:red;font-weight:bold;font-size:30px;text-align:right"></span>
-                            </div>*@
+                <span style="color:black;font-weight:bold;font-size:30px;text-align:right">Total: </span>
+                <span id="spnTotalIngresos" style="color:red;font-weight:bold;font-size:30px;text-align:right"></span>
+            </div>*@
                     </div>
                     <div class="form-row">
                         <div class="form-group col-md-12">
@@ -93,25 +93,25 @@
                                                 </div>
                                             </div>
                                             <hr style="margin-bottom: 1px;margin-top: 1px;">
-                                            <div class="row">
+                                            @*<div class="row">
                                                 <div class="form-group col-sm-8">
-                                                    <input type="hidden" autocomplete="off" class="control-form Reque Popup" maxlength="15" id="txtDni">
+                                                    <input type="hidden" autocomplete="off" class="control-form Popup" maxlength="15" id="txtDni">
                                                     <label class="control-label">Asegurado</label>
-                                                    <input type="text" autocomplete="off" class="control-lectura Reque Popup" maxlength="30" id="txtNombreCompleto">
+                                                    <input type="text" autocomplete="off" class="control-lectura Popup" maxlength="30" id="txtNombreCompleto">
                                                 </div>
                                                 <div class="form-group col-sm-2">
                                                     <label class="control-label"> &nbsp;&nbsp;</label>
                                                     <button class="input-group-inverse btn btn-primary btn-sm" id="btnAgregarItem" data-toggle="tooltip" data-placement="bottom" title="Agregar Asegurado"><i class="fa fa-plus-circle fa-lg" aria-hidden="true"></i></button>
                                                 </div>
-                                            </div>
-                                            <div id="editConcepto" style="display:none">
+                                            </div>*@
+                                            @*<div id="editConcepto" style="display:none">
                                                 <div class="row">
                                                     <div class="form-group col-sm-10">
                                                         <label class="control-label">Concepto</label>
                                                         <textarea class="control-form Popup" placeholder="Escribe Aquí!" id="txtConcepto"></textarea>
                                                     </div>
                                                 </div>
-                                            </div>
+                                            </div>*@
 
 
                                         </fieldset>
@@ -125,7 +125,7 @@
                         </div>
                     </div>
 
-                    <div class="form-row">
+                    @*<div class="form-row">
                         <div class="modal custom-modal" tabindex="-1" role="dialog" aria-hidden="true" id="divPopupContainerForm1" style="overflow-y:auto;">
                             <div class="modal-dialog modal-xl bg-personalizado" id="divPopupWindowForm1" style="margin-top:30px;">
                                 <div class="modal-content">
@@ -153,7 +153,7 @@
                                 </div>
                             </div>
                         </div>
-                    </div>
+                    </div>*@
 
                     <div class="form-row">
                         <div class="modal custom-modal" tabindex="-1" role="dialog" aria-hidden="true" id="divPopupContainerForm2" style="overflow-y: auto; display: none;">
@@ -239,221 +239,7 @@
                                 </div>
                             </div>
                         </div>
-                        @*<div class="modal custom-modal" tabindex="-1" role="dialog" aria-hidden="true" id="divPopupContainerPreView" style="overflow-y:auto;">
-                                <div class="modal-dialog modal-lg bg-personalizado" id="divPopupWindowiPreView">
-                                    <div class="modal-content">
-                                        <div id="divBarraOption" class="modal-header bg-personalizado" style="cursor:move">
-                                            <h5 class="modal-title"><i class="fa fa-search"></i> Vista Previa</h5>
-                                            <button type="button" id="btnCerrarPreView" class="close"><span aria-hidden="true">&times;</span><span class="sr-only"></span></button>
-                                        </div>
-                                        <div class="modal-body">
-                                            <div class="form-row">
-                                                <div class="form-group col-lg-12">
-                                                    <div id="divReporte" style="overflow:hidden;width:auto">
-                                                        <table style="font-family: Gotham, Helvetica Neue, Helvetica, Arial,' sans-serif'">
-                                                            <tbody>
-                                                                <tr>
-                                                                    <td colspan="8" style="font-size: 14px">
-                                                                        ESCUELA NACIONAL DE MARIA MERCANTE<br>
-                                                                        "ALMIRANTE MIGUEL GRAU"<br>
-                                                                    </td>
-                                                                    <td colspan="4">
-                                                                        <span id="spnEtiquetaEstado" style="font-size: 24px;color:red;font-weight:bold">PENDIENTE APROBACION</span><br>
-                                                                    </td>
-                                                                </tr>
-                                                                <tr>
-                                                                    <td colspan="4">
-                                                                        <table style="border:1px solid black;width: 180px">
-                                                                            <tbody>
-                                                                                <tr>
-                                                                                    <td align="center">Cta.Cte.</td>
-                                                                                </tr>
-                                                                                <tr>
-                                                                                    <td align="center" id="tdCuentaBancaria"></td>
-                                                                                </tr>
-                                                                            </tbody>
-                                                                        </table>
-                                                                    </td>
-                                                                    <td colspan="4" align="center">
-                                                                        <table>
-                                                                            <tbody>
-                                                                                <tr>
-                                                                                    <td style="font-size: 15px;font-weight: bold;width: 474px;text-align:center">RECIBO DE INGRESO</td>
-                                                                                </tr>
-                                                                            </tbody>
-                                                                        </table>
-                                                                    </td>
-                                                                    <td width="534" colspan="4" align="right">
-                                                                        <table style="border:1px solid black;width: 180px">
-                                                                            <tbody>
-                                                                                <tr>
-                                                                                    <td style="font-size: 24px;text-align: center;font-weight: bold" id="tdNumeroRecibo"></td>
-                                                                                </tr>
-                                                                                <tr>
-                                                                                    <td style="font-size: 14px;text-align: center;" id="tdFecha">Fecha: </td>
-                                                                                </tr>
-                                                                            </tbody>
-                                                                        </table>
-                                                                    </td>
-                                                                </tr>
-                                                                <tr>
-                                                                    <td colspan="12">
-                                                                        <span id="spnGlosa" style="font-size: 14px;"></span>
-                                                                    </td>
-                                                                </tr>
-                                                                <tr>
-                                                                    <td colspan="12">
-                                                                        <table style="border-collapse: collapse;border: 1px solid black;width: 100%;height: 540px">
-                                                                            <thead>
-                                                                                <tr>
-                                                                                    <th width="130" rowspan="2" style="border: 1px solid black;text-align: center">CÓDIGO</th>
-                                                                                    <th width="810" rowspan="2" style="border: 1px solid black;text-align: center">CONCEPTO</th>
-                                                                                    <th colspan="2" style="border: 1px solid black;text-align: center">IMPORTE</th>
-                                                                                </tr>
-                                                                                <tr>
-                                                                                    <th width="130" style="border: 1px solid black;text-align: center">PARCIAL</th>
-                                                                                    <th width="150" style="border: 1px solid black;text-align: center">TOTAL</th>
-                                                                                </tr>
-                                                                            </thead>
-                                                                            <tbody>
-                                                                                <tr>
-                                                                                    <td colspan="4" style="border-collapse: collapse;width: 100%;vertical-align: top">
-                                                                                        <table cellpadding="0" cellspacing="0">
-                                                                                            <tbody id="tbDetalleReporte">
-                                                                                            </tbody>
-                                                                                        </table>
-                                                                                    </td>
-                                                                                </tr>
-                                                                            </tbody>
-                                                                            <tfoot>
-                                                                                <tr>
-                                                                                    <td colspan="3" style="border: 1px solid black;text-align: right;font-weight: bold;height: 50px">TOTAL</td>
-                                                                                    <td style="border: 1px solid black;text-align: right;font-weight: bold" id="tdTotal">650</td>
-                                                                                </tr>
-                                                                            </tfoot>
-                                                                        </table>
-                                                                    </td>
-                                                                </tr>
-                                                                <tr>
-                                                                    <td colspan="12" style="font-size:13px " align="center">
-                                                                        <br>
-                                                                        CÓDIGO DE LA CONTABILIDAD PRESUPUESTAL Y CODIFICACION PROGRAMATICA DEL GASTO PUBLICO<br>
-                                                                        <br>
-                                                                    </td>
-                                                                </tr>
-                                                                <tr>
-                                                                    <td colspan="3">
-                                                                        <table width="100" style="border: 1px solid black" cellpadding="0" cellspacing="0">
-                                                                            <tbody>
-                                                                                <tr>
-                                                                                    <td colspan="2" style="font-size:10px;border: 1px solid black" align="center">CUENTA MAYOR</td>
-                                                                                </tr>
-                                                                                <tr>
-                                                                                    <td align="center" style="border: 1px solid black">Debe</td>
-                                                                                    <td align="center" style="border: 1px solid black">Haber</td>
-                                                                                </tr>
-                                                                                <tr>
-                                                                                    <td style="border: 1px solid black">&nbsp;</td>
-                                                                                    <td style="border: 1px solid black">&nbsp;</td>
-                                                                                </tr>
-                                                                            </tbody>
-                                                                        </table>
-                                                                    </td>
-                                                                    <td>&nbsp;</td>
-                                                                    <td colspan="7" valign="top">
-                                                                        <table cellpadding="0" cellspacing="0" style="border: 1px solid black">
-                                                                            <tbody>
-                                                                                <tr>
-                                                                                    <td align="center" rowspan="2" style="font-size:10px;border: 1px solid black">Sector</td>
-                                                                                    <td align="center" rowspan="2" style="font-size:10px;border: 1px solid black">Pliego</td>
-                                                                                    <td align="center" rowspan="2" style="font-size:10px;border: 1px solid black">Función</td>
-                                                                                    <td align="center" rowspan="2" style="font-size:10px;border: 1px solid black">Programa</td>
-                                                                                    <td align="center" rowspan="2" style="font-size:10px;border: 1px solid black">Sub Programa</td>
-                                                                                    <td align="center" rowspan="2" style="font-size:10px;border: 1px solid black">Actividad y/o Proyecto</td>
-                                                                                    <td align="center" rowspan="2" style="font-size:10px;border: 1px solid black">Componente</td>
-                                                                                    <td align="center" rowspan="2" style="font-size:10px;border: 1px solid black">Meta</td>
-                                                                                    <td align="center" rowspan="2" style="font-size:10px;border: 1px solid black">F.Financ.</td>
-                                                                                </tr>
-                                                                                <tr></tr>
-                                                                                <tr>
-                                                                                    <td height="38px" style="font-size:10px;border: 1px solid black;text-align:center">26</td>
-                                                                                    <td style="font-size: 10px;border: 1px solid black;text-align: center">334</td>
-                                                                                    <td style="font-size:10px;border: 1px solid black">&nbsp;</td>
-                                                                                    <td style="font-size:10px;border: 1px solid black">&nbsp;</td>
-                                                                                    <td style="font-size:10px;border: 1px solid black">&nbsp;</td>
-                                                                                    <td style="font-size:10px;border: 1px solid black">&nbsp;</td>
-                                                                                    <td style="font-size:10px;border: 1px solid black">&nbsp;</td>
-                                                                                    <td style="font-size:10px;border: 1px solid black">&nbsp;</td>
-                                                                                    <td style="font-size: 10px;border: 1px solid black;text-align: center">09</td>
-                                                                                </tr>
-                                                                            </tbody>
-                                                                        </table>
-                                                                    </td>
 
-                                                                </tr>
-                                                                <tr>
-                                                                    <td colspan="12" style="font-size:11px " align="center">&nbsp;</td>
-                                                                </tr>
-                                                                <tr>
-                                                                    <td colspan="5" valign="top">
-                                                                        <table width="444" cellpadding="0" cellspacing="0" style="border: 1px solid black">
-                                                                            <thead>
-                                                                                <tr>
-                                                                                    <td colspan="3" align="center" style="border: 1px solid black">CONTABILIDAD PATRIMONIAL</td>
-                                                                                </tr>
-                                                                                <tr>
-                                                                                    <td width="73" align="center" style="border: 1px solid black">Código</td>
-                                                                                    <td width="148" align="center" style="border: 1px solid black">Importe Debe</td>
-                                                                                    <td width="140" align="center" style="border: 1px solid black">Importe Haber</td>
-                                                                                </tr>
-                                                                            </thead>
-                                                                            <tbody id="tblResumenContable"></tbody>
-                                                                        </table>
-                                                                    </td>
-                                                                    <td>&nbsp;</td>
-                                                                    <td colspan="5" align="right">
-                                                                        <table width="292" cellpadding="0" cellspacing="0" style="border: 1px solid black">
-                                                                            <tbody>
-                                                                                <tr>
-                                                                                    <td height="32" style="border: 1px solid black">&nbsp;</td>
-                                                                                </tr>
-                                                                                <tr>
-                                                                                    <td height="40" align="center" style="font-size:11px;border: 1px solid black ">
-                                                                                        DIRECTOR DE PRESUPUESTO Y CONTABILIDAD<BR>
-                                                                                        SELLO Y FIRMA
-                                                                                    </td>
-                                                                                </tr>
-                                                                                <tr>
-                                                                                    <td height="32" style="border: 1px solid black">&nbsp;</td>
-                                                                                </tr>
-                                                                                <tr>
-                                                                                    <td height="37" align="center" style="font-size:11px;border: 1px solid black ">
-                                                                                        RECEPCIONISTA DEL DEPOSITO<BR>
-                                                                                        SELLO Y FIRMA
-                                                                                    </td>
-                                                                                </tr>
-                                                                            </tbody>
-                                                                        </table>
-                                                                    </td>
-                                                                </tr>
-                                                            </tbody>
-                                                        </table>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <br />
-                                            <hr />
-                                            <div class="form-row">
-                                                <div class="form-group col-sm-4">
-                                                    <div class="input-group mb-2">
-                                                        <button id="btnImprimirA4" class="btn btn-sm btn-info waves-effect waves-light"><i class="fa fa-file-alt"></i>Imprimir</button>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>*@
                         <div class="modal custom-modal" tabindex="-1" role="dialog" aria-hidden="true" id="divPopupContainerAprobar" style="overflow-y:auto;">
                             <div class="modal-dialog modal-sm bg-personalizado" id="divPopupWindowAprobar">
                                 <div class="modal-content">
@@ -499,20 +285,20 @@
                                             </td>
                                         </tr>
                                         <tr>
-                                            <td colspan="4" style="width: 1000px; border: 1px solid black; text-align: center;" id="tdLineaIngreso">
-                                            </td>
-                                            <td colspan="4" align="center" style="font-size: 15px; width:2300px; font-weight: bold; text-align: center;">
+                                            @*<td colspan="4" style="width: 1000px; border: 1px solid black; text-align: center;" id="tdLineaIngreso">
+                                            </td>*@
+                                            <td colspan="6" align="center" style="font-size: 20px; font-weight: bold; text-align: center;">
                                                 RECIBO DE INGRESO
                                             </td>
-                                            <td width="534" colspan="4" align="right">
+                                            <td width="1000" colspan="6" align="right">
                                                 <table style="border:1px solid black;width: 180px">
                                                     <tbody>
                                                         <tr>
-                                                            <td style="font-size: 24px;text-align: center;font-weight: bold" id="tdNumeroRecibo"></td>
+                                                            <td style="font-size: 20px;text-align: center;font-weight: bold" id="tdLineaIngreso"></td>
                                                         </tr>
-                                                        @*<tr>
-                            <td style="font-size: 14px;text-align: center;" id="tdFecha"></td>
-                        </tr>*@
+                                                        <tr>
+                                                            <td style="font-size: 20px;text-align: center;font-weight: bold" id="tdNumeroRecibo"></td>
+                                                        </tr>
                                                     </tbody>
                                                 </table>
                                             </td>
@@ -524,7 +310,7 @@
                                         <tr>
                                             <td colspan="4" width="400">COMPROBANTE:</td>
                                             <td id="tdComprobante"></td>
-                                            <td colspan="4" >FECHA:</td>
+                                            <td colspan="4">FECHA:</td>
                                             <td id="tdFecha">
                                         </tr>
                                         <tr>
@@ -600,6 +386,159 @@
                                                         <tr>
                                                             <td colspan="3" style="border: 1px solid black;text-align: right;font-weight: bold;height: 50px">TOTAL</td>
                                                             <td style="border: 1px solid black;text-align: right;font-weight: bold" id="tdTotal"></td>
+                                                        </tr>
+                                                    </tfoot>
+                                                </table>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td colspan="12">
+                                                <table cellpadding="0" cellspacing="0" style="border: 1px solid black;">
+                                                    <tbody>
+                                                        <tr>
+                                                            <td height="80" width="700" style="border: 1px solid black">&nbsp;</td>
+                                                            <td height="80" width="700" style="border: 1px solid black">&nbsp;</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td height="40" align="center" style="font-size:11px;border: 1px solid black ">
+                                                                TESORERIA
+                                                            </td>
+                                                            <td height="40" align="center" style="font-size:11px;border: 1px solid black ">
+                                                                CONTABILIDAD
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td colspan="2" height="80" width="700" style="border: 1px solid black">&nbsp;</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td colspan="2" height="40" align="center" style="font-size:11px;border: 1px solid black ">
+                                                                GESTION FINANCIERA
+                                                            </td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group col-lg-12">
+                            <div id="divReporteRA" style="overflow:hidden;width:auto;display:none">
+                                <table style="font-family: Gotham, Helvetica Neue, Helvetica, Arial,' sans-serif'">
+                                    <tbody>
+                                        <tr>
+                                            <td colspan="8">
+                                                <img src="~/Riztie/Images/logoReporte.png" />
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td colspan="12" style="font-size:12px">
+                                                IAFAS DE LA MARINA DE GUERRA DEL PERU<br>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td colspan="6" align="center" style="font-size: 20px;  font-weight: bold; text-align: center;">
+                                                RECIBO DE ANULACION
+                                            </td>
+                                            <td  colspan="6" align="right">
+                                                <table style="border:1px solid black;width: 180px">
+                                                    <tbody>
+                                                        <tr>
+                                                            <td style="font-size: 18px;text-align: center;font-weight: bold" id="tdLineaIngresoRA"></td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td style="font-size: 18px;text-align: center;" id="tdNumeroReciboRA"></td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td colspan="4" width="400">SUBDIARIO:</td>
+                                            <td id="tdSubdiarioRA"></td>
+                                        </tr>
+                                        <tr>
+                                            <td colspan="4" width="400">COMPROBANTE:</td>
+                                            <td id="tdComprobanteRA"></td>
+                                            <td colspan="4">FECHA:</td>
+                                            <td id="tdFechaRA">
+                                        </tr>
+                                        <tr>
+                                            <td colspan="4" width="400">GLOSA PRINCIPAL:</td>
+                                            <td colspan="8" width="1200" id="tdGlosaPrincipalRA">
+                                        </tr>
+                                        <tr>
+                                            <td colspan="4" width="400">DNI:</td>
+                                            <td id="tdDNIRA"></td>
+                                        </tr>
+                                        <tr>
+                                            <td colspan="4" width="400">MOTIVO:</td>
+                                            <td colspan="8" id="tdMotivoRA" width="1200"></td>
+                                        </tr>
+                                        <tr>
+                                            <td colspan="4" width="400">RECIBO INGRESO Nº:</td>
+                                            <td id="tdNumeroRI"></td>
+                                        </tr>
+                                        <tr>
+                                            <td colspan="12" style="font-size:11px " align="center">&nbsp;</td>
+                                        </tr>
+                                        <tr>
+                                            <td colspan="12" valign="top">
+                                                <table width="700" cellpadding="0" cellspacing="0" style="border: 1px solid black; width: 100%; height: 340px">
+                                                    <thead>
+                                                        <tr>
+                                                            <td colspan="3" align="center" style="border: 1px solid black">CONTABILIDAD</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td width="420" align="center" style="border: 1px solid black">Cuenta Contable</td>
+                                                            <td width="140" align="center" style="border: 1px solid black">Importe Debe</td>
+                                                            <td width="140" align="center" style="border: 1px solid black">Importe Haber</td>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        <tr>
+                                                            <td colspan="8" style="border-collapse: collapse;width: 100%;vertical-align: top">
+                                                                <table cellpadding="0" cellspacing="0">
+                                                                    <tbody id="tblResumenContableRA">
+                                                                    </tbody>
+                                                                </table>
+                                                            </td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                            </td>
+                                            <td>&nbsp;</td>
+                                        </tr>
+                                        <tr>
+                                            <td colspan="12" style="font-size:11px " align="center">&nbsp;</td>
+                                        </tr>
+                                        <tr>
+                                            <td colspan="8">
+                                                <table style="border-collapse: collapse;border: 1px solid black;width: 100%;height:40px">
+                                                    <thead>
+                                                        <tr>
+                                                            <th width="130" rowspan="2" style="border: 1px solid black;text-align: center">CLASIFICADOR</th>
+                                                            <th width="610" rowspan="2" style="border: 1px solid black;text-align: center">CONCEPTO</th>
+                                                            <th colspan="2" style="border: 1px solid black;text-align: center">IMPORTE</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        <tr>
+                                                            <td colspan="4" style="border-collapse: collapse;width: 100%;vertical-align: top">
+                                                                <table cellpadding="0" cellspacing="0">
+                                                                    <tbody id="tbDetalleReporteRA">
+                                                                    </tbody>
+                                                                </table>
+                                                            </td>
+                                                        </tr>
+                                                    </tbody>
+                                                    <tfoot>
+                                                        <tr>
+                                                            <td colspan="3" style="border: 1px solid black;text-align: right;font-weight: bold;height: 50px">TOTAL</td>
+                                                            <td style="border: 1px solid black;text-align: right;font-weight: bold" id="tdTotalRA"></td>
                                                         </tr>
                                                     </tfoot>
                                                 </table>

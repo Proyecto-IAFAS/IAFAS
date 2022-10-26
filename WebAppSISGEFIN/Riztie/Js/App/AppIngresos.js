@@ -27,10 +27,15 @@ window.onload = function () {
         base64Img = base64;
     });
     if (vista == "Recaudacion") {
+        tipoProceso = "C";
         getListarRecaudacion('1');
+
     }
     else if (vista == "EstadoCuenta") {
-       
+
+    }
+    else if (vista == "Reporte") {
+        getListarReport();
     }
     else {
         getListar();
@@ -44,6 +49,7 @@ window.onload = function () {
     configurarBotones();
     configurarCombos();
     configurarConsultas();
+
 }
 
 function NumCheck(e, field) {
@@ -83,6 +89,20 @@ function doubleCheck(e, field) {
         return regexp.test(field.value)
     }
     return false
+}
+function getListarReport() {
+    var data = "";
+    var txtAnio = document.getElementById("txtAnio");
+    if (txtAnio != null) {
+        data = txtAnio.value;
+    }
+    Http.get("General/obtenerReporteId?tbl=" + controller + "ReciboIngresoVentas&id=" + data, function (response) {
+        if (response) {
+            var listas = response.split("¯");
+            var lista = listas[1].split("¬");
+            grilla= new GrillaScroll(lista, "divLista", 100, 6, vista, controller, null, null, true, null, 38, false, null);
+        }
+    });
 }
 
 function getListar() {
@@ -177,7 +197,7 @@ function mostrarlistas(rpta) {
         else if (vista == "Recaudacion") {
             var listaEntidad = listas[1].split("¬");
             var listaEstado = listas[2].split("¬");
-            var listaTotal = listas[3].split("¬");
+            //var listaTotal = listas[3].split("¬");
             grillaItem = new GrillaScroll(lista, "divLista", 100, 6, vista, controller, null, null, true, botones, 38, false, null);
 
             crearCombo(listaEntidad, "cboEntidadFinanciera", "Seleccione");
@@ -190,8 +210,8 @@ function mostrarlistas(rpta) {
             var listaEntidadFin = listas[3].split("¬");
             var listaMoneda = listas[4].split("¬");
             var listaEstado = listas[5].split("¬");
-            var listaTotal = listas[6].split("¬");
-            grillaItem = new GrillaScroll(lista, "divLista", 100, 6, vista, controller, null, null, true, botones, 38, false, null);
+            //var listaTotal = listas[6].split("¬");
+            grillaItem = new GrillaScroll(lista, "divLista", 100, 6, vista, controller, null, null, true, null, 38, false, null);
             crearCombo(listaFormatoDoc, "cboFormatoDoc", "Seleccione");
             crearCombo(listaLineaIngre, "cboLineaIngreso", "Seleccione");
             crearCombo(listaEntidadFin, "cboEntidadFinanciera", "Seleccione");
@@ -239,11 +259,6 @@ function grabarDatos() {
         if (txtAnio != null) {
             dataImport += "¯" + txtAnio.value;
         }
-
-        //var cboEntidad = document.getElementById("cboEntidadFinancieraCarga");
-        //if (cboEntidad != null) {
-        //    dataImport += "¯" + cboEntidad.value;
-        //}
 
         frm.append("data", dataImport);
         if (operacion == 1) {
@@ -501,7 +516,7 @@ function mostrarRegistro(rpta) {
             btnGuardar.style.display = 'none';
             vizualizar.style.display = 'block';
             divListaExcel.innerHTML = "";
-            titleModal.innerText = "Vizualizar Recaudación";
+            titleModal.innerText = "Visualizar Recaudación";
             var listas = rpta.split("¯");
             var lista = listas[1].split("¬");
             var campos = listas[0].split("|");
@@ -510,18 +525,18 @@ function mostrarRegistro(rpta) {
 
             txtIdRegistro.value = campos[0];
             txtAnioEjecucion.value = campos[1];
-            cboEntidadFinanciera.value = campos[2];
-            txtCodigo.value = campos[3];
-            txtTotal.value = formatoNumeroDecimal(campos[4]);
-            txtArchivo.value = campos[5];
-            txtFechaAbono.value = campos[6];
-            cboEstado.value = campos[7];
-            if (campos[7] == 1) {
-                btnAprobar.style.display = 'inline'
-            }
-            else {
-                btnAprobar.style.display = 'none'
-            }
+            //cboEntidadFinanciera.value = campos[2];
+            //txtCodigo.value = campos[3];
+            //txtTotal.value = formatoNumeroDecimal(campos[4]);
+            txtArchivo.value = campos[2];
+            txtFechaAbono.value = campos[3];
+            //cboEstado.value = campos[7];
+            //if (campos[7] == 1) {
+            //    btnAprobar.style.display = 'inline'
+            //}
+            //else {
+            //    btnAprobar.style.display = 'none'
+            //}
         }
         else if (vista == "ReciboIngreso") {
             console.log(rpta);
@@ -668,7 +683,7 @@ function configurarBotones() {
         if (fupExcel.value == "") {
             mostrarMensaje("Seleccione el archivo que desea importar", "error")
         }
-        else { 
+        else {
             importarExcel("divPopupContainerForm1", "divListaExcel", dataCab, dataDeta);
         }
     }
@@ -823,17 +838,10 @@ function configurarBotones() {
             }
         }
         else if (vista == "Recaudacion") {
-            //let entidad = cboEntidadFinancieraCarga.value;
-
             if (fupExcel.value = "") {
                 mostrarMensaje("Seleccione el archivo excel a importar", "error");
                 return;
             }
-            //else if (entidad == "") {
-            //    mostrarMensaje("Seleccionar Entidad Financiera", "error")
-            //    return;
-            //}
-
         }
 
         if (validarInformacion("Reque") == true) {
@@ -887,111 +895,68 @@ function configurarBotones() {
         else {
             getListar();
         }
-
     }
 
-    var btnAprobar = document.getElementById("btnAprobar");
-    if (btnAprobar != null) btnAprobar.onclick = function () {
-        let validar = false;
-        var data = "";
-        if (vista == "Recaudacion") {
-            if (txtIdRegistro.value == "") {
-                mostrarMensaje("Seleccione una recaudación Valida", "error");
-            }
-            else {
-                validar = true;
-                data = txtIdRegistro.value;
-            }
-        }
+    //var btnReporte = document.getElementById("btnReporte");
+    //if (btnReporte != null) btnReporte.onclick = function () {
+    //    var data = "";
+    //    archivo = "REGISTRO DE VENTAS E INGRESOS.xlsx";
+    //    Http.getDownloadBytes("General/exportarOnline/?ori=V&tbl=" + controller + vista + "RegistroVenta&idx=" + data, mostrarExportar)
+    //}
 
-        if (validar == true) {
+    //var btnPendiente = document.getElementById("btnPendiente");
+    //if (btnPendiente != null) btnPendiente.onclick = function () {
+    //    if (vista == "ReciboIngreso") {
+    //        spnLoadData.style.display = "block";
+    //        listaLoadItem.style.display = 'none';
+    //        let data = '';
+    //        Http.get("General/listarTabla?tbl=" + controller + vista + "Pendientes" + "&data=" + data, function (response) {
+    //            if (response) {
+    //                var listas = response.split("¯");
+    //                var lista = listas[0].split("¬");
+    //                grillaItem = new GrillaScroll(lista, "divListaRecaudacion", 100, 6, vista, controller, null, false, false, null, 24, false, null);
+    //                spnLoadData.style.display = "none";
+    //                listaLoadItem.style.display = 'block';
+    //            }
+    //        });
+    //        divPopupContainerForm1.style.display = 'block';
+    //    }
+    //}
 
-            var txtAnio = document.getElementById("txtAnio");
-            if (txtAnio != null) {
-                data += '|' + txtAnio.value;
-            }
+    //var btnGenerarRI = document.getElementById("btnGenerarRI");
+    //if (btnGenerarRI != null) btnGenerarRI.onclick = function () {
+    //    let data = "";
+    //    if (vista == "ReciboIngreso") {
+    //        if (idRegistro == "") {
+    //            mostrarMensaje("Seleccione registro de la lista", "error");
+    //        }
+    //        else {
+    //            data = idRegistro + '¯' + txtFechaInicio.value + '|' + txtFechaFinal.value;
+    //            var frm = new FormData();
+    //            frm.append("data", data);
 
-            var frm = new FormData();
-            frm.append("data", data);
-
-            Swal.fire({
-                title: '¿Desea aprobar recaudación?',
-                icon: 'warning',
-                showCancelButton: true,
-                confirmButtonColor: '#3085d6',
-                cancelButtonColor: '#d33',
-                confirmButtonText: 'Si',
-                cancelButtonText: 'No'
-            }).then((result) => {
-                if (result.value) {
-
-                    Http.post("General/guardar/?tbl=" + controller + vista + 'Aprobar', mostrarGrabar, frm);
-                }
-            })
-
-        }
-    }
-
-    var btnReporte = document.getElementById("btnReporte");
-    if (btnReporte != null) btnReporte.onclick = function () {
-        var data = "";
-        archivo = "REGISTRO DE VENTAS E INGRESOS.xlsx";
-        Http.getDownloadBytes("General/exportarOnline/?ori=V&tbl=" + controller + vista + "RegistroVenta&idx=" + data, mostrarExportar)
-    }
-
-    var btnPendiente = document.getElementById("btnPendiente");
-    if (btnPendiente != null) btnPendiente.onclick = function () {
-        if (vista == "ReciboIngreso") {
-            spnLoadData.style.display = "block";
-            listaLoadItem.style.display = 'none';
-            let data = '';
-            Http.get("General/listarTabla?tbl=" + controller + vista + "Pendientes" + "&data=" + data, function (response) {
-                if (response) {
-                    var listas = response.split("¯");
-                    var lista = listas[0].split("¬");
-                    grillaItem = new GrillaScroll(lista, "divListaRecaudacion", 100, 6, vista, controller, null, false, false, null, 24, false, null);
-                    spnLoadData.style.display = "none";
-                    listaLoadItem.style.display = 'block';
-                }
-            });
-            divPopupContainerForm1.style.display = 'block';
-        }
-    }
-
-    var btnGenerarRI = document.getElementById("btnGenerarRI");
-    if (btnGenerarRI != null) btnGenerarRI.onclick = function () {
-        let data = "";
-        if (vista == "ReciboIngreso") {
-            if (idRegistro == "") {
-                mostrarMensaje("Seleccione registro de la lista", "error");
-            }
-            else {
-                data = idRegistro + '¯' + txtFechaInicio.value + '|' + txtFechaFinal.value;
-                var frm = new FormData();
-                frm.append("data", data);
-
-                Swal.fire({
-                    title: '¿Desea generar recibo de ingreso?',
-                    icon: 'warning',
-                    showCancelButton: true,
-                    confirmButtonColor: '#3085d6',
-                    cancelButtonColor: '#d33',
-                    confirmButtonText: 'Si',
-                    cancelButtonText: 'No'
-                }).then((result) => {
-                    if (result.value) {
-                        divPopupContainerForm1.style.display = "none";
-                        if (tipoProceso == "C") {
-                            Http.post("General/guardar/?tbl=" + controller + vista + 'Pendientecxc', mostrarGrabar, frm);
-                        }
-                        else {
-                            Http.post("General/guardar/?tbl=" + controller + vista + 'PendienteAbono', mostrarGrabar, frm);
-                        }
-                    }
-                })
-            }
-        }
-    }
+    //            Swal.fire({
+    //                title: '¿Desea generar recibo de ingreso?',
+    //                icon: 'warning',
+    //                showCancelButton: true,
+    //                confirmButtonColor: '#3085d6',
+    //                cancelButtonColor: '#d33',
+    //                confirmButtonText: 'Si',
+    //                cancelButtonText: 'No'
+    //            }).then((result) => {
+    //                if (result.value) {
+    //                    divPopupContainerForm1.style.display = "none";
+    //                    if (tipoProceso == "C") {
+    //                        Http.post("General/guardar/?tbl=" + controller + vista + 'Pendientecxc', mostrarGrabar, frm);
+    //                    }
+    //                    else {
+    //                        Http.post("General/guardar/?tbl=" + controller + vista + 'PendienteAbono', mostrarGrabar, frm);
+    //                    }
+    //                }
+    //            })
+    //        }
+    //    }
+    //}
 
     var btnAgregarItem = document.getElementById("btnAgregarItem");
     if (btnAgregarItem != null) btnAgregarItem.onclick = function () {
@@ -1054,7 +1019,8 @@ function configurarBotones() {
 }
 
 function getReporte(id) {
-    if (vista == "EstadoCuenta" || vista == "ReciboIngreso") { 
+    //btnImprimir
+    if (vista == "EstadoCuenta" || vista == "ReciboIngreso") {
         Http.get("General/obtenerReporteId/?tbl=" + controller + 'ReciboIngreso&id=' + id, mostrarReporte);
     }
 }
@@ -1066,21 +1032,36 @@ function mostrarReporte(rpta) {
         var detalle = listaReporte[1].split("¬");
         var resumenconta = listaReporte[2].split("¬");
 
-        tdLineaIngreso.innerHTML = cabecera[0];
-        tdNumeroRecibo.innerHTML = cabecera[1];
-        tdFecha.innerHTML = cabecera[2];
-        tdDNI.innerHTML = cabecera[3];
-        tdGlosaSecundaria.innerHTML = cabecera[4];
-        tdTotal.innerHTML = formatoNumeroDecimal(cabecera[5] * 1);
-        tdSubdiario.innerHTML = cabecera[6];
-        tdGlosaPrincipal.innerHTML = cabecera[7];
-       
+        if (cabecera[11] == '10') {
+            tdNumeroRecibo.innerHTML = cabecera[0];
+            tdFecha.innerHTML = cabecera[1];
+            tdGlosaPrincipal.innerHTML = cabecera[2];
+            tdDNI.innerHTML = cabecera[3];
+            tdPoliza.innerHTML = cabecera[4];
+            tdSubdiario.innerHTML = cabecera[5];
+            tdComprobante.innerHTML = cabecera[6];
+            tdLineaIngreso.innerHTML = cabecera[7];
+            tdTotal.innerHTML = formatoNumeroDecimal(cabecera[8] * 1);
+        }
+        else {
+            tdNumeroReciboRA.innerHTML = cabecera[0];
+            tdFechaRA.innerHTML = cabecera[1];
+            tdGlosaPrincipalRA.innerHTML = cabecera[2];
+            tdDNIRA.innerHTML = cabecera[3];
+            tdSubdiarioRA.innerHTML = cabecera[5];
+            tdComprobanteRA.innerHTML = cabecera[6];
+            tdLineaIngresoRA.innerHTML = cabecera[7];
+            tdTotalRA.innerHTML = formatoNumeroDecimal(cabecera[8] * 1);
+
+            tdNumeroRI.innerHTML = cabecera[9];
+            tdMotivoRA.innerHTML = cabecera[10];
+        }
         var contenido = "";
         var contenidoResumen = "";
-        
+
         var nregistros = detalle.length;
         var nRegistrosResumen = resumenconta.length;
-         if (nregistros > 0 && detalle[0] != "") {
+        if (nregistros > 0 && detalle[0] != "") {
             var campos = [];
             for (var i = 0; i < nregistros; i++) {
                 campos = detalle[i].split("|");
@@ -1092,11 +1073,11 @@ function mostrarReporte(rpta) {
                 contenido += campos[1];
                 contenido += "</td > ";
                 contenido += "<td width='130' style='text-align: right;vertical-align: top;font-size: 12px'>";
-                contenido += formatoNumeroDecimal(campos[2]*1);
+                contenido += formatoNumeroDecimal(campos[2] * 1);
                 contenido += "</td > ";
                 contenido += "</tr>";
             }
-            
+
             for (var i = 0; i < nRegistrosResumen; i++) {
                 campos = resumenconta[i].split("|");
                 contenidoResumen += "<tr>";
@@ -1111,12 +1092,23 @@ function mostrarReporte(rpta) {
                 contenidoResumen += "</td > ";
                 contenidoResumen += "</tr>";
             }
-             contenidoResumen += "<tr>";
-             contenidoResumen += "</tr>";
-            tbDetalleReporte.innerHTML = contenido;
-            tblResumenContable.innerHTML = contenidoResumen;
+            contenidoResumen += "<tr>";
+            contenidoResumen += "</tr>";
+            if (cabecera[11] == '10') {
+                tbDetalleReporte.innerHTML = contenido;
+                tblResumenContable.innerHTML = contenidoResumen;
+            }
+            else {
+                tbDetalleReporteRA.innerHTML = contenido;
+                tblResumenContableRA.innerHTML = contenidoResumen;
+            }
         }
-        imprimir(divReporte.innerHTML);
+        if (cabecera[11] == '10') {
+            imprimir(divReporte.innerHTML);
+        }
+        else {
+            imprimir(divReporteRA.innerHTML);
+        }
     }
 }
 
@@ -1413,17 +1405,6 @@ function seleccionarFila(fila, id, prefijo) {
         divPopupContainer.style.display = 'none';
         getObtenerEStadoCuenta(idRegistro);
     }
-    else if (vista == "ReciboIngreso") {
-        var tipoAbono = fila.childNodes[6].innerHTML;
-        if (tipoAbono == "ABONADO") {
-            btnGenerarRI.innerHTML = "Abonar ingresos"
-            tipoProceso = "A";
-        }
-        else {
-            btnGenerarRI.innerHTML = "Generar RI"
-            tipoProceso = "C";
-        }
-    }
 }
 
 function getObtenerEStadoCuenta(idAsegurado) {
@@ -1475,9 +1456,9 @@ function generarEstadoCuenta(lista, nombreDiv, indicadorPie, idTabla, bgcolor) {
             contenido += "</th>";
         }
     }
-    contenido += "<th>";
-    contenido += "Acción";
-    contenido += "</th>";
+    //contenido += "<th>";
+    //contenido += "Acción";
+    //contenido += "</th>";
     contenido += "</tr>";
     contenido += "</thead>";
     contenido += "<tbody>";
@@ -1520,10 +1501,10 @@ function generarEstadoCuenta(lista, nombreDiv, indicadorPie, idTabla, bgcolor) {
                     contenido += "</td>";
                 }
             }
-            contenido += "<td>";
-            contenido += "<i class='fa fa-print fa-2x' aria-hidden='true' style='color:green' title='Imprimir Recibo Pago' onclick='getReporte(";
-            contenido += campos[0];
-            contenido += ");'></i>";
+            //contenido += "<td>";
+            //contenido += "<i class='fa fa-print fa-2x' aria-hidden='true' style='color:green' title='Imprimir Recibo Pago' onclick='getReporte(";
+            //contenido += campos[0];
+            //contenido += ");'></i>";
             contenido += "</td>";
             contenido += "</tr>";
         }
@@ -1806,8 +1787,8 @@ function importarExcel(divForm, divLista, dataCab, dataDeta) {
         //****** dataHaber Eliminar ultimo y primer  caracter
         dataDeta = dataDeta.substr(0, dataDeta.length - 1);
         dataDeta = dataDeta.slice(1, -1);
- 
-        dataImport = dataCab + '¯' + dataDeta + '¯' +file.name;
+
+        dataImport = dataCab + '¯' + dataDeta + '¯' + file.name;
         contenido += "<table>";
         document.getElementById(divLista).innerHTML = contenido;
     }

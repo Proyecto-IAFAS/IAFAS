@@ -667,7 +667,6 @@ function GrillaScroll(lista, divGrilla, registrosPagina, paginasBloque, tabla, c
 
         contenido += "</div>";
 
-
         document.getElementById(divGrilla).innerHTML = contenido;
         var ancho = document.getElementById("tbl" + divGrilla).clientWidth;
         if (totalancho > ancho) {
