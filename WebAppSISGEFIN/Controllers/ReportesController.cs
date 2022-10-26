@@ -5,6 +5,7 @@ using System.Configuration;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using System.Configuration;
 using WebAppSISGEFIN.Models;
 
 namespace WebAppSISGEFIN.Controllers
@@ -29,7 +30,7 @@ namespace WebAppSISGEFIN.Controllers
         }
 
         [HttpGet]
-        public ActionResult ShowRpt(string area, string name, string type, string par, string r)
+        public ActionResult ShowRpt(string area, string name, string form, string type, string par, string r)
         {
             string _binDir = ConfigurationManager.AppSettings.Get("BinDir");
             string _dirRpt = string.Format("{0}\\{1}", _binDir, "filesRpt");
@@ -46,7 +47,7 @@ namespace WebAppSISGEFIN.Controllers
             else
             {
                 ViewBag.TypeNm = type;
-                _vName = name;
+                _vName = $"Filtro{form}"; ;
             }
             return View(_vName);
         }
