@@ -16,14 +16,14 @@ namespace WebAppSISGEFIN.FilesRpt {
     using CrystalDecisions.CrystalReports.Engine;
     
     
-    public class PatrimonioInventario1 : ReportClass {
+    public class PatrimonioAltas1 : ReportClass {
         
-        public PatrimonioInventario1() {
+        public PatrimonioAltas1() {
         }
         
         public override string ResourceName {
             get {
-                return "PatrimonioInventario1.rpt";
+                return "PatrimonioAltas1.rpt";
             }
             set {
                 // Do nothing
@@ -41,7 +41,7 @@ namespace WebAppSISGEFIN.FilesRpt {
         
         public override string FullResourceName {
             get {
-                return "WebAppSISGEFIN.FilesRpt.PatrimonioInventario1.rpt";
+                return "WebAppSISGEFIN.FilesRpt.PatrimonioAltas1.rpt";
             }
             set {
                 // Do nothing
@@ -66,7 +66,7 @@ namespace WebAppSISGEFIN.FilesRpt {
         
         [Browsable(false)]
         [DesignerSerializationVisibilityAttribute(System.ComponentModel.DesignerSerializationVisibility.Hidden)]
-        public CrystalDecisions.CrystalReports.Engine.Section GroupHeaderSection1 {
+        public CrystalDecisions.CrystalReports.Engine.Section GroupHeaderSection2 {
             get {
                 return this.ReportDefinition.Sections[2];
             }
@@ -74,7 +74,7 @@ namespace WebAppSISGEFIN.FilesRpt {
         
         [Browsable(false)]
         [DesignerSerializationVisibilityAttribute(System.ComponentModel.DesignerSerializationVisibility.Hidden)]
-        public CrystalDecisions.CrystalReports.Engine.Section Section5 {
+        public CrystalDecisions.CrystalReports.Engine.Section GroupHeaderSection1 {
             get {
                 return this.ReportDefinition.Sections[3];
             }
@@ -82,7 +82,7 @@ namespace WebAppSISGEFIN.FilesRpt {
         
         [Browsable(false)]
         [DesignerSerializationVisibilityAttribute(System.ComponentModel.DesignerSerializationVisibility.Hidden)]
-        public CrystalDecisions.CrystalReports.Engine.Section GroupFooterSection1 {
+        public CrystalDecisions.CrystalReports.Engine.Section Section5 {
             get {
                 return this.ReportDefinition.Sections[4];
             }
@@ -90,7 +90,7 @@ namespace WebAppSISGEFIN.FilesRpt {
         
         [Browsable(false)]
         [DesignerSerializationVisibilityAttribute(System.ComponentModel.DesignerSerializationVisibility.Hidden)]
-        public CrystalDecisions.CrystalReports.Engine.Section Section4 {
+        public CrystalDecisions.CrystalReports.Engine.Section GroupFooterSection1 {
             get {
                 return this.ReportDefinition.Sections[5];
             }
@@ -98,17 +98,33 @@ namespace WebAppSISGEFIN.FilesRpt {
         
         [Browsable(false)]
         [DesignerSerializationVisibilityAttribute(System.ComponentModel.DesignerSerializationVisibility.Hidden)]
-        public CrystalDecisions.CrystalReports.Engine.Section Section2 {
+        public CrystalDecisions.CrystalReports.Engine.Section GroupFooterSection2 {
             get {
                 return this.ReportDefinition.Sections[6];
+            }
+        }
+        
+        [Browsable(false)]
+        [DesignerSerializationVisibilityAttribute(System.ComponentModel.DesignerSerializationVisibility.Hidden)]
+        public CrystalDecisions.CrystalReports.Engine.Section Section4 {
+            get {
+                return this.ReportDefinition.Sections[7];
+            }
+        }
+        
+        [Browsable(false)]
+        [DesignerSerializationVisibilityAttribute(System.ComponentModel.DesignerSerializationVisibility.Hidden)]
+        public CrystalDecisions.CrystalReports.Engine.Section Section2 {
+            get {
+                return this.ReportDefinition.Sections[8];
             }
         }
     }
     
     [System.Drawing.ToolboxBitmapAttribute(typeof(CrystalDecisions.Shared.ExportOptions), "report.bmp")]
-    public class CachedPatrimonioInventario1 : Component, ICachedReport {
+    public class CachedPatrimonioAltas1 : Component, ICachedReport {
         
-        public CachedPatrimonioInventario1() {
+        public CachedPatrimonioAltas1() {
         }
         
         [Browsable(false)]
@@ -145,7 +161,7 @@ namespace WebAppSISGEFIN.FilesRpt {
         }
         
         public virtual CrystalDecisions.CrystalReports.Engine.ReportDocument CreateReport() {
-            PatrimonioInventario1 rpt = new PatrimonioInventario1();
+            PatrimonioAltas1 rpt = new PatrimonioAltas1();
             rpt.Site = this.Site;
             return rpt;
         }

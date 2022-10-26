@@ -28,43 +28,52 @@ namespace WebAppSISGEFIN.Models
         public byte Code { get; set; }
     }
 
-    /// <summary>
-    /// Entidad para el Reporte 1
-    /// </summary>
-    public class rInv1
+    public partial class rInv1
     {
-
-        public int Id_Movim { get; set; }
-        public int Id_Detalle { get; set; }
-        public int Id_Secuencia { get; set; }
-
-        [MaxLength(150)]
+        public int Id_Movim_Inv { get; set; }
+        public int Id_Movim_Cab { get; set; }
+        public int Id_Movim_Det { get; set; }
         public string Nombre_Mayor { get; set; }
-        
-        [MaxLength(150)]
         public string Nombre_SubCta { get; set; }
-
-        [MaxLength(30)]
         public string Cuenta_Contable { get; set; }
-
-        [MaxLength(20)]
         public string Codigo_Patrimon { get; set; }
-
-        [MaxLength(200)]
         public string DescripcionMovim { get; set; }
-
-        [MaxLength(100)]
         public string DescripcionMarca { get; set; }
-
-        [MaxLength(100)]
         public string DescripcionModelo { get; set; }
-
-        [MaxLength(20)]
-        public string OC_NEA { get; set; }
-
-        [MaxLength(10)]
+        public string NombreResponsable { get; set; }
+        public string SerieItem { get; set; }
+        public string UsuarioItem { get; set; }
+        public decimal OC_NEA { get; set; }
         public string FECHA_EA { get; set; }
+        public decimal Valor_Compra { get; set; }
+        public decimal Valor_Inicial { get; set; }
+    }
 
+    public partial class rInv2
+    {
+        public int Id_Movim_Inv { get; set; }
+        public int Id_Movim_Cab { get; set; }
+        public int Id_Movim_Det { get; set; }
+        public string Nombre_Mayor { get; set; }
+        public string Nombre_SubCta { get; set; }
+        public string Cuenta_Contable { get; set; }
+        public string Codigo_Patrimon { get; set; }
+        public string DescripcionMovim { get; set; }
+        public string DescripcionMarca { get; set; }
+        public string DescripcionModelo { get; set; }
+        public string NombreResponsable { get; set; }
+        public string SerieItem { get; set; }
+        public string UsuarioItem { get; set; }
+        public string FECHA_OC { get; set; }
+        public string FECH_MOVIM { get; set; }
+        public string NRO_OC { get; set; }
+        public string TipoIngreso { get; set; }
+        public string CausaIngreso { get; set; }
+        public string NombreCompleto { get; set; }
+        public string UbicaciónFísica { get; set; }
+        public decimal OC_NEA { get; set; }
+        public string FECHA_EA { get; set; }
+        public int MES_PROCESO { get; set; }
         public decimal Valor_Compra { get; set; }
         public decimal Valor_Inicial { get; set; }
 

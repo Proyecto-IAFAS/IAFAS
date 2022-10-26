@@ -50,17 +50,31 @@ namespace WebAppSISGEFIN.Models
             string[] _rows = trama.Split('¬');
             for (int f = 0; f < _rows.Length; f++)
             {
-                var _itm = Activator.CreateInstance<T>();
-                var _row = _rows[f];
-                string[] _cols = _row.Split('|'); int c = -1;
-                dynamic _properties = _itm.GetType().GetProperties();
-                foreach (var _prp in _properties)
+                try
                 {
-                    c = c + 1;
-                    dynamic _valor = _cols[c];
-                    _prp.SetValue(_itm, Convert.ChangeType(_valor, _prp.PropertyType), null);
+                    var _itm = Activator.CreateInstance<T>();
+                    var _row = _rows[f];
+                    string[] _cols = _row.Split('|'); int c = -1;
+                    dynamic _properties = _itm.GetType().GetProperties();
+                    foreach (var _prp in _properties)
+                    {
+                        try
+                        {
+                            c = c + 1;
+                            dynamic _valor = _cols[c];
+                            _prp.SetValue(_itm, Convert.ChangeType(_valor, _prp.PropertyType), null);
+                        }
+                        catch (Exception ex)
+                        {
+                            continue;
+                        }
+                    }
+                    _items.Add(_itm);
                 }
-                _items.Add(_itm);
+                catch(Exception ex)
+                {
+                    continue;
+                }
             }
             return _items;
         }
@@ -73,17 +87,31 @@ namespace WebAppSISGEFIN.Models
             string[] _rows = trama.Split('¬');
             for (int f = 0; f < _rows.Length; f++)
             {
-                var _itm = Activator.CreateInstance(t);
-                var _row = _rows[f];
-                string[] _cols = _row.Split('|'); int c = -1;
-                dynamic _properties = _itm.GetType().GetProperties();
-                foreach (var _prp in _properties)
+                try
                 {
-                    c = c + 1;
-                    dynamic _valor = _cols[c];
-                    _prp.SetValue(_itm, Convert.ChangeType(_valor, _prp.PropertyType), null);
+                    var _itm = Activator.CreateInstance(t);
+                    var _row = _rows[f];
+                    string[] _cols = _row.Split('|'); int c = -1;
+                    dynamic _properties = _itm.GetType().GetProperties();
+                    foreach (var _prp in _properties)
+                    {
+                        try
+                        {
+                            c = c + 1;
+                            dynamic _valor = _cols[c];
+                            _prp.SetValue(_itm, Convert.ChangeType(_valor, _prp.PropertyType), null);
+                        }
+                        catch (Exception ex)
+                        {
+                            continue;
+                        }
+                    }
+                    _items.Add(_itm);
                 }
-                _items.Add(_itm);
+                catch (Exception ex) 
+                {
+                    continue;
+                }
             }
             return _items;
         }
