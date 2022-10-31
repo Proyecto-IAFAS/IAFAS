@@ -16,6 +16,8 @@ var listaActivos_v = [];
 var listaCuentaContables_v = [];
 var listaPorcentaje_v = [];
 var listaUIT_v = [];
+var listaClases_v = []
+var listaFamilias_v = []
 
 var FLAG_INICIAL_INVENTARIO_INICIAL = 1;
 var FLAG_INICIAL_ALTAS = 0;
@@ -31,6 +33,7 @@ var dataDeta = "";
 var anioFiscal = "";
 var periodo = "";
 var tabGeneral = "";
+var EST_PENDIENTE = 1;
 var EST_APROBADO = 2;
 var esOrdenAprobado = false;
 var esBienDepreciable = false;
@@ -50,6 +53,7 @@ window.onload = function () {
     imgToBase64('/Riztie/Images/logoEmpresa.png', function (base64) {
         base64Img = base64;
     });
+    configurarOpcionReportes();
 }
 
 var botonesAsignacion = [
@@ -166,10 +170,83 @@ function configurarValores(rpta) {
         crearCombo(listaMeses, "cboMes", "Seleccione");
 
         if (vista == "General") {
+            listaClases_v = listas[14].split("¬");
+            listaFamilias_v = listas[15].split("¬");
+
+            var listaGrupos = listas[13].split("¬");
+
             crearCombo(listaOficina, "cboOficinaRep", "Todos");
             crearCombo(listaResponsable, "cboResponsableRep", "Todos");
             crearCombo(listaResponsable, "cboUsuarioRep", "Todos");
+            crearCombo(listaGrupos, "cboGrupoRep", "Todos");
         }
+    }
+}
+
+function configurarOpcionReportes() {
+    if (vista == "General") {
+        var optRepGeneral = document.getElementById("optRepGeneral");
+        if (optRepGeneral) optRepGeneral.onchange = function () {
+            console.log("optRepGeneral");
+            var controles = document.getElementsByClassName("divOptReporte");
+            ocultarControles(controles);
+
+            OptOficinaRep.style.display = 'block';
+            OptUbicacionFisicaRep.style.display = 'block';
+            OptResponsableRep.style.display = 'block';
+            OptUsuarioRep.style.display = 'block';
+        };
+
+        var optRepRespActivo = document.getElementById("optRepRespActivo");
+        if (optRepRespActivo) optRepRespActivo.onchange = function () {
+            console.log("optRepRespActivo");
+            var controles = document.getElementsByClassName("divOptReporte");
+            ocultarControles(controles);
+
+            OptUsuarioRep.style.display = 'block';
+        };
+
+        var optRepOficinaYUbiFis = document.getElementById("optRepOficinaYUbiFis");
+        if (optRepOficinaYUbiFis) optRepOficinaYUbiFis.onchange = function () {
+            console.log("optRepOficinaYUbiFis");
+            var controles = document.getElementsByClassName("divOptReporte");
+            ocultarControles(controles);
+
+            OptOficinaRep.style.display = 'block';
+            OptUbicacionFisicaRep.style.display = 'block';
+        };
+
+        var optRepGrupoClaseFam = document.getElementById("optRepGrupoClaseFam");
+        if (optRepGrupoClaseFam) optRepGrupoClaseFam.onchange = function () {
+            console.log("optRepGrupoClaseFam");
+            var controles = document.getElementsByClassName("divOptReporte");
+            ocultarControles(controles);
+
+            OptGrupoRep.style.display = 'block';
+            OptClaseRep.style.display = 'block';
+            OptFamiliaRep.style.display = 'block';
+        };
+
+        var optRepKardex = document.getElementById("optRepKardex");
+        if (optRepKardex) optRepKardex.onchange = function () {
+            console.log("optRepKardex");
+            var controles = document.getElementsByClassName("divOptReporte");
+            ocultarControles(controles);
+        };
+
+        var optRepSinUbiFis = document.getElementById("optRepSinUbiFis");
+        if (optRepSinUbiFis) optRepSinUbiFis.onchange = function () {
+            console.log("optRepSinUbiFis");
+            var controles = document.getElementsByClassName("divOptReporte");
+            ocultarControles(controles);
+        };
+
+        var optRepSinCtaContable = document.getElementById("optRepSinCtaContable");
+        if (optRepSinCtaContable) optRepSinCtaContable.onchange = function () {
+            console.log("optRepSinCtaContable");
+            var controles = document.getElementsByClassName("divOptReporte");
+            ocultarControles(controles);
+        };
     }
 }
 function mostrarlistas(rpta) {
@@ -1055,6 +1132,16 @@ function configurarCombos() {
             if (cboOficinaRep != null) cboOficinaRep.onchange = function () {
                 listarUbicaFisica("cboOficinaRep", 'cboUbicacionFisicaRep', 'Todos');
             }
+
+            var cboGrupoRep = document.getElementById("cboGrupoRep");
+            if (cboGrupoRep != null) cboGrupoRep.onchange = function () {
+                listarItemGenerico(listaClases_v, "cboGrupoRep", 'cboClaseRep', 'Todos');
+            }
+
+            var cboClaseRep = document.getElementById("cboClaseRep");
+            if (cboClaseRep != null) cboClaseRep.onchange = function () {
+                listarItemGenerico(listaFamilias_v, "cboClaseRep", 'cboFamiliaRep', 'Todos');
+            }
         }
     }
     if (vista == "Asignacion") {
@@ -1197,7 +1284,7 @@ function mostrarRegistroMov(rpta) {
 
             getListarMovActivos(campos[0]);
 
-            esOrdenAprobado = campos[9] == EST_APROBADO;
+            esOrdenAprobado = campos[9] != EST_PENDIENTE;
 
             document.querySelectorAll('.section-orden-aprobada').forEach(function (el) {
                 if (esOrdenAprobado)
@@ -1232,7 +1319,7 @@ function mostrarRegistroMov(rpta) {
 
             var detalles = campos[14].split(',');
 
-            esOrdenAprobado = campos[3] == EST_APROBADO;
+            esOrdenAprobado = campos[3] != EST_PENDIENTE;
 
             document.getElementById("divPopupContainerMov").style.display = 'block';
 
@@ -1376,7 +1463,7 @@ function mostrarRegistro(rpta) {
             cboTipoMovCab.value = campos[8];
             cboCausalBaja.value = campos[9];
 
-            esOrdenAprobado = campos[7] == EST_APROBADO;
+            esOrdenAprobado = campos[7] != EST_PENDIENTE;
 
             getListarMovActivos(campos[0]);
 
@@ -2533,6 +2620,31 @@ function obtenerActivoSeleccionado(idItem) {
     }
 }
 
+function listarItemGenerico(data, valueControl, idControl, texto) {
+    var cboOficina = document.getElementById(valueControl);
+    var idOficina = cboOficina.value;
+    var nRegistros = data.length;
+    var contenido = "<option value=''>" + (texto ? texto : "Seleccione") + "</option>";
+    var campos, idCodigo, nombre, idxOficina;
+    for (var i = 0; i < nRegistros; i++) {
+        campos = data[i].split('|');
+        idCodigo = campos[0];
+        nombre = campos[1];
+        idxOficina = campos[2];
+        if (idxOficina == idOficina) {
+            contenido += "<option value='";
+            contenido += idCodigo;
+            contenido += "'>";
+            contenido += nombre;
+            contenido += "</option>";
+        }
+    }
+    var cbo = document.getElementById(idControl);
+    if (cbo != null) {
+        cbo.innerHTML = contenido;
+    }
+}
+
 function listarRespItemActual(valueUbiFisica, idControl, texto) {
     var cboOficina = document.getElementById(valueUbiFisica);
     var idOficina = cboOficina.value;
@@ -2667,6 +2779,14 @@ function limpiarListaActivos() {
     if (divListaActivo) divListaActivo.innerHTML = '';
 }
 
+function ocultarControles(controles) {
+    for (var j = 0; j < controles.length; j++) {
+        control = controles[j];
+
+        control.style.display = 'none';
+    }
+}
+
 function desahabilitarControles(controles) {
     for (var j = 0; j < controles.length; j++) {
         control = controles[j];
@@ -2798,7 +2918,7 @@ function mostrarGrabarMov(rpta) {
 }
 
 function actualizarBotones(idEstado) {
-    var esAprobado = (idEstado == EST_APROBADO)
+    var esAprobado = (idEstado != EST_PENDIENTE)
     if (vista == "Altas") {
         if (esAprobado) {
             btnGuardarMov.style.display = 'none';
@@ -2889,7 +3009,7 @@ function importarExcel(divForm, divLista, dataDeta) {
 
     var camposNea = [7, 8, 9];
     var camposOC = [10, 11, 12];
-    var camposNull = [19, 20, 21, 22, 30, 31, 32, 33];
+    var camposNull = [19, 20, 21, 28, 29, 30];
 
     var esArchivoCompleto = true;
 

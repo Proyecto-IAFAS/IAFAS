@@ -456,6 +456,10 @@ function mostrarRegistro(rpta) {
             var listas = rpta.split('¯');
             var cabecera = listas[0].split('|');
             var detalle = listas[1].split('¬');
+
+            var existeAltaGenerada = !!listas[2];
+            btnGenerarAltas.style.display = existeAltaGenerada ? 'none' : 'block';
+
             if (idTabActivo == "Ingreso") {
                 document.getElementById("divPopupContainer").style.display = 'block';
                 txtIdRegistro.value = cabecera[0];
@@ -1311,6 +1315,7 @@ function mostrarAlerta(rpta) {
                 timer: 2000
             })
             alerta = 'success';
+            btnGenerarAltas.style.display = 'none';
         }
         else {
             Swal.fire({

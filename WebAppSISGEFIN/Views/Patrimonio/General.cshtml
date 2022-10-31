@@ -8,7 +8,7 @@
         <div class="main-body">
             <div class="card">
                 <div class="card-header bg-primary">
-                    <h3><i class="fa fa-file" aria-hidden="true"></i>INVENTARIO GENERAL</h3>
+                    <h3><i class="fa fa-file" aria-hidden="true"></i>LISTADO DE BIENES PATRIMONIALES</h3>
                 </div>
                 <div class="card-block">
                     <div class="form-row">
@@ -26,7 +26,7 @@
                             <div class="tab-header card">
                                 <ul class="nav nav-tabs md-tabs tab-timeline" role="tablist" id="mytab">
                                     <li class="nav-item">
-                                        <a class="nav-link active" id="tabAltas" data-toggle="tab" href="#items" role="tab">ALTAS</a>
+                                        <a class="nav-link active" id="tabAltas" data-toggle="tab" href="#items" role="tab">ALTAS E INVENTARIO INICIAL ACTIVOS</a>
                                         <div class="slide"></div>
                                     </li>
                                     <li class="nav-item">
@@ -63,8 +63,8 @@
                                                                                     <input type="text" autocomplete="off" class="control-lectura Popup" readonly id="txtItem">
                                                                                 </div>
                                                                                 <div class="form-group col-sm-6">
-                                                                                    <label class="control-label">Patrimonio</label>
-                                                                                    <input type="text" autocomplete="off" class="control-lectura Popup" readonly id="txtCodigoPatrimonio">
+                                                                                    <label class="control-label">Cod. Patrimonio</label>
+                                                                                    <input type="text" autocomplete="off" class="control-lectura Popup" readonly id="txtCodigoPatrimonio" style="font-weight:bold; font-size:18px">
                                                                                     <input type="hidden" autocomplete="off" class="control-lectura Reque Popup" readonly id="txtDescripcion">
                                                                                 </div>
                                                                             </div>
@@ -95,13 +95,13 @@
                                                                             </div>
                                                                             <div class="row">
                                                                                 <div class="form-group col-sm-12">
-                                                                                    <label class="control-label">Responsable</label>
+                                                                                    <label class="control-label">Responsable de Oficina</label>
                                                                                     <select class="control-form Reque Popup" id="cboResponsable"></select>
                                                                                 </div>
                                                                             </div>
                                                                             <div class="row">
                                                                                 <div class="form-group col-sm-12">
-                                                                                    <label class="control-label">Usuario Final</label>
+                                                                                    <label class="control-label">Responsable del Activo</label>
                                                                                     <select class="control-form Reque Popup" id="cboUsuarioFinal"></select>
                                                                                 </div>
                                                                             </div>
@@ -254,7 +254,7 @@
                                                                                         <div class="row">
                                                                                             <div class="form-group col-sm-6">
                                                                                                 <label class="control-label">Nro Doc</label>
-                                                                                                <input type="number" autocomplete="off" class="control-form Popup" id="txtNumeroDoc">
+                                                                                                <input type="text" autocomplete="off" class="control-form Popup" id="txtNumeroDoc">
                                                                                             </div>
                                                                                             <div class="form-group col-sm-6">
                                                                                                 <label class="control-label">Fecha</label>
@@ -305,8 +305,8 @@
                                                             <div class="modal-body">
                                                                 <div class="row">
                                                                     <div class="form-group col-sm-6">
-                                                                        <label class="control-label">Patrimonio</label>
-                                                                        <input type="text" autocomplete="off" class="control-lectura NoPopupEspTecnica" readonly id="txtCodigoMargesi">
+                                                                        <label class="control-label">Cod. Patrimonio</label>
+                                                                        <input type="text" autocomplete="off" class="control-lectura NoPopupEspTecnica" readonly id="txtCodigoMargesi" style="font-weight:bold; font-size:18px">
                                                                     </div>
                                                                 </div>
                                                                 <div class="row">
@@ -317,7 +317,7 @@
                                                                 </div>
                                                                 <div class="row">
                                                                     <div class="form-group col-sm-12">
-                                                                        <label class="control-label">Observaciones</label>
+                                                                        <label class="control-label">Detallar</label>
                                                                         <textarea class="control-form PopupEspTecnica" rows="5" id="ttaObservacionMargesi"></textarea>
                                                                     </div>
                                                                 </div>
@@ -591,7 +591,7 @@
                                             </div>
                                             <div class="form-row">
                                                 <div class="modal custom-modal" tabindex="-1" role="dialog" aria-hidden="true" id="divPopupContainerOpcionReporte" style="overflow-y:auto;">
-                                                    <div class="modal-dialog modal-md bg-personalizado" id="divPopupWindowOpcionReporte">
+                                                    <div class="modal-dialog modal-xl bg-personalizado" id="divPopupWindowOpcionReporte">
                                                         <div class="modal-content">
                                                             <div id="divBarraOpcionReporte" class="modal-header bg-personalizado" style="cursor:move;">
                                                                 <h5 class="modal-title"><i class="fa fa-users"></i> Reportes</h5>
@@ -602,29 +602,87 @@
                                                                     <div class="col-sm-12 mb-2">
                                                                         <fieldset class="fieldset h-100 p-3">
                                                                             <div class="row">
-                                                                                <div class="form-group col-sm-4">
-                                                                                    <label class="control-label">Año</label>
-                                                                                    <input type="number" class="control-form RequeRep PopupRep" id="txtAnioRep" maxlength="4">
+                                                                                <div class="col-sm-4 p-0">
+                                                                                    <div class="row m-0">
+                                                                                        <div class="form-check form-check-inline col col-sm-12 m-0">
+                                                                                            <input class="form-check-input" type="radio" name="tipoRep" id="optRepGeneral" checked value="1">
+                                                                                            <label class="form-check-label" for="optRepGeneral">
+                                                                                                Reporte General
+                                                                                            </label>
+                                                                                        </div>
+                                                                                        <div class="form-check form-check-inline col col-sm-12 m-0">
+                                                                                            <input class="form-check-input" type="radio" name="tipoRep" id="optRepRespActivo" value="2">
+                                                                                            <label class="form-check-label" for="optRepRespActivo">
+                                                                                                Reporte por Responsable del Activo
+                                                                                            </label>
+                                                                                        </div>
+                                                                                        <div class="form-check form-check-inline col col-sm-12 m-0">
+                                                                                            <input class="form-check-input" type="radio" name="tipoRep" id="optRepOficinaYUbiFis" value="3">
+                                                                                            <label class="form-check-label" for="optRepOficinaYUbiFis">
+                                                                                                Reporte por Oficina y/o Ubic. Física
+                                                                                            </label>
+                                                                                        </div>
+                                                                                        <div class="form-check form-check-inline col col-sm-12 m-0">
+                                                                                            <input class="form-check-input" type="radio" name="tipoRep" id="optRepGrupoClaseFam" value="4">
+                                                                                            <label class="form-check-label" for="optRepGrupoClaseFam">
+                                                                                                Reporte por Grupo, Clase, Familia
+                                                                                            </label>
+                                                                                        </div>
+                                                                                        <div class="form-check form-check-inline col col-sm-12 m-0">
+                                                                                            <input class="form-check-input" type="radio" name="tipoRep" id="optRepKardex" value="5">
+                                                                                            <label class="form-check-label" for="optRepKardex">
+                                                                                                Kardex de Bienes Patrimoniales
+                                                                                            </label>
+                                                                                        </div>
+                                                                                        <div class="form-check form-check-inline col col-sm-12 m-0">
+                                                                                            <input class="form-check-input" type="radio" name="tipoRep" id="optRepSinUbiFis" value="6">
+                                                                                            <label class="form-check-label" for="optRepSinUbiFis">
+                                                                                                Activos sin Ubi. Física
+                                                                                            </label>
+                                                                                        </div>
+                                                                                        <div class="form-check form-check-inline col col-sm-12 m-0">
+                                                                                            <input class="form-check-input" type="radio" name="tipoRep" id="optRepSinCtaContable" value="7">
+                                                                                            <label class="form-check-label" for="optRepSinCtaContable">
+                                                                                                Activos sin Cuenta Contable
+                                                                                            </label>
+                                                                                        </div>
+                                                                                    </div>
                                                                                 </div>
-                                                                            </div>
-                                                                            <div class="row">
-                                                                                <div class="form-group col-sm-6">
-                                                                                    <label class="control-label">Oficina</label>
-                                                                                    <select class="control-form PopupRep" id="cboOficinaRep"></select>
-                                                                                </div>
-                                                                                <div class="form-group col-sm-6">
-                                                                                    <label class="control-label">Ubicación Física</label>
-                                                                                    <select class="control-form PopupRep" id="cboUbicacionFisicaRep"></select>
-                                                                                </div>
-                                                                            </div>
-                                                                            <div class="row">
-                                                                                <div class="form-group col-sm-6">
-                                                                                    <label class="control-label">Responsable</label>
-                                                                                    <select class="control-form PopupRep" id="cboResponsableRep"></select>
-                                                                                </div>
-                                                                                <div class="form-group col-sm-6">
-                                                                                    <label class="control-label">Usuario</label>
-                                                                                    <select class="control-form PopupRep" id="cboUsuarioRep"></select>
+                                                                                <div class="col-sm-8 p-0">
+                                                                                    <div class="row m-0">
+                                                                                        <div class="form-group col-sm-2">
+                                                                                            <label class="control-label">Año</label>
+                                                                                            <input type="number" class="control-form RequeRep PopupRep" id="txtAnioRep" maxlength="4">
+                                                                                        </div>
+                                                                                        <div class="form-group col-sm-5 divOptReporte" id="OptOficinaRep">
+                                                                                            <label class="control-label">Oficina</label>
+                                                                                            <select class="SelectSearch control-form PopupRep" id="cboOficinaRep"></select>
+                                                                                        </div>
+                                                                                        <div class="form-group col-sm-5 divOptReporte" id="OptUbicacionFisicaRep">
+                                                                                            <label class="control-label">Ubic. Física</label>
+                                                                                            <select class="SelectSearch control-form PopupRep" id="cboUbicacionFisicaRep"></select>
+                                                                                        </div>
+                                                                                        <div class="form-group col-sm-6 divOptReporte" id="OptResponsableRep">
+                                                                                            <label class="control-label">Responsable de Oficina</label>
+                                                                                            <select class="SelectSearch control-form PopupRep" id="cboResponsableRep"></select>
+                                                                                        </div>
+                                                                                        <div class="form-group col-sm-6 divOptReporte" id="OptUsuarioRep">
+                                                                                            <label class="control-label">Responsable del Activo</label>
+                                                                                            <select class="SelectSearch control-form PopupRep" id="cboUsuarioRep"></select>
+                                                                                        </div>
+                                                                                        <div class="form-group col-sm-5 divOptReporte" id="OptGrupoRep" style="display:none">
+                                                                                            <label class="control-label">Grupo</label>
+                                                                                            <select class="SelectSearch control-form PopupRep" id="cboGrupoRep"></select>
+                                                                                        </div>
+                                                                                        <div class="form-group col-sm-5 divOptReporte" id="OptClaseRep" style="display:none">
+                                                                                            <label class="control-label">Clase</label>
+                                                                                            <select class="SelectSearch control-form PopupRep" id="cboClaseRep"></select>
+                                                                                        </div>
+                                                                                        <div class="form-group col-sm-5 divOptReporte" id="OptFamiliaRep" style="display:none">
+                                                                                            <label class="control-label">Familia</label>
+                                                                                            <select class="SelectSearch control-form PopupRep" id="cboFamiliaRep"></select>
+                                                                                        </div>
+                                                                                    </div>
                                                                                 </div>
                                                                             </div>
                                                                         </fieldset>
