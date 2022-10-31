@@ -51,6 +51,13 @@
     <Reference Include="CrystalDecisions.ReportSource, Version=13.0.4000.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=MSIL" />
     <Reference Include="CrystalDecisions.Shared, Version=13.0.4000.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=MSIL" />
     <Reference Include="CrystalDecisions.Web, Version=13.0.4000.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=MSIL" />
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer">
+      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
     <Reference Include="EPPlus, Version=5.8.7.0, Culture=neutral, PublicKeyToken=ea159fdaa78159a1, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\DLL\EPPlus.dll</HintPath>
@@ -1420,7 +1427,6 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\Runs.cs" />
-    <Compile Include="Models\Types.cs" />
     <Compile Include="Models\Menu.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="rptViewer.aspx.cs">
@@ -1540,7 +1546,7 @@
     <Content Include="Views\Reportes\FiltroAOURU.cshtml" />
     <Content Include="Views\Reportes\_LayoutRpt.cshtml" />
     <Content Include="Views\Reportes\FiltroAÑO.cshtml" />
-	<Content Include="Views\Patrimonio\Asignacion.cshtml" />
+    <Content Include="Views\Patrimonio\Asignacion.cshtml" />
     <Content Include="Views\Patrimonio\MantoActivo.cshtml" />
     <Content Include="Views\Ingresos\Reporte.cshtml" />
     <Content Include="Reportes\02c814f9-7c86-4932-843c-e94ed1634007.pdf" />
@@ -1591,6 +1597,11 @@
     <Content Include="Reportes\f22de13f-fdcf-4dc7-9c40-d2fe93ad4d06.pdf" />
     <Content Include="Views\Patrimonio\Cierre.cshtml" />
     <Content Include="Views\Reportes\FiltroAÑO.cshtml" />
+    <Content Include="Views\Patrimonio\Cierre.cshtml" />
+    <Content Include="Views\Reportes\FiltroGRCLFM.cshtml" />
+    <Content Include="Views\Reportes\FiltroOFIUBI.cshtml" />
+    <Content Include="Views\Reportes\FiltroRESPON.cshtml" />
+    <Content Include="Views\Reportes\Index.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -1601,7 +1612,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Reportes\" />
     <Folder Include="Riztie\Files\" />
     <Folder Include="Riztie\Manual\" />
   </ItemGroup>
@@ -1624,6 +1634,20 @@
   </ItemGroup>
   <ItemGroup>
     <Service Include="{C0C07587-41A7-46C8-8FBD-3F9C8EBE2DDC}" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\SisGeFin.Reporting.BIZ\SisGeFin.Reporting.BIZ.csproj">
+      <Project>{31aaa752-cea2-4fbb-8355-b5365a8df432}</Project>
+      <Name>SisGeFin.Reporting.BIZ</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\SisGenFin.Common.Types\SisGeFin.Common.Types.csproj">
+      <Project>{b053f8f5-0c8b-493c-bae7-4ed43f640fb9}</Project>
+      <Name>SisGeFin.Common.Types</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\SisGenFin.Common.Utils\SisGeFin.Common.Utils.csproj">
+      <Project>{b6616e28-5b06-4cfe-9967-44362a4497c9}</Project>
+      <Name>SisGeFin.Common.Utils</Name>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

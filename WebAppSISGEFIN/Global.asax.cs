@@ -16,8 +16,6 @@ namespace WebAppSISGEFIN
 
             RouteConfig.RegisterRoutes(RouteTable.Routes);
 
-            ConfigurationManager.AppSettings.Set("BinDir", Server.MapPath("bin"));
-
         }
     }
 }

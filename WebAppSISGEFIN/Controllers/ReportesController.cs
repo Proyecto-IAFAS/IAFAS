@@ -1,6 +1,7 @@
 ﻿using System.Web.Mvc;
 using System.Configuration;
 using WebAppSISGEFIN.Models;
+using SisGeFin.Common.Types;
 
 namespace WebAppSISGEFIN.Controllers
 {
@@ -8,40 +9,79 @@ namespace WebAppSISGEFIN.Controllers
     {
 
         [HttpGet]
+        public ActionResult Index()
+        {
+            return View();
+        }
+
+        [HttpGet]
+        public string GetGrupos()
+        {
+            string _data = "vGruposPA|IdGrupo|NombreGrupo|";
+            var _trama = Runs.GetTrama4Combo(_data);
+            return _trama;
+        }
+
+        [HttpGet]
+        public string GetClases(string idGrupo)
+        {
+            string _data = $"vClasesPA|IdClase|NombreClase|IdGrupo='{idGrupo}'";
+            var _trama = Runs.GetTrama4Combo(_data);
+            return _trama;
+        }
+
+        [HttpGet]
+        public string GetFamilias(string idGrupo, string idClase)
+        {
+            string _data = $"vFamiliasPA|IdFamilia|NombreFamilia|IdGrupo='{idGrupo}' And IdClase='{idClase}'";
+            var _trama = Runs.GetTrama4Combo(_data);
+            return _trama;
+        }
+
+        //---------------------------------------------------
+
+        [HttpGet]
         public string GetOficinas()
         {
-            string _data = "M_OFICINA|OFI_SECUENCIA|OFI_ABREVIATURA|OFI_NOMBRE Like 'OFICINA%'";
+            string _data = "vOficinasPA|IdOficina|NombreOficina|";
+            var _trama = Runs.GetTrama4Combo(_data);
+            return _trama;
+        }
+        
+        [HttpGet]
+        public string GetUbicaciones(string idOficina)
+        {
+            string _data = $"vUbicacionesPA|IdUbicacion|NombreUbicacion|IdOficina='{idOficina}'";
             var _trama = Runs.GetTrama4Combo(_data);
             return _trama;
         }
 
         [HttpGet]
-        public string GetUbicaciones()
+        public string GetReponsables()
         {
-            string _data = "PATRI_UBICACION_FISICA|UBIFIS_SECUENCIA|UBIFIS_NOMBRE|";
+            string _data = "vProveedoresPA|IdProveedor|NombreProveedor|";
             var _trama = Runs.GetTrama4Combo(_data);
             return _trama;
         }
 
         [HttpGet]
-        public ActionResult ShowRpt(string area, string name, string form, string type, string par, string r)
+        public ActionResult ShowRpt(string area, string name, string idrp, string view, string par, string r)
         {
-            string _binDir = ConfigurationManager.AppSettings.Get("BinDir");
-            string _dirRpt = string.Format("{0}\\{1}", _binDir, "filesRpt");
-            ViewBag.FileNm = $"{_dirRpt}\\{area}{name}.rpt";
             ViewBag.SpName = $"usp{area}{name}ReporteCsv";
+            ViewBag.FileNm = $"{area}{name}{idrp}.rpt";
+            ViewBag.Area = area;
+            ViewBag.Name = name;
+            ViewBag.IdRp = idrp;
             ViewBag.Option = r;
             string _vName = "";
             if (par != null)
             {
-                ViewBag.TypeNm = type;
                 ViewBag.Params = par;
                 _vName = "_PuenteRpt";
             }
             else
             {
-                ViewBag.TypeNm = type;
-                _vName = $"Filtro{form}"; ;
+                _vName = $"Filtro{view}"; ;
             }
             return View(_vName);
         }

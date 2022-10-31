@@ -20,28 +20,18 @@
             <div class="flex-gap marco">
 
                 <div>
-                    <span>Año</span>
-                    <input type="number" id="txtAñoEjecn" onchange="ActualizarSel()" class="form-control form-control-sm" min="2000" max="2100" value="2022" />
+                    <span>Grupos</span>
+                    <select id="cboGrupos" onchange="CargarClases()" class="form-control form-control-sm" style="width:250px;"></select>
                 </div>
 
                 <div>
-                    <span>Oficinas</span>
-                    <select id="cboOficinas" onchange="CargarUbicas()" class="form-control form-control-sm" style="width:250px;"></select>
+                    <span>Clases</span>
+                    <select id="cboClases" onchange="CargarFamilias()" class="form-control form-control-sm" style="width:250px;"></select>
                 </div>
 
                 <div>
-                    <span>Ubicaciones</span>
-                    <select id="cboUbicaciones" onchange="ActualizarSel()" class="form-control form-control-sm" style="width:250px;"></select>
-                </div>
-
-                <div>
-                    <span>Responsable</span>
-                    <input type="number" id="txtResponsable" onchange="ActualizarSel()" class="form-control form-control-sm" />
-                </div>
-
-                <div>
-                    <span>Usuario</span>
-                    <input type="number" id="txtUsuario" onchange="ActualizarSel()" class="form-control form-control-sm" />
+                    <span>Familias</span>
+                    <select id="cboFamilias" onchange="ActualizarSel()" class="form-control form-control-sm" style="width:250px;"></select>
                 </div>
 
                 <div style="flex-direction: column;">
@@ -82,6 +72,28 @@
 
 <script>
 
+    function LimpiarCombo(id) {
+        var cbo = document.getElementById(id);
+        if (cbo != null) cbo.innerHTML = '';
+    }
+
+    async function CargarClases()
+    {
+        const _idGrupo = document.getElementById('cboGrupos').value;
+        const _param = 'idGrupo=' + _idGrupo;
+        await CargarCombo('Clases', _param);
+        LimpiarCombo('cboFamilias');
+        ActualizarSel();
+    }
+
+    async function CargarFamilias() {
+        const _idGrupo = document.getElementById('cboGrupos').value;
+        const _idClase = document.getElementById('cboClases').value;
+        const _param = `idGrupo=${_idGrupo}&idClase=${_idClase}`;
+        await CargarCombo('Familias', _param);
+        ActualizarSel();
+    }
+
     function ConsultarSel() {
         mostrarProgreso('Consultando..');
         const _iFrame = document.getElementById("iFrame");
@@ -100,49 +112,45 @@
     }
 
     function ActualizarSel() {
-        const _txtAñoEjecn = document.getElementById('txtAñoEjecn');
-        const _cboOficinas = document.getElementById('cboOficinas');
-        const _cboUbicacns = document.getElementById('cboUbicaciones');
-        const _txtRespons = document.getElementById('txtResponsable');
-        const _txtUsuario = document.getElementById('txtUsuario');
+        const _cboGrupos = document.getElementById('cboGrupos');
+        const _cboClases = document.getElementById('cboClases');
+        const _cboFamils = document.getElementById('cboFamilias');
         const _Params = document.getElementById('Params');
-        _Params.value = _txtAñoEjecn.value;
-        _Params.value += '|' + _cboOficinas.value;
-        _Params.value += '|' + _cboUbicacns.value;
-        _Params.value += '|' + _txtRespons.value;
-        _Params.value += '|' + _txtUsuario.value;
-    }
-
-    function CargarUbicas() {
-        const _valor = document.getElementById('cboOficinas').value;
-        const _param = 'idOficina=' + _valor;
-        CargarCombo('Ubicaciones', _param);
-        ActualizarSel();
+        _Params.value = _cboGrupos.value;
+        _Params.value += '|' + _cboClases.value;
+        _Params.value += '|' + _cboFamils.value;
     }
 
     async function CargarCombo(nombre, params) {
         const _cboName = 'cbo' + nombre;
         const _actName = 'Get' + nombre;
 
-        const _basUrl = '@Url.Action("X","Reportes")';
-        const _auxUrl = _basUrl.replace('X', _actName);
+        //var _data = sessionStorage.getItem(_cboName);
 
-        let _newUrl = _auxUrl;
-        if (params != null) {
+       /* if (_data == null) {*/
+
+            const _basUrl = '@Url.Action("X","Reportes")';
+            const _auxUrl = _basUrl.replace('X', _actName);
+
+            let _newUrl = _auxUrl;
+            if (params != null) {
                 _newUrl = _auxUrl + '/?' + params;
             }
 
-        const response = await fetch(_newUrl);
-        _data = await response.text();
-        sessionStorage.setItem(_cboName, _data);
+            const response = await fetch(_newUrl);
+            _data = await response.text();
+            sessionStorage.setItem(_cboName, _data);
+
+      /*  }*/
 
         var _lista = _data.split('¬');
-        crearCombo(_lista, _cboName, "Seleccione un item.")
+        crearCombo(_lista, _cboName, "Selecciona un item")
     }
 
-    window.onload =  function ()
+    window.onload = async function ()
     {
-        CargarCombo('Oficinas');
+        await CargarCombo('Grupos');
+        
         ActualizarSel();
     }
 

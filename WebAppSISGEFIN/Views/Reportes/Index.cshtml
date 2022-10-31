@@ -1,0 +1,152 @@
+﻿
+
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+
+<style>
+    body {
+        overflow: hidden;
+    }
+</style>
+
+<body>
+
+    <div class="row">
+        <div class="col-2">
+            <h5 class="list-group-item">Menu de Reportes</h5>
+            <div id="xMenu" class="list-group" id="list-tab" role="tablist">
+            </div>
+        </div>
+        <div class="col-10">
+            <h5><label id="etiTit" class="list-group-item">...</label></h5> 
+            <div class="tab-content" id="nav-tabContent" style="height:90vh;">
+                <iframe id="ifmDoc" src="about://blanc" frameborder="0" width="100%" height="100%"></iframe>
+            </div>
+        </div>
+    </div>
+
+</body>
+
+<script>
+
+    let _menues = [];
+
+    function GetMenu(id, tit, url) {
+        var _menu = {
+            Id: id,
+            Tit: tit,
+            Url: url
+        }
+        return _menu;
+    }
+
+    function CargarDatos() {
+
+        let _auxMnus = [
+
+            GetMenu(
+                1, 'Patrimonio por Año, Oficina, Ubicacion, Respon, Usuario agrupado por Cuenta Contable',
+                'http://localhost:57469/Reportes/ShowRpt/?area=Patrimonio&name=Inventario&idrp=11&view=AOURU'
+            ),
+
+            GetMenu(
+                2, 'Patrimonio por Año, Oficina, Ubicacion, Respon, Usuario agrupado por Tipo de Ingreso y Cuenta Contable',
+                'http://localhost:57469/Reportes/ShowRpt/?area=Patrimonio&name=Inventario&idrp=2&view=AOURU'
+            ),
+
+            GetMenu(
+                3, 'Patrimonio por Año, Oficina, Ubicacion, Respon, Usuario agrupado por Mes, Tipo de Ingreso y Cuenta Contable',
+                'http://localhost:57469/Reportes/ShowRpt/?area=Patrimonio&name=Inventario&idrp=3&view=AOURU'
+            ),
+
+            GetMenu(
+                4, 'Altas Institucionales por Año, agrupado por Mes, Tipo de Ingreso y Cuenta Contable',
+                'http://localhost:57469/Reportes/ShowRpt/?area=Patrimonio&name=InventXAño&idrp=1&view=AÑO'
+            ),
+
+            GetMenu(
+                5, 'Altas Institucionales por Año, agrupado por IdMovCab, Tipo de Ingreso y Cuenta Contable',
+                'http://localhost:57469/Reportes/ShowRpt/?area=Patrimonio&name=InventXAño&idrp=2&view=AÑO'
+            ),
+
+            GetMenu(
+                6, 'Patrimonio Inventario por Responsable',
+                'http://localhost:57469/Reportes/ShowRpt/?area=Patrimonio&name=XResponsab&idrp=1&view=RESPON'
+            ),
+
+            GetMenu(
+                7, 'Patrimonio Inventario por Oficina / Ubicación',
+                'http://localhost:57469/Reportes/ShowRpt/?area=Patrimonio&name=XOficina&idrp=1&view=OFIUBI'
+            ),
+
+            GetMenu(
+                8, 'Patrimonio Inventario por Grupo / Clase / Familia',
+                'http://localhost:57469/Reportes/ShowRpt/?area=Patrimonio&name=XGrpClsFam&idrp=1&view=GRCLFM'
+            ),
+
+            GetMenu(
+                9, 'Activos Sin Ubicación Física por Año, agrupados por Oficina y Cuenta Contable',
+                'http://localhost:57469/Reportes/ShowRpt/?area=Patrimonio&name=ActivosSinUbi&idrp=1&view=AÑO'
+            ),
+
+            GetMenu(
+                10, 'Kardex por Articulo',
+                'http://localhost:57469/Reportes/ShowRpt/?area=Patrimonio&name=KardexXArtic&idrp=1&view=AÑO'
+            )
+
+
+            
+
+
+
+        ];
+
+        return _auxMnus;
+
+    }
+
+    function CargarMenues() {
+
+        const _divMenu = document.getElementById('xMenu');
+
+        _menues = CargarDatos();
+
+        let _links = '';
+
+        for (var i = 0; i < _menues.length; i++) {
+
+            const _menu = _menues[i];
+
+            const _link = `<a href="#" onclick=GoToUrl(${_menu.Id}) data-toggle="tooltip" data-placement="right" title="${_menu.Tit}" class="list-group-item list-group-item-action" data-bs-toggle="list" href="#list-settings" role="tab" aria-controls="list-settings">Reporte ${_menu.Id}</a>`;
+
+            _links += _link;
+
+        }
+
+        _divMenu.innerHTML = _links;
+
+    }
+
+    function GoToUrl(id)
+    {
+
+        const _menu = _menues.filter(m => m.Id == id)[0];
+
+        const _titulo = document.getElementById('etiTit');
+
+        _titulo.innerText = _menu.Tit;
+
+        const _iframe = document.getElementById('ifmDoc');
+
+        _iframe.src = _menu.Url;
+
+    }
+
+    CargarMenues();
+
+</script>
+
+

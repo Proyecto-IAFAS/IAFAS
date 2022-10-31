@@ -2,26 +2,35 @@
     Layout = "_LayoutRpt.cshtml";
 }
 
-<input type="hidden" id="FileNm" value='@ViewBag.FileNm' />
-<input type="hidden" id="SpName" value='@ViewBag.SpName' />
-<input type="hidden" id="TypeNm" value='@ViewBag.TypeNm' />
-<input type="hidden" id="Params" value='' />
-
 <div class="container-fluid">
+
+    <div class="row" style="display: none">
+        <div class="col-md-12">
+            <label>@ViewBag.Area</label>
+            <label>@ViewBag.Name</label>
+            <label>@ViewBag.IdRp</label>
+            <input type="hidden" id="FileNm" value='@ViewBag.FileNm' />
+            <input type="hidden" id="SpName" value='@ViewBag.SpName' />
+            <input type="text" id="Params" value='' />
+        </div>
+    </div>
+
     <div class="row">
         <div class="col-md-12">
             <div class="flex-gap marco">
 
                 <div>
+
+
                     <span>Año</span>
-                    <input type="number" id="txtAñoEjecn" onchange="ActualizarSel()" class="form-control form-control-sm" min="2000" max="2100" value="2022" />
-                </div> 
+                    <input type="number" id="txtAñoEjec" onchange="ActualizarSel()" class="form-control form-control-sm" min="2000" max="2100" value="2022" />
+                </div>
 
                 <div style="flex-direction: column;">
-                    <table class="table table-sm" style="font-size:12px;" >
+                    <table class="table table-sm" style="font-size:12px;">
                         <tr>
                             <td>
-                               <label for="option1">CR</label>
+                                <label for="option1">CR</label>
                             </td>
                             <td>
                                 <input type="radio" id="option1" name="options" style="height: 15px;" checked class="form-control form-control-sm" />
@@ -42,15 +51,13 @@
                     <input type="button" class="btn btn-sm btn-primary" value="Consultar" onclick="ConsultarSel()" />
                 </div>
 
-            </div>             
-
-            <div>
-                <iframe id="iFrame" src="about://blank" frameborder="0"></iframe>
             </div>
-            
-
+            <div>
+                <iframe id="iFrame" title="Documento" src="about://blank" frameborder="0"></iframe>
+            </div>
         </div>
     </div>
+
 </div>
 
 <script>
@@ -60,10 +67,9 @@
         const _iFrame = document.getElementById("iFrame");
         const _FileNm = document.getElementById("FileNm").value;
         const _SpName = document.getElementById("SpName").value;
-        const _TypeNm = document.getElementById("TypeNm").value;
         const _Params = document.getElementById("Params").value;
         const _Option = document.getElementById("option1").checked ? 1 : 2;
-        const _UrlDoc = `/rptViewer.aspx?FileNm=${_FileNm}&SpName=${_SpName}&TypeNm=${_TypeNm}&Params=${_Params}&r=${_Option}`;
+        const _UrlDoc = `/rptViewer.aspx?FileNm=${_FileNm}&SpName=${_SpName}&Params=${_Params}&r=${_Option}`;
         _iFrame.onload = function () {
             _iFrame.contentDocument.body.style = "margin: 0px !Important; overflow:hidden !Important; ";
             _iFrame.contentDocument.cookie = "";
@@ -79,8 +85,7 @@
         _Params.value = _AñoEjc.value;
     }
 
-    window.onload = async function ()
-    {
+    window.onload = async function () {
         ActualizarSel();
     }
 
