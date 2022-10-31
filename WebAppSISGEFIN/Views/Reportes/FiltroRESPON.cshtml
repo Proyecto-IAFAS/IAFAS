@@ -27,6 +27,11 @@
             <div class="flex-gap marco">
 
                 <div>
+                    <span>Año</span>
+                    <input type="number" id="txtAñoEjecn" onchange="ActualizarSel()" class="form-control form-control-sm" min="2000" max="2100" value="2022" />
+                </div>
+
+                <div>
                     <span>Responsables</span>
                     <select id="cboReponsables" onchange="ActualizarSel()" class="form-control form-control-sm" style="width: 350px;"></select>
                 </div>
@@ -87,9 +92,11 @@
     }
 
     function ActualizarSel() {
+        const _txtAñoEjecn = document.getElementById('txtAñoEjecn');
         const _cboResponsa = document.getElementById('cboReponsables');
         const _Params = document.getElementById('Params');
-        _Params.value = _cboResponsa.value;
+        _Params.value = _txtAñoEjecn.value;
+        _Params.value += '|' + _cboResponsa.value;
     }
 
     async function CargarCombo(nombre) {
