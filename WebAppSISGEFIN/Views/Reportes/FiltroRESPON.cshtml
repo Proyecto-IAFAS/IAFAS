@@ -2,6 +2,13 @@
     Layout = "_LayoutRpt.cshtml";
 }
 
+<style>
+    body {
+        overflow: hidden;
+    }
+
+</style>
+
 <div class="container-fluid">
 
     <div class="row" style="display: none">
@@ -20,28 +27,8 @@
             <div class="flex-gap marco">
 
                 <div>
-                    <span>Año</span>
-                    <input type="number" id="txtAñoEjecn" onchange="ActualizarSel()" class="form-control form-control-sm" min="2000" max="2100" value="2022" />
-                </div>
-
-                <div>
-                    <span>Oficinas</span>
-                    <select id="cboOficinas" onchange="CargarUbicas()" class="form-control form-control-sm" style="width:250px;"></select>
-                </div>
-
-                <div>
-                    <span>Ubicaciones</span>
-                    <select id="cboUbicaciones" onchange="ActualizarSel()" class="form-control form-control-sm" style="width:250px;"></select>
-                </div>
-
-                <div>
-                    <span>Responsable</span>
-                    <input type="number" id="txtResponsable" onchange="ActualizarSel()" class="form-control form-control-sm" />
-                </div>
-
-                <div>
-                    <span>Usuario</span>
-                    <input type="number" id="txtUsuario" onchange="ActualizarSel()" class="form-control form-control-sm" />
+                    <span>Responsables</span>
+                    <select id="cboReponsables" onchange="ActualizarSel()" class="form-control form-control-sm" style="width: 350px;"></select>
                 </div>
 
                 <div style="flex-direction: column;">
@@ -100,49 +87,29 @@
     }
 
     function ActualizarSel() {
-        const _txtAñoEjecn = document.getElementById('txtAñoEjecn');
-        const _cboOficinas = document.getElementById('cboOficinas');
-        const _cboUbicacns = document.getElementById('cboUbicaciones');
-        const _txtRespons = document.getElementById('txtResponsable');
-        const _txtUsuario = document.getElementById('txtUsuario');
+        const _cboResponsa = document.getElementById('cboReponsables');
         const _Params = document.getElementById('Params');
-        _Params.value = _txtAñoEjecn.value;
-        _Params.value += '|' + _cboOficinas.value;
-        _Params.value += '|' + _cboUbicacns.value;
-        _Params.value += '|' + _txtRespons.value;
-        _Params.value += '|' + _txtUsuario.value;
+        _Params.value = _cboResponsa.value;
     }
 
-    function CargarUbicas() {
-        const _valor = document.getElementById('cboOficinas').value;
-        const _param = 'idOficina=' + _valor;
-        CargarCombo('Ubicaciones', _param);
-        ActualizarSel();
-    }
-
-    async function CargarCombo(nombre, params) {
+    async function CargarCombo(nombre) {
         const _cboName = 'cbo' + nombre;
         const _actName = 'Get' + nombre;
-
-        const _basUrl = '@Url.Action("X","Reportes")';
-        const _auxUrl = _basUrl.replace('X', _actName);
-
-        let _newUrl = _auxUrl;
-        if (params != null) {
-                _newUrl = _auxUrl + '/?' + params;
-            }
-
-        const response = await fetch(_newUrl);
-        _data = await response.text();
-        sessionStorage.setItem(_cboName, _data);
-
+        var _data = sessionStorage.getItem(_cboName);
+        if (_data == null) {
+            const _auxUrl = '@Url.Action("X","Reportes")';
+            const _newUrl = _auxUrl.replace('X', _actName);
+            const response = await fetch(_newUrl);
+            _data = await response.text();
+            sessionStorage.setItem(_cboName, _data);
+        }
         var _lista = _data.split('¬');
-        crearCombo(_lista, _cboName, "Seleccione un item.")
+        crearCombo(_lista, _cboName, "Seleccione un item")
     }
 
-    window.onload =  function ()
+    window.onload = async function ()
     {
-        CargarCombo('Oficinas');
+        await CargarCombo('Reponsables');
         ActualizarSel();
     }
 
