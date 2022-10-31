@@ -17,7 +17,6 @@ namespace SisGeFin.Reporting.BIZ
 
         private static ReportDocument OpenDocumRPT(string fileRpt)
         {
-
             string _baseDir = System.Reflection.Assembly.GetExecutingAssembly().GetName().CodeBase.Replace("file:///","");
 
             FileInfo _fileInfo = new FileInfo(_baseDir);
