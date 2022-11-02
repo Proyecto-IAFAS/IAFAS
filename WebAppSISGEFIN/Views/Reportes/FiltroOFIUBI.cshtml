@@ -6,11 +6,11 @@
 
     <div class="row" style="display: none">
         <div class="col-md-12">
-            <label>@ViewBag.Area</label>
-            <label>@ViewBag.Name</label>
-            <label>@ViewBag.IdRp</label>
-            <input type="hidden" id="FileNm" value='@ViewBag.FileNm' />
-            <input type="hidden" id="SpName" value='@ViewBag.SpName' />
+            <input type="text" id="FileNm" value='@ViewBag.FileNm' />
+            <input type="text" id="SpName" value='@ViewBag.SpName' />
+            <input type="text" id="TypeNm" value='@ViewBag.TypeNm' />
+            <input type="text" id="IdRept" value='@ViewBag.IdRept' />
+            <input type="text" id="Option" value='@ViewBag.Option' />
             <input type="text" id="Params" value='' />
         </div>
     </div>
@@ -18,6 +18,11 @@
     <div class="row">
         <div class="col-md-12">
             <div class="flex-gap marco">
+
+                <div>
+                    <span>Año</span>
+                    <input type="number" id="txtAñoEjecn" onchange="ActualizarSel()" class="form-control form-control-sm" min="2000" max="2100" value="2022" />
+                </div>
 
                 <div>
                     <span>Oficinas</span>
@@ -72,9 +77,10 @@
         const _iFrame = document.getElementById("iFrame");
         const _FileNm = document.getElementById("FileNm").value;
         const _SpName = document.getElementById("SpName").value;
+        const _TypeNm = document.getElementById("TypeNm").value;
         const _Params = document.getElementById("Params").value;
         const _Option = document.getElementById("option1").checked ? 1 : 2;
-        const _UrlDoc = `/rptViewer.aspx?FileNm=${_FileNm}&SpName=${_SpName}&Params=${_Params}&r=${_Option}`;
+        const _UrlDoc = `/rptViewer.aspx?FileNm=${_FileNm}&SpName=${_SpName}&TypeNm=${_TypeNm}&Params=${_Params}&Option=${_Option}`;
         _iFrame.onload = function () {
             _iFrame.contentDocument.body.style = "margin: 0px !Important; overflow:hidden !Important; ";
             _iFrame.contentDocument.cookie = "";
@@ -85,17 +91,19 @@
     }
 
     function ActualizarSel() {
+        const _txtAñoEjecn = document.getElementById('txtAñoEjecn');
         const _cboOficinas = document.getElementById('cboOficinas');
         const _cboUbicacns = document.getElementById('cboUbicaciones');
         const _Params = document.getElementById('Params');
-        _Params.value = _cboOficinas.value;
+        _Params.value = _txtAñoEjecn.value;
+        _Params.value += '|' + _cboOficinas.value;
         _Params.value += '|' + _cboUbicacns.value;
     }
 
-    function CargarUbicas() {
+    async function CargarUbicas() {
         const _valor = document.getElementById('cboOficinas').value;
         const _param = 'idOficina=' + _valor;
-        CargarCombo('Ubicaciones', _param);
+        await CargarCombo('Ubicaciones', _param);
         ActualizarSel();
     }
 
@@ -119,9 +127,9 @@
         crearCombo(_lista, _cboName, "Seleccione un item.")
     }
 
-    window.onload =  function ()
+    window.onload = async function ()
     {
-        CargarCombo('Oficinas');
+        await CargarCombo('Oficinas');
         ActualizarSel();
     }
 

@@ -1,7 +1,9 @@
 ﻿using System.Web.Mvc;
-using System.Configuration;
 using WebAppSISGEFIN.Models;
 using SisGeFin.Common.Types;
+using SisGeFin.Reporting.BIZ;
+using System.Collections.Generic;
+using SisGeFin.Common.Utils;
 
 namespace WebAppSISGEFIN.Controllers
 {
@@ -11,7 +13,9 @@ namespace WebAppSISGEFIN.Controllers
         [HttpGet]
         public ActionResult Index()
         {
-            return View();
+            var _result = Reporting.GetLstReportes();
+            var _lstRps = ConverT.ObjectToObj<IEnumerable<rReporteCR>>(_result.Content);
+            return View("Index", _lstRps);
         }
 
         [HttpGet]
@@ -65,13 +69,14 @@ namespace WebAppSISGEFIN.Controllers
         }
 
         [HttpGet]
-        public ActionResult ShowRpt(string area, string name, string idrp, string view, string par, string r)
+        public ActionResult ShowRpt(int id, string par, string r)
         {
-            ViewBag.SpName = $"usp{area}{name}ReporteCsv";
-            ViewBag.FileNm = $"{area}{name}{idrp}.rpt";
-            ViewBag.Area = area;
-            ViewBag.Name = name;
-            ViewBag.IdRp = idrp;
+            var _result = Reporting.GetOneReporte(id);
+            rReporteCR _report = ConverT.ObjectToObj<rReporteCR>(_result.Content);
+            ViewBag.FileNm = _report.FileName.Replace("\n", "").Replace("\r", "");
+            ViewBag.SpName = _report.SpName.Replace("\n", "").Replace("\r", "");
+            ViewBag.TypeNm = _report.TypeName.Replace("\n", "").Replace("\r", "");
+            ViewBag.IdRept = _report.IdReport;
             ViewBag.Option = r;
             string _vName = "";
             if (par != null)
@@ -81,11 +86,11 @@ namespace WebAppSISGEFIN.Controllers
             }
             else
             {
-                _vName = $"Filtro{view}"; ;
+                _vName = $"Filtro{_report.FiterView.Replace("\n", "").Replace("\r", "")}";
             }
             return View(_vName);
         }
-
+         
         public ActionResult MsgRpt(string msg, byte e)
         {
             rMensaje _mensj = new rMensaje();

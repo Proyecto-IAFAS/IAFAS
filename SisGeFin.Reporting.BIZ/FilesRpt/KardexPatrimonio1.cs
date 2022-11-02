@@ -16,14 +16,14 @@ namespace SisGeFin.Reporting.BIZ.FilesRpt {
     using CrystalDecisions.CrystalReports.Engine;
     
     
-    public class PatrimonioKardexXArtic1 : ReportClass {
+    public class KardexPatrimonio1 : ReportClass {
         
-        public PatrimonioKardexXArtic1() {
+        public KardexPatrimonio1() {
         }
         
         public override string ResourceName {
             get {
-                return "PatrimonioKardexXArtic1.rpt";
+                return "KardexPatrimonio1.rpt";
             }
             set {
                 // Do nothing
@@ -41,7 +41,7 @@ namespace SisGeFin.Reporting.BIZ.FilesRpt {
         
         public override string FullResourceName {
             get {
-                return "SisGeFin.Reporting.BIZ.FilesRpt.PatrimonioKardexXArtic1.rpt";
+                return "SisGeFin.Reporting.BIZ.FilesRpt.KardexPatrimonio1.rpt";
             }
             set {
                 // Do nothing
@@ -106,9 +106,9 @@ namespace SisGeFin.Reporting.BIZ.FilesRpt {
     }
     
     [System.Drawing.ToolboxBitmapAttribute(typeof(CrystalDecisions.Shared.ExportOptions), "report.bmp")]
-    public class CachedPatrimonioKardexXArtic1 : Component, ICachedReport {
+    public class CachedKardexPatrimonio1 : Component, ICachedReport {
         
-        public CachedPatrimonioKardexXArtic1() {
+        public CachedKardexPatrimonio1() {
         }
         
         [Browsable(false)]
@@ -145,7 +145,7 @@ namespace SisGeFin.Reporting.BIZ.FilesRpt {
         }
         
         public virtual CrystalDecisions.CrystalReports.Engine.ReportDocument CreateReport() {
-            PatrimonioKardexXArtic1 rpt = new PatrimonioKardexXArtic1();
+            KardexPatrimonio1 rpt = new KardexPatrimonio1();
             rpt.Site = this.Site;
             return rpt;
         }

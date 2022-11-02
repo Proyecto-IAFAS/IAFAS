@@ -1,26 +1,21 @@
 ﻿using System;
 using System.IO;
 using System.Net.Mime;
-using WebAppSISGEFIN.Models;
-using CrystalDecisions.Shared;
-using CrystalDecisions.CrystalReports.Engine;
+using System.Reflection;
 using SisGeFin.Common.Types;
-using System.Threading.Tasks;
-using System.Timers;
+using SisGeFin.Reporting.BIZ;
+using System.Collections.Generic;
 
 namespace WebAppSISGEFIN
 {
     public partial class rptViewer : System.Web.UI.Page
     {
-
  
         protected void Page_Load(object sender, EventArgs e)
         {
             string _urlReprt = "";
-
             try
             {
-
                 string _GetUserName() {
                     string _user = "...";
                     dynamic _session = Session["DataUsuario"];
@@ -34,11 +29,12 @@ namespace WebAppSISGEFIN
 
                 string _FileNm = Request["FileNm"];
                 string _SpName = Request["SpName"];
+                string _TypeNm = Request["TypeNm"];
                 string _Params = Request["Params"];
+                string _Option = Request["Option"];         
                 string _UserNm = _GetUserName();
-                string _Option = Request["r"];
 
-                xResponse<dynamic> _rptDocum = SisGeFin.Reporting.BIZ.Runs.GetReportRPT(_FileNm, _SpName, _Params, _UserNm, _Option);
+                xResponse<dynamic> _rptDocum = Reporting.GetReportRptAsync(_FileNm, _SpName, _TypeNm, _Params, _UserNm, _Option).Result;
 
                 if (_rptDocum.IsOk == true)
                 {
@@ -55,7 +51,7 @@ namespace WebAppSISGEFIN
                         ContentDisposition cd = new ContentDisposition
                         {
                             FileName = _FileNm,
-                            Inline = true  // false = prompt the user for downloading;  true = browser to try to show the file inline
+                            Inline = true 
                         };
                         Response.Headers.Add("Content-Disposition", cd.ToString());
                         Response.ContentType = "application/pdf";

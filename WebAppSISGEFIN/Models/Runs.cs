@@ -7,6 +7,7 @@ using General.Librerias.AccesoDatos;
 
 namespace WebAppSISGEFIN.Models
 {
+
     public static class Runs
     {
 
@@ -14,7 +15,7 @@ namespace WebAppSISGEFIN.Models
         {
             daSQL _odaSQL = new daSQL("conSISGEFIN");
             string _trama = _odaSQL.EjecutarComando("usp_GetDataForCombo", "@param", param);
-            var _rows = Utils.GetTramaToList<T>(_trama);
+            var _rows = ConverT.TramaToList<T>(_trama);
             return _rows;
         }
 

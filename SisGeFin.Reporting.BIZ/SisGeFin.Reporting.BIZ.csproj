@@ -67,8 +67,15 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       <DesignTime>True</DesignTime>
     </Compile>
-    <Compile Include="FilesRpt\PatrimonioKardexXArtic1.cs">
-      <DependentUpon>PatrimonioKardexXArtic1.rpt</DependentUpon>
+    <Compile Include="FilesRpt\PatrimonioInventarioX.cs">
+      <DependentUpon>PatrimonioInventarioX.rpt</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <SubType>Component</SubType>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="FilesRpt\KardexPatrimonio1.cs">
+      <DependentUpon>KardexPatrimonio1.rpt</DependentUpon>
       <AutoGen>True</AutoGen>
       <SubType>Component</SubType>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
@@ -95,7 +102,7 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       <DesignTime>True</DesignTime>
     </Compile>
-    <Compile Include="Runs.cs" />
+    <Compile Include="Reporting.cs" />
     <Compile Include="FilesRpt\PatrimonioInventario3.cs">
       <DependentUpon>PatrimonioInventario3.rpt</DependentUpon>
       <AutoGen>True</AutoGen>
@@ -103,8 +110,8 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       <DesignTime>True</DesignTime>
     </Compile>
-    <Compile Include="FilesRpt\PatrimonioInventXAño2.cs">
-      <DependentUpon>PatrimonioInventXAño2.rpt</DependentUpon>
+    <Compile Include="FilesRpt\PatrimonioInventXMovim1.cs">
+      <DependentUpon>PatrimonioInventXMovim1.rpt</DependentUpon>
       <AutoGen>True</AutoGen>
       <SubType>Component</SubType>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
@@ -162,9 +169,14 @@
       <LastGenOutput>PatrimonioInventario1.cs</LastGenOutput>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </EmbeddedResource>
-    <EmbeddedResource Include="FilesRpt\PatrimonioKardexXArtic1.rpt">
+    <EmbeddedResource Include="FilesRpt\PatrimonioInventarioX.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
-      <LastGenOutput>PatrimonioKardexXArtic1.cs</LastGenOutput>
+      <LastGenOutput>PatrimonioInventarioX.cs</LastGenOutput>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FilesRpt\KardexPatrimonio1.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>KardexPatrimonio1.cs</LastGenOutput>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </EmbeddedResource>
     <EmbeddedResource Include="FilesRpt\PatrimonioXOficina1.rpt">
@@ -187,9 +199,9 @@
       <LastGenOutput>PatrimonioInventario3.cs</LastGenOutput>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </EmbeddedResource>
-    <EmbeddedResource Include="FilesRpt\PatrimonioInventXAño2.rpt">
+    <EmbeddedResource Include="FilesRpt\PatrimonioInventXMovim1.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
-      <LastGenOutput>PatrimonioInventXAño2.cs</LastGenOutput>
+      <LastGenOutput>PatrimonioInventXMovim1.cs</LastGenOutput>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </EmbeddedResource>
     <EmbeddedResource Include="FilesRpt\PatrimonioInventXAño1.rpt">

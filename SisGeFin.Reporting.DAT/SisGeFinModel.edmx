@@ -5,6 +5,17 @@
     <!-- SSDL content -->
     <edmx:StorageModels>
     <Schema Namespace="SisGeFinModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="ReportesCR">
+          <Key>
+            <PropertyRef Name="IdReport" />
+          </Key>
+          <Property Name="IdReport" Type="smallint" Nullable="false" />
+          <Property Name="TitleRepo" Type="varchar" MaxLength="150" />
+          <Property Name="FiterView" Type="varchar" MaxLength="100" />
+          <Property Name="SpName" Type="varchar" MaxLength="100" />
+          <Property Name="FileName" Type="varchar" MaxLength="250" />
+          <Property Name="TypeName" Type="varchar" MaxLength="50" />
+        </EntityType>
         <!--Errores durante la generación:
 advertencia 6002: La tabla o vista 'BDSISGEFIN.dbo.vPatriminioInventario' no tiene definida ninguna clave principal. Se ha inferido la clave y la definición se creado como una vista o tabla de solo lectura.-->
         <EntityType Name="vPatriminioInventario">
@@ -14,17 +25,18 @@ advertencia 6002: La tabla o vista 'BDSISGEFIN.dbo.vPatriminioInventario' no tie
             <PropertyRef Name="IdMovimDet" />
             <PropertyRef Name="MesProceso" />
             <PropertyRef Name="OcNea" />
+            <PropertyRef Name="IdEstConserv" />
+            <PropertyRef Name="IdTipoMovim" />
             <PropertyRef Name="ValorCompra" />
             <PropertyRef Name="ValorInicial" />
-            <PropertyRef Name="IdTipoMovim" />
-            <PropertyRef Name="IdUbicacion" />
             <PropertyRef Name="IdResponsable" />
-            <PropertyRef Name="IdResponItem" />
+            <PropertyRef Name="IdUbicacion" />
             <PropertyRef Name="AñoEjecuc" />
             <PropertyRef Name="IdEstadoC" />
             <PropertyRef Name="IdEstadoD" />
             <PropertyRef Name="IdOficina" />
             <PropertyRef Name="IdUsuario" />
+            <PropertyRef Name="IdResponItem" />
           </Key>
           <Property Name="IdMovimInv" Type="int" Nullable="false" />
           <Property Name="IdMovimCab" Type="int" Nullable="false" />
@@ -46,34 +58,41 @@ advertencia 6002: La tabla o vista 'BDSISGEFIN.dbo.vPatriminioInventario' no tie
           <Property Name="NombreModelo" Type="varchar" MaxLength="40" />
           <Property Name="NombreResponCab" Type="varchar" MaxLength="150" />
           <Property Name="NombreResponsable" Type="varchar" MaxLength="211" />
+          <Property Name="NombreResponFisica" Type="varchar" MaxLength="211" />
           <Property Name="NombreCompleto" Type="varchar" MaxLength="272" />
           <Property Name="UsuarioItem" Type="varchar" MaxLength="211" />
           <Property Name="NomEstadoC" Type="varchar" MaxLength="30" />
           <Property Name="NomEstadoD" Type="varchar" MaxLength="30" />
           <Property Name="NombreOficina" Type="varchar" MaxLength="200" />
           <Property Name="NombreUbicacion" Type="varchar" MaxLength="120" />
+          <Property Name="NomEstConserv" Type="varchar" MaxLength="30" />
           <Property Name="CausaIngreso" Type="varchar" MaxLength="100" />
           <Property Name="TipoIngreso" Type="varchar" MaxLength="100" />
           <Property Name="SerieItem" Type="varchar" MaxLength="50" />
           <Property Name="MesProceso" Type="int" Nullable="false" />
           <Property Name="OcNea" Type="decimal" Precision="16" Scale="5" Nullable="false" />
           <Property Name="FechaNea" Type="varchar" MaxLength="10" />
+          <Property Name="IdEstConserv" Type="int" Nullable="false" />
+          <Property Name="IdTipoMovim" Type="varchar" MaxLength="2" Nullable="false" />
           <Property Name="ValorCompra" Type="decimal" Precision="16" Scale="5" Nullable="false" />
           <Property Name="ValorInicial" Type="decimal" Precision="16" Scale="2" Nullable="false" />
-          <Property Name="IdTipoMovim" Type="varchar" MaxLength="2" Nullable="false" />
-          <Property Name="IdUbicacion" Type="int" Nullable="false" />
           <Property Name="IdResponsable" Type="int" Nullable="false" />
-          <Property Name="IdResponItem" Type="int" Nullable="false" />
+          <Property Name="IdUbicacion" Type="int" Nullable="false" />
           <Property Name="AñoEjecuc" Type="int" Nullable="false" />
           <Property Name="IdEstadoC" Type="int" Nullable="false" />
           <Property Name="IdEstadoD" Type="int" Nullable="false" />
           <Property Name="IdOficina" Type="int" Nullable="false" />
           <Property Name="IdUsuario" Type="int" Nullable="false" />
+          <Property Name="IdResponItem" Type="int" Nullable="false" />
           <Property Name="IdFamilia" Type="varchar" MaxLength="20" />
           <Property Name="IdClase" Type="varchar" MaxLength="20" />
           <Property Name="IdGrupo" Type="varchar" MaxLength="5" />
         </EntityType>
+        <Function Name="uspKardexPatrimonio1ReporteCsv" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="param" Type="varchar" Mode="In" />
+        </Function>
         <EntityContainer Name="SisGeFinModelStoreContainer">
+          <EntitySet Name="ReportesCR" EntityType="Self.ReportesCR" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="vPatriminioInventario" EntityType="Self.vPatriminioInventario" store:Type="Views" store:Schema="dbo">
             <DefiningQuery>SELECT 
     [vPatriminioInventario].[IdMovimInv] AS [IdMovimInv], 
@@ -96,29 +115,32 @@ advertencia 6002: La tabla o vista 'BDSISGEFIN.dbo.vPatriminioInventario' no tie
     [vPatriminioInventario].[NombreModelo] AS [NombreModelo], 
     [vPatriminioInventario].[NombreResponCab] AS [NombreResponCab], 
     [vPatriminioInventario].[NombreResponsable] AS [NombreResponsable], 
+    [vPatriminioInventario].[NombreResponFisica] AS [NombreResponFisica], 
     [vPatriminioInventario].[NombreCompleto] AS [NombreCompleto], 
     [vPatriminioInventario].[UsuarioItem] AS [UsuarioItem], 
     [vPatriminioInventario].[NomEstadoC] AS [NomEstadoC], 
     [vPatriminioInventario].[NomEstadoD] AS [NomEstadoD], 
     [vPatriminioInventario].[NombreOficina] AS [NombreOficina], 
     [vPatriminioInventario].[NombreUbicacion] AS [NombreUbicacion], 
+    [vPatriminioInventario].[NomEstConserv] AS [NomEstConserv], 
     [vPatriminioInventario].[CausaIngreso] AS [CausaIngreso], 
     [vPatriminioInventario].[TipoIngreso] AS [TipoIngreso], 
     [vPatriminioInventario].[SerieItem] AS [SerieItem], 
     [vPatriminioInventario].[MesProceso] AS [MesProceso], 
     [vPatriminioInventario].[OcNea] AS [OcNea], 
     [vPatriminioInventario].[FechaNea] AS [FechaNea], 
+    [vPatriminioInventario].[IdEstConserv] AS [IdEstConserv], 
+    [vPatriminioInventario].[IdTipoMovim] AS [IdTipoMovim], 
     [vPatriminioInventario].[ValorCompra] AS [ValorCompra], 
     [vPatriminioInventario].[ValorInicial] AS [ValorInicial], 
-    [vPatriminioInventario].[IdTipoMovim] AS [IdTipoMovim], 
-    [vPatriminioInventario].[IdUbicacion] AS [IdUbicacion], 
     [vPatriminioInventario].[IdResponsable] AS [IdResponsable], 
-    [vPatriminioInventario].[IdResponItem] AS [IdResponItem], 
+    [vPatriminioInventario].[IdUbicacion] AS [IdUbicacion], 
     [vPatriminioInventario].[AñoEjecuc] AS [AñoEjecuc], 
     [vPatriminioInventario].[IdEstadoC] AS [IdEstadoC], 
     [vPatriminioInventario].[IdEstadoD] AS [IdEstadoD], 
     [vPatriminioInventario].[IdOficina] AS [IdOficina], 
     [vPatriminioInventario].[IdUsuario] AS [IdUsuario], 
+    [vPatriminioInventario].[IdResponItem] AS [IdResponItem], 
     [vPatriminioInventario].[IdFamilia] AS [IdFamilia], 
     [vPatriminioInventario].[IdClase] AS [IdClase], 
     [vPatriminioInventario].[IdGrupo] AS [IdGrupo]
@@ -131,6 +153,10 @@ advertencia 6002: La tabla o vista 'BDSISGEFIN.dbo.vPatriminioInventario' no tie
       <Schema Namespace="SisGeFinModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
         <EntityContainer Name="SisGeFinEntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="vPatriminioInventarios" EntityType="SisGeFinModel.vPatriminioInventario" />
+          <EntitySet Name="ReportesCR" EntityType="SisGeFinModel.ReporteCR" />
+          <FunctionImport Name="uspKardexPatrimonio1ReporteCsv" ReturnType="Collection(SisGeFinModel.vKardexPatrimonio)">
+            <Parameter Name="param" Mode="In" Type="String" />
+          </FunctionImport>
         </EntityContainer>
         <EntityType Name="vPatriminioInventario">
           <Key>
@@ -150,6 +176,7 @@ advertencia 6002: La tabla o vista 'BDSISGEFIN.dbo.vPatriminioInventario' no tie
             <PropertyRef Name="IdEstadoD" />
             <PropertyRef Name="IdOficina" />
             <PropertyRef Name="IdUsuario" />
+            <PropertyRef Name="IdEstConserv" />
           </Key>
           <Property Name="IdMovimInv" Type="Int32" Nullable="false" />
           <Property Name="IdMovimCab" Type="Int32" Nullable="false" />
@@ -197,7 +224,53 @@ advertencia 6002: La tabla o vista 'BDSISGEFIN.dbo.vPatriminioInventario' no tie
           <Property Name="IdFamilia" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
           <Property Name="IdClase" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
           <Property Name="IdGrupo" Type="String" MaxLength="5" FixedLength="false" Unicode="false" />
+          <Property Name="NombreResponFisica" Type="String" MaxLength="211" FixedLength="false" Unicode="false" />
+          <Property Name="NomEstConserv" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="IdEstConserv" Type="Int32" Nullable="false" />
         </EntityType>
+        <EntityType Name="ReporteCR">
+          <Key>
+            <PropertyRef Name="IdReport" />
+          </Key>
+          <Property Name="IdReport" Type="Int16" Nullable="false" />
+          <Property Name="TitleRepo" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+          <Property Name="FiterView" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="SpName" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="FileName" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+          <Property Name="TypeName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <ComplexType Name="vKardexPatrimonio">
+          <Property Type="Int32" Name="IdMovimInv" Nullable="false" />
+          <Property Type="String" Name="IdPatrimonio" Nullable="false" MaxLength="15" />
+          <Property Type="String" Name="NombrePatrimon" Nullable="false" MaxLength="200" />
+          <Property Type="String" Name="FechaCompra" Nullable="false" MaxLength="10" />
+          <Property Type="String" Name="FechaAlta" Nullable="false" MaxLength="10" />
+          <Property Type="String" Name="IdCtaMayor" Nullable="false" MaxLength="10" />
+          <Property Type="String" Name="NombreCtaMayor" Nullable="false" MaxLength="150" />
+          <Property Type="String" Name="IdSubCtaCon" Nullable="false" MaxLength="10" />
+          <Property Type="String" Name="NombreSubCta" Nullable="false" MaxLength="150" />
+          <Property Type="Int32" Name="NumeroMovim" Nullable="false" />
+          <Property Type="String" Name="FechaMovim" Nullable="false" MaxLength="10" />
+          <Property Type="String" Name="SerieItem" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="TipoIngreso" Nullable="false" MaxLength="100" />
+          <Property Type="String" Name="NombreMarca" Nullable="false" MaxLength="100" />
+          <Property Type="String" Name="NombreModelo" Nullable="false" MaxLength="40" />
+          <Property Type="String" Name="NomEstConserv" Nullable="false" MaxLength="30" />
+          <Property Type="String" Name="Grupo" Nullable="false" MaxLength="10" />
+          <Property Type="Int32" Name="IdMovimInv1" Nullable="true" />
+          <Property Type="Int32" Name="CorreMovim" Nullable="false" />
+          <Property Type="String" Name="FechaMovim1" Nullable="false" MaxLength="10" />
+          <Property Type="String" Name="MotivoMovim" Nullable="false" MaxLength="120" />
+          <Property Type="String" Name="NomTipoMovim" Nullable="false" MaxLength="18" />
+          <Property Type="String" Name="NombreRepara" Nullable="false" MaxLength="100" />
+          <Property Type="String" Name="NomProvOrig" Nullable="false" MaxLength="211" />
+          <Property Type="String" Name="NomUbicOrig" Nullable="false" MaxLength="120" />
+          <Property Type="String" Name="NomOficOrig" Nullable="false" MaxLength="200" />
+          <Property Type="String" Name="NomProvDest" Nullable="false" MaxLength="211" />
+          <Property Type="String" Name="NomUbicDest" Nullable="false" MaxLength="120" />
+          <Property Type="String" Name="NomOficDest" Nullable="false" MaxLength="200" />
+          <Property Type="String" Name="DocumReferen" Nullable="false" MaxLength="60" />
+        </ComplexType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -207,6 +280,9 @@ advertencia 6002: La tabla o vista 'BDSISGEFIN.dbo.vPatriminioInventario' no tie
           <EntitySetMapping Name="vPatriminioInventarios">
             <EntityTypeMapping TypeName="SisGeFinModel.vPatriminioInventario">
               <MappingFragment StoreEntitySet="vPatriminioInventario">
+                <ScalarProperty Name="IdEstConserv" ColumnName="IdEstConserv" />
+                <ScalarProperty Name="NomEstConserv" ColumnName="NomEstConserv" />
+                <ScalarProperty Name="NombreResponFisica" ColumnName="NombreResponFisica" />
                 <ScalarProperty Name="IdGrupo" ColumnName="IdGrupo" />
                 <ScalarProperty Name="IdClase" ColumnName="IdClase" />
                 <ScalarProperty Name="IdFamilia" ColumnName="IdFamilia" />
@@ -256,6 +332,54 @@ advertencia 6002: La tabla o vista 'BDSISGEFIN.dbo.vPatriminioInventario' no tie
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="ReportesCR">
+            <EntityTypeMapping TypeName="SisGeFinModel.ReporteCR">
+              <MappingFragment StoreEntitySet="ReportesCR">
+                <ScalarProperty Name="TypeName" ColumnName="TypeName" />
+                <ScalarProperty Name="FileName" ColumnName="FileName" />
+                <ScalarProperty Name="SpName" ColumnName="SpName" />
+                <ScalarProperty Name="FiterView" ColumnName="FiterView" />
+                <ScalarProperty Name="TitleRepo" ColumnName="TitleRepo" />
+                <ScalarProperty Name="IdReport" ColumnName="IdReport" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="uspKardexPatrimonio1ReporteCsv" FunctionName="SisGeFinModel.Store.uspKardexPatrimonio1ReporteCsv">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="SisGeFinModel.vKardexPatrimonio">
+                <ScalarProperty Name="IdMovimInv" ColumnName="IdMovimInv" />
+                <ScalarProperty Name="IdPatrimonio" ColumnName="IdPatrimonio" />
+                <ScalarProperty Name="NombrePatrimon" ColumnName="NombrePatrimon" />
+                <ScalarProperty Name="FechaCompra" ColumnName="FechaCompra" />
+                <ScalarProperty Name="FechaAlta" ColumnName="FechaAlta" />
+                <ScalarProperty Name="IdCtaMayor" ColumnName="IdCtaMayor" />
+                <ScalarProperty Name="NombreCtaMayor" ColumnName="NombreCtaMayor" />
+                <ScalarProperty Name="IdSubCtaCon" ColumnName="IdSubCtaCon" />
+                <ScalarProperty Name="NombreSubCta" ColumnName="NombreSubCta" />
+                <ScalarProperty Name="NumeroMovim" ColumnName="NumeroMovim" />
+                <ScalarProperty Name="FechaMovim" ColumnName="FechaMovim" />
+                <ScalarProperty Name="SerieItem" ColumnName="SerieItem" />
+                <ScalarProperty Name="TipoIngreso" ColumnName="TipoIngreso" />
+                <ScalarProperty Name="NombreMarca" ColumnName="NombreMarca" />
+                <ScalarProperty Name="NombreModelo" ColumnName="NombreModelo" />
+                <ScalarProperty Name="NomEstConserv" ColumnName="NomEstConserv" />
+                <ScalarProperty Name="Grupo" ColumnName="Grupo" />
+                <ScalarProperty Name="IdMovimInv1" ColumnName="IdMovimInv1" />
+                <ScalarProperty Name="CorreMovim" ColumnName="CorreMovim" />
+                <ScalarProperty Name="FechaMovim1" ColumnName="FechaMovim1" />
+                <ScalarProperty Name="MotivoMovim" ColumnName="MotivoMovim" />
+                <ScalarProperty Name="NomTipoMovim" ColumnName="NomTipoMovim" />
+                <ScalarProperty Name="NombreRepara" ColumnName="NombreRepara" />
+                <ScalarProperty Name="NomProvOrig" ColumnName="NomProvOrig" />
+                <ScalarProperty Name="NomUbicOrig" ColumnName="NomUbicOrig" />
+                <ScalarProperty Name="NomOficOrig" ColumnName="NomOficOrig" />
+                <ScalarProperty Name="NomProvDest" ColumnName="NomProvDest" />
+                <ScalarProperty Name="NomUbicDest" ColumnName="NomUbicDest" />
+                <ScalarProperty Name="NomOficDest" ColumnName="NomOficDest" />
+                <ScalarProperty Name="DocumReferen" ColumnName="DocumReferen" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

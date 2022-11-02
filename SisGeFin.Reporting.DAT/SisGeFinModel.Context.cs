@@ -12,6 +12,8 @@ namespace SisGeFin.Reporting.DAT
     using System;
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
+    using System.Data.Entity.Core.Objects;
+    using System.Linq;
     
     public partial class SisGeFinEntities : DbContext
     {
@@ -26,5 +28,15 @@ namespace SisGeFin.Reporting.DAT
         }
     
         public virtual DbSet<vPatriminioInventario> vPatriminioInventarios { get; set; }
+        public virtual DbSet<ReporteCR> ReportesCR { get; set; }
+    
+        public virtual ObjectResult<vKardexPatrimonio> uspKardexPatrimonio1ReporteCsv(string param)
+        {
+            var paramParameter = param != null ?
+                new ObjectParameter("param", param) :
+                new ObjectParameter("param", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<vKardexPatrimonio>("uspKardexPatrimonio1ReporteCsv", paramParameter);
+        }
     }
 }

@@ -20,32 +20,11 @@
             <div class="flex-gap marco">
 
                 <div>
-                    <span>Año</span>
-                    <input type="number" id="txtAñoEjecn" onchange="ActualizarSel()" class="form-control form-control-sm" min="2000" max="2100" value="2022" />
-                </div>
-
-                <div>
-                    <span>Oficinas</span>
-                    <select id="cboOficinas" onchange="CargarUbicas()" class="form-control form-control-sm" style="width:250px;"></select>
-                </div>
-
-                <div>
-                    <span>Ubicaciones</span>
-                    <select id="cboUbicaciones" onchange="ActualizarSel()" class="form-control form-control-sm" style="width:250px;"></select>
-                </div>
-
-                <div>
-                    <span>Responsable</span>
-                    <input type="number" id="txtResponsable" onchange="ActualizarSel()" class="form-control form-control-sm" />
-                </div>
-
-                <div>
-                    <span>Usuario</span>
-                    <input type="number" id="txtUsuario" onchange="ActualizarSel()" class="form-control form-control-sm" />
+                    <span>Movimiento</span>
+                    <input type="number" id="txtIdMovimC" onchange="ActualizarSel()" class="form-control form-control-sm" min="1" max="99999999" value="0" />
                 </div>
 
                 <div style="flex-direction: column;">
-
                     <table class="table table-sm" style="font-size:12px;">
                         <tr>
                             <td>
@@ -64,7 +43,6 @@
                             </td>
                         </tr>
                     </table>
-
                 </div>
 
                 <div>
@@ -73,7 +51,7 @@
 
             </div>
             <div>
-                <iframe id="iFrame" src="about://blank" frameborder="0"></iframe>
+                <iframe id="iFrame" title="Documento" src="about://blank" frameborder="0"></iframe>
             </div>
         </div>
     </div>
@@ -101,49 +79,12 @@
     }
 
     function ActualizarSel() {
-        const _txtAñoEjecn = document.getElementById('txtAñoEjecn');
-        const _cboOficinas = document.getElementById('cboOficinas');
-        const _cboUbicacns = document.getElementById('cboUbicaciones');
-        const _txtRespons = document.getElementById('txtResponsable');
-        const _txtUsuario = document.getElementById('txtUsuario');
+        const _AñoEjc = document.getElementById('txtIdMovimC');
         const _Params = document.getElementById('Params');
-        _Params.value = _txtAñoEjecn.value;
-        _Params.value += '|' + _cboOficinas.value;
-        _Params.value += '|' + _cboUbicacns.value;
-        _Params.value += '|' + _txtRespons.value;
-        _Params.value += '|' + _txtUsuario.value;
+        _Params.value = _AñoEjc.value;
     }
 
-    async function CargarUbicas() {
-        const _valor = document.getElementById('cboOficinas').value;
-        const _param = 'idOficina=' + _valor;
-        await CargarCombo('Ubicaciones', _param);
-        ActualizarSel();
-    }
-
-    async function CargarCombo(nombre, params) {
-        const _cboName = 'cbo' + nombre;
-        const _actName = 'Get' + nombre;
-
-        const _basUrl = '@Url.Action("X","Reportes")';
-        const _auxUrl = _basUrl.replace('X', _actName);
-
-        let _newUrl = _auxUrl;
-        if (params != null) {
-                _newUrl = _auxUrl + '/?' + params;
-            }
-
-        const response = await fetch(_newUrl);
-        _data = await response.text();
-        sessionStorage.setItem(_cboName, _data);
-
-        var _lista = _data.split('¬');
-        crearCombo(_lista, _cboName, "Seleccione un item.")
-    }
-
-    window.onload = async function ()
-    {
-        await CargarCombo('Oficinas');
+    window.onload = async function () {
         ActualizarSel();
     }
 
