@@ -9,44 +9,39 @@
         top: 0px !important;
         width: 100% !important;
         height: 100vh !important;
-        /*overflow: hidden;*/
+        overflow: hidden;
     }
 </style>
 
-<input type="hidden" id="FileNm" value='@ViewBag.FileNm' />
-<input type="hidden" id="SpName" value='@ViewBag.SpName' />
-<input type="hidden" id="TypeNm" value='@ViewBag.TypeNm' />
-<input type="hidden" id="Params" value='@ViewBag.Params' />
-<input type="hidden" id="Option" value='@ViewBag.Option' />
+<div style="display: none" >
+    <input type="text" id="FileNm" value='@ViewBag.FileNm' />
+    <input type="text" id="SpName" value='@ViewBag.SpName' />
+    <input type="text" id="TypeNm" value='@ViewBag.TypeNm' />
+    <input type="text" id="IdRept" value='@ViewBag.IdRept' />
+    <input type="text" id="Option" value='@ViewBag.Option' />
+    <input type="text" id="Params" value='@ViewBag.Params' />
+</div>
 
-<body style="overflow: hidden;">
-
-    <iframe id="iFrame" src="about://blank" frameborder="0"></iframe>
-
-</body>
-
+<iframe id="iFrame" title="Documento" src="about://blank" frameborder="0"></iframe>
 
 <script>
 
     function Consultar() {
-
+        mostrarProgreso('Consultando..');
+        const _iFrame = document.getElementById("iFrame");
         const _FileNm = document.getElementById("FileNm").value;
         const _SpName = document.getElementById("SpName").value;
         const _TypeNm = document.getElementById("TypeNm").value;
         const _Params = document.getElementById("Params").value;
         const _Option = document.getElementById("Option").value;
-
-        const _UrlDoc = `/rptViewer.aspx?FileNm=${_FileNm}&SpName=${_SpName}&TypeNm=${_TypeNm}&Params=${_Params}&r=${_Option}`;
-
-        const _iFrame = document.getElementById("iFrame");
-
+        const _UrlDoc = `/rptViewer.aspx?FileNm=${_FileNm}&SpName=${_SpName}&TypeNm=${_TypeNm}&Params=${_Params}&Option=${_Option}`;
         _iFrame.onload = function () {
             _iFrame.contentDocument.body.style = "margin: 0px; overflow: hidden;";
             _iFrame.contentDocument.cookie = "";
+            _iFrame.style.display = "block";
+            ocultarProgreso();
         }
-
         _iFrame.src = _UrlDoc;
-
     };
 
     window.onload = function () {

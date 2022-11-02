@@ -127,8 +127,8 @@
                                                             <input type="text" autocomplete="off" class="control-lectura Popup" readonly id="txtItem">
                                                         </div>
                                                         <div class="form-group col-sm-6">
-                                                            <label class="control-label">Patrimonio</label>
-                                                            <input type="text" autocomplete="off" class="control-lectura Popup" readonly id="txtCodigoPatrimonio">
+                                                            <label class="control-label">Cod. Patrimonio</label>
+                                                            <input type="text" autocomplete="off" class="control-lectura Popup" readonly id="txtCodigoPatrimonio" style="font-weight:bold; font-size:18px">
                                                             <input type="hidden" autocomplete="off" class="control-lectura Reque Popup" readonly id="txtDescripcion">
                                                         </div>
                                                     </div>
@@ -148,25 +148,25 @@
                                                     <div class="row">
                                                         <div class="form-group col-sm-12">
                                                             <label class="control-label">Oficina</label>
-                                                            <select class="control-form Reque Popup" id="cboOficina"></select>
+                                                            <select class="SelectSearch control-form Reque Popup" id="cboOficina"></select>
                                                         </div>
                                                     </div>
                                                     <div class="row">
                                                         <div class="form-group col-sm-12">
                                                             <label class="control-label">Ubic. Física</label>
-                                                            <select class="control-form Reque Popup" id="cboUbicaFisica"></select>
+                                                            <select class="SelectSearch control-form Reque Popup" id="cboUbicaFisica"></select>
                                                         </div>
                                                     </div>
                                                     <div class="row">
                                                         <div class="form-group col-sm-12">
-                                                            <label class="control-label">Responsable</label>
-                                                            <select class="control-form Reque Popup" id="cboResponsable"></select>
+                                                            <label class="control-label">Responsable de Oficina</label>
+                                                            <select class="SelectSearch control-form Reque Popup" id="cboResponsable"></select>
                                                         </div>
                                                     </div>
                                                     <div class="row">
                                                         <div class="form-group col-sm-12">
-                                                            <label class="control-label">Usuario Final</label>
-                                                            <select class="control-form Reque Popup" id="cboUsuarioFinal"></select>
+                                                            <label class="control-label">Responsable del Activo</label>
+                                                            <select class="SelectSearch control-form Reque Popup" id="cboUsuarioFinal"></select>
                                                         </div>
                                                     </div>
                                                     <hr />
@@ -276,7 +276,7 @@
                                                                 <div class="row">
                                                                     <div class="form-group col-sm-12">
                                                                         <label class="control-label">Proveedor</label>
-                                                                        <select class="control-form Reque Popup" id="cboProveedor"></select>
+                                                                        <select class="SelectSearch control-form Reque Popup" id="cboProveedor"></select>
                                                                     </div>
                                                                 </div>
                                                                 <div class="row">
@@ -318,7 +318,7 @@
                                                                 <div class="row">
                                                                     <div class="form-group col-sm-6">
                                                                         <label class="control-label">Nro Doc</label>
-                                                                        <input type="number" autocomplete="off" class="control-form Reque Popup" id="txtNumeroDoc">
+                                                                        <input type="text" autocomplete="off" class="control-form Reque Popup" id="txtNumeroDoc">
                                                                     </div>
                                                                     <div class="form-group col-sm-6">
                                                                         <label class="control-label">Fecha</label>
@@ -369,7 +369,7 @@
                                     <div class="modal-body">
                                         <div class="row">
                                             <div class="form-group col-sm-6">
-                                                <label class="control-label">Patrimonio</label>
+                                                <label class="control-label">Cod. Patrimonio</label>
                                                 <input type="text" autocomplete="off" class="control-lectura NoPopupEspTecnica" readonly id="txtCodigoMargesi">
                                             </div>
                                         </div>
@@ -381,7 +381,7 @@
                                         </div>
                                         <div class="row">
                                             <div class="form-group col-sm-12">
-                                                <label class="control-label">Observaciones</label>
+                                                <label class="control-label">Detallar</label>
                                                 <textarea class="control-form PopupEspTecnica" rows="5" id="ttaObservacionMargesi"></textarea>
                                             </div>
                                         </div>
@@ -667,17 +667,19 @@
                                                 <fieldset class="fieldset h-100 p-3">
                                                     <div class="row">
                                                         <div class="form-check form-check-inline col col-sm-8 m-0">
-                                                            <input class="form-check-input" type="radio" name="tipoRep" id="optAnio" checked>
-                                                            <label class="form-check-label" for="optOC">
-                                                                Por año
+                                                            <input class="form-check-input" type="radio" name="tipoRep" id="optAnioRep" checked>
+                                                            <label class="form-check-label" for="optAnioRep">
+                                                                Por Año
                                                             </label>
                                                         </div>
                                                         <div class="form-group col col-sm-4 m-0">
                                                             <input type="number" class="control-form RequeRep PopupRep" id="txtAnioRep" maxlength="4">
                                                         </div>
+                                                    </div>
+                                                    <div class="row">
                                                         <div class="form-check form-check-inline col col-sm-12">
-                                                            <input class="form-check-input" type="radio" name="tipoRep" id="optNroMov">
-                                                            <label class="form-check-label" for="optNEA">
+                                                            <input class="form-check-input" type="radio" name="tipoRep" id="optNroMovRep">
+                                                            <label class="form-check-label" for="optNroMovRep">
                                                                 Por Nro Movimiento
                                                             </label>
                                                         </div>

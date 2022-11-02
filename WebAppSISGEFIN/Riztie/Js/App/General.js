@@ -214,6 +214,30 @@ function obtenerVista(control, vista, controller) {
     window.sessionStorage.setItem("subme", subme);
 }
 
+function mostrarProgreso(mensaje) {
+    Swal.fire({
+        title: mensaje,
+        allowEscapeKey: false,
+        allowOutsideClick: false,
+        timer: 2000,
+        onOpen: () => {
+            swal.showLoading();
+        }
+    })
+}
+
+function ocultarProgreso() {
+    Swal.close();
+}
+
+function mostrarListo() {
+    Swal.fire({
+        title: 'Listo!',
+        type: 'success',
+        timer: 1000,
+        showConfirmButton: false
+    })
+}
 
 function mensajeAlerta(mensaje, alerta) {
     if (alerta == "error") {
