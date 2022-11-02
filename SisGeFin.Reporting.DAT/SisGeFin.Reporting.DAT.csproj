@@ -52,6 +52,9 @@
   <ItemGroup>
     <Compile Include="Codigo.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ReporteCR.cs">
+      <DependentUpon>SisGeFinModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="SisGeFinModel.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -66,6 +69,9 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>SisGeFinModel.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="vKardexPatrimonio.cs">
+      <DependentUpon>SisGeFinModel.tt</DependentUpon>
     </Compile>
     <Compile Include="vPatriminioInventario.cs">
       <DependentUpon>SisGeFinModel.tt</DependentUpon>

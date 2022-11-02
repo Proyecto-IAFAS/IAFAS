@@ -104,9 +104,15 @@
       <HintPath>..\DLL\itext.svg.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Newtonsoft.Json, Version=12.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.12.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="System.Net" />
     <Reference Include="System.Net.Http" />
+    <Reference Include="System.Net.Http.Formatting, Version=5.2.7.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.Client.5.2.7\lib\net45\System.Net.Http.Formatting.dll</HintPath>
+    </Reference>
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
     <Reference Include="System.Web.ApplicationServices" />
@@ -116,6 +122,12 @@
     <Reference Include="System.Drawing" />
     <Reference Include="System.Web" />
     <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Web.Http, Version=5.2.7.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.Core.5.2.7\lib\net45\System.Web.Http.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Http.WebHost, Version=5.2.7.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.WebHost.5.2.7\lib\net45\System.Web.Http.WebHost.dll</HintPath>
+    </Reference>
     <Reference Include="System.Xml" />
     <Reference Include="System.Configuration" />
     <Reference Include="System.Web.Services" />
@@ -1393,27 +1405,6 @@
     <Compile Include="Controllers\ReportesController.cs" />
     <Compile Include="Controllers\RRHHController.cs" />
     <Compile Include="Controllers\SecurityController.cs" />
-    <Compile Include="FilesRpt\PatrimonioAltas2.cs">
-      <DependentUpon>PatrimonioAltas2.rpt</DependentUpon>
-      <AutoGen>True</AutoGen>
-      <SubType>Component</SubType>
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-      <DesignTime>True</DesignTime>
-    </Compile>
-    <Compile Include="FilesRpt\PatrimonioAltas1.cs">
-      <DependentUpon>PatrimonioAltas1.rpt</DependentUpon>
-      <AutoGen>True</AutoGen>
-      <SubType>Component</SubType>
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-      <DesignTime>True</DesignTime>
-    </Compile>
-    <Compile Include="FilesRpt\PatrimonioInventario1.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>PatrimonioInventario1.rpt</DependentUpon>
-      <SubType>Component</SubType>
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Compile>
     <Compile Include="Filtros\FiltroAuditoria.cs" />
     <Compile Include="Filtros\FiltroAutenticacion.cs" />
     <Compile Include="Filtros\FiltroCifrado.cs" />
@@ -1435,7 +1426,6 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\web.config" />
-    <Content Include="FilesRpt\Ttx\PatrimonioInventario.ttx" />
     <None Include="packages.config" />
     <Content Include="Riztie\fonts\fontawesome-webfont.eot" />
     <Content Include="Riztie\fonts\fontawesome-webfont.ttf" />
@@ -1549,6 +1539,8 @@
     <Content Include="Views\Reportes\FiltroOFIUBI.cshtml" />
     <Content Include="Views\Reportes\FiltroRESPON.cshtml" />
     <Content Include="Views\Reportes\Index.cshtml" />
+    <Content Include="Views\Reportes\FiltroMOVIM.cshtml" />
+    <Content Include="Views\Reportes\FiltroARTIC.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -1563,29 +1555,16 @@
     <Folder Include="Riztie\Manual\" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="FilesRpt\PatrimonioAltas2.rpt">
-      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
-      <LastGenOutput>PatrimonioAltas2.cs</LastGenOutput>
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </EmbeddedResource>
-    <EmbeddedResource Include="FilesRpt\PatrimonioAltas1.rpt">
-      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
-      <LastGenOutput>PatrimonioAltas1.cs</LastGenOutput>
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </EmbeddedResource>
-    <EmbeddedResource Include="FilesRpt\PatrimonioInventario1.rpt">
-      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
-      <LastGenOutput>PatrimonioInventario1.cs</LastGenOutput>
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </EmbeddedResource>
-  </ItemGroup>
-  <ItemGroup>
     <Service Include="{C0C07587-41A7-46C8-8FBD-3F9C8EBE2DDC}" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\SisGeFin.Reporting.BIZ\SisGeFin.Reporting.BIZ.csproj">
       <Project>{31aaa752-cea2-4fbb-8355-b5365a8df432}</Project>
       <Name>SisGeFin.Reporting.BIZ</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\SisGeFin.Reporting.DAT\SisGeFin.Reporting.DAT.csproj">
+      <Project>{5b84ad3a-46c4-4561-b440-c27154648efc}</Project>
+      <Name>SisGeFin.Reporting.DAT</Name>
     </ProjectReference>
     <ProjectReference Include="..\SisGenFin.Common.Types\SisGeFin.Common.Types.csproj">
       <Project>{b053f8f5-0c8b-493c-bae7-4ed43f640fb9}</Project>

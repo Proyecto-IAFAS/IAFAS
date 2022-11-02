@@ -60,5 +60,8 @@ namespace SisGeFin.Reporting.DAT
         public string IdFamilia { get; set; }
         public string IdClase { get; set; }
         public string IdGrupo { get; set; }
+        public string NombreResponFisica { get; set; }
+        public string NomEstConserv { get; set; }
+        public int IdEstConserv { get; set; }
     }
 }
