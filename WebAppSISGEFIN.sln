@@ -21,6 +21,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "2 - Capa de Datos", "2 - Ca
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "3 - Capa de Negocios", "3 - Capa de Negocios", "{BF43F429-3691-4955-81ED-F12A630CDC3C}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SisGeFin.Reporting.ENT", "SisGeFin.Reporting.ENT\SisGeFin.Reporting.ENT.csproj", "{39D8E15B-B8BE-492B-BD1B-67A91911D1F4}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -47,6 +49,10 @@ Global
 		{31AAA752-CEA2-4FBB-8355-B5365A8DF432}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{31AAA752-CEA2-4FBB-8355-B5365A8DF432}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{31AAA752-CEA2-4FBB-8355-B5365A8DF432}.Release|Any CPU.Build.0 = Release|Any CPU
+		{39D8E15B-B8BE-492B-BD1B-67A91911D1F4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{39D8E15B-B8BE-492B-BD1B-67A91911D1F4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{39D8E15B-B8BE-492B-BD1B-67A91911D1F4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{39D8E15B-B8BE-492B-BD1B-67A91911D1F4}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -59,6 +65,7 @@ Global
 		{394D9DCD-4EA5-4E59-8902-78C6877A5552} = {98F4ACD4-F095-4C1A-A848-1EB6942881FE}
 		{47A6CA7F-F262-434A-80DA-02E8DA4FCA07} = {98F4ACD4-F095-4C1A-A848-1EB6942881FE}
 		{BF43F429-3691-4955-81ED-F12A630CDC3C} = {98F4ACD4-F095-4C1A-A848-1EB6942881FE}
+		{39D8E15B-B8BE-492B-BD1B-67A91911D1F4} = {47A6CA7F-F262-434A-80DA-02E8DA4FCA07}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {91DB127F-7D24-4531-878E-C6E23BA3329D}

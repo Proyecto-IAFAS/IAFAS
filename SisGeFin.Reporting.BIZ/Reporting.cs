@@ -61,8 +61,6 @@ namespace SisGeFin.Reporting.BIZ
                 var _readerQ = _commandQ.ExecuteReader();
                 var _dataRows = ConverT.ReaderToList(_readerQ, _customTy);
 
-                //var _dataRows2 = await _dbx.Database.SqlQuery(_customTy, string.Format(_sqlExecute, "@param"), param).ToListAsync();
-
                 _dbx.Database.Connection.Close();
 
                 if (_dataRows != null)
