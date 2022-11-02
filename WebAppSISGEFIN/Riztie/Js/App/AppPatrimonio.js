@@ -99,6 +99,10 @@ function getListar() {
         var anioConsulta = document.getElementById('txtPeriodoCons')?.value;
         data = anioConsulta;
     }
+    if (vista == "CuentaContable") {
+        var anioConsulta = document.getElementById('txtPeriodoCons')?.value;
+        data = anioConsulta;
+    }
     if (vista == "Bajas" || vista == "MantoActivo") {
         var anioConsulta = document.getElementById('txtPeriodoCons')?.value;
         data = anioConsulta;
@@ -277,7 +281,10 @@ function mostrarlistas(rpta) {
     if (rpta) {
         var listas = rpta.split("¯");
         var lista = listas[0].split("¬");
-        if (vista == "UbicaFisica") {
+        if (vista == "CuentaContable") {
+            grillaItem = new GrillaScroll(lista, "divLista", 100, 6, vista, controller, null, null, null, null, 38, false, null);
+        }
+       else if (vista == "UbicaFisica") {
             var listaOficina = listas[1].split("¬");
             var listaResponsable = listas[2].split("¬");
             var listaEstado = listas[3].split("¬");

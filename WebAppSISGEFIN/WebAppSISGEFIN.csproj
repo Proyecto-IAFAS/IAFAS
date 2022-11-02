@@ -1595,6 +1595,7 @@
     <Content Include="Views\Reportes\Index.cshtml" />
     <Content Include="Views\Reportes\FiltroMOVIM.cshtml" />
     <Content Include="Views\Reportes\FiltroARTIC.cshtml" />
+    <Content Include="Views\Patrimonio\CuentaContable.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
