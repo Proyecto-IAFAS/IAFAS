@@ -81,37 +81,49 @@
                                             <div class="row">
                                                 <div class="form-group col-sm-6">
                                                     <label class="control-label">Linea de Ingreso</label>
-                                                    <select id="cboLineaIngreso" class="control-form Reque Popup"></select>
+                                                    <select id="cboLineaIngreso" class="control-form Reque Popup" disabled></select>
                                                 </div>
                                                 <div class="form-group col-sm-3">
                                                     <label class="control-label">Moneda</label>
-                                                    <select id="cboMoneda" class="control-form Reque Popup"></select>
+                                                    <select id="cboMoneda" class="control-form Reque Popup" disabled></select>
                                                 </div>
                                                 <div class="form-group col-sm-3">
                                                     <label class="control-label">Importe</label>
                                                     <input type="text" autocomplete="off" class="control-form Reque Popup text-center" maxlength="30" id="txtImporte" onkeypress="return doubleCheck(event, this)">
                                                 </div>
                                             </div>
+                                            <div class="row">
+                                                <div class="form-group col-sm-10">
+                                                    <label class="control-label">Glosa</label>
+                                                    <textarea rows="4" class="control-form Reque Popup" maxlength="255" id="txtGlosa"> </textarea>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="form-group col-sm-10">
+                                                    <label class="control-label">Cliente</label>
+                                                    <select id="cboCliente" class="control-form Reque Popup"></select>
+                                                </div>
+                                            </div>
                                             <hr style="margin-bottom: 1px;margin-top: 1px;">
                                             @*<div class="row">
-                                                <div class="form-group col-sm-8">
-                                                    <input type="hidden" autocomplete="off" class="control-form Popup" maxlength="15" id="txtDni">
-                                                    <label class="control-label">Asegurado</label>
-                                                    <input type="text" autocomplete="off" class="control-lectura Popup" maxlength="30" id="txtNombreCompleto">
-                                                </div>
-                                                <div class="form-group col-sm-2">
-                                                    <label class="control-label"> &nbsp;&nbsp;</label>
-                                                    <button class="input-group-inverse btn btn-primary btn-sm" id="btnAgregarItem" data-toggle="tooltip" data-placement="bottom" title="Agregar Asegurado"><i class="fa fa-plus-circle fa-lg" aria-hidden="true"></i></button>
-                                                </div>
-                                            </div>*@
+            <div class="form-group col-sm-8">
+                <input type="hidden" autocomplete="off" class="control-form Popup" maxlength="15" id="txtDni">
+                <label class="control-label">Asegurado</label>
+                <input type="text" autocomplete="off" class="control-lectura Popup" maxlength="30" id="txtNombreCompleto">
+            </div>
+            <div class="form-group col-sm-2">
+                <label class="control-label"> &nbsp;&nbsp;</label>
+                <button class="input-group-inverse btn btn-primary btn-sm" id="btnAgregarItem" data-toggle="tooltip" data-placement="bottom" title="Agregar Asegurado"><i class="fa fa-plus-circle fa-lg" aria-hidden="true"></i></button>
+            </div>
+        </div>*@
                                             @*<div id="editConcepto" style="display:none">
-                                                <div class="row">
-                                                    <div class="form-group col-sm-10">
-                                                        <label class="control-label">Concepto</label>
-                                                        <textarea class="control-form Popup" placeholder="Escribe Aquí!" id="txtConcepto"></textarea>
-                                                    </div>
-                                                </div>
-                                            </div>*@
+            <div class="row">
+                <div class="form-group col-sm-10">
+                    <label class="control-label">Concepto</label>
+                    <textarea class="control-form Popup" placeholder="Escribe Aquí!" id="txtConcepto"></textarea>
+                </div>
+            </div>
+        </div>*@
 
 
                                         </fieldset>

@@ -210,6 +210,7 @@ function mostrarlistas(rpta) {
             var listaEntidadFin = listas[3].split("¬");
             var listaMoneda = listas[4].split("¬");
             var listaEstado = listas[5].split("¬");
+            var listaCliente = listas[6].split("¬");
             //var listaTotal = listas[6].split("¬");
             grillaItem = new GrillaScroll(lista, "divLista", 100, 6, vista, controller, null, null, true, null, 38, false, null);
             crearCombo(listaFormatoDoc, "cboFormatoDoc", "Seleccione");
@@ -217,8 +218,8 @@ function mostrarlistas(rpta) {
             crearCombo(listaEntidadFin, "cboEntidadFinanciera", "Seleccione");
             crearCombo(listaMoneda, "cboMoneda", "Seleccione");
             crearCombo(listaEstado, "cboEstado", "Seleccione");
+            crearCombo(listaCliente, "cboCliente", "Seleccione");
         }
-
         else {
             grillaItem = new GrillaScroll(lista, "divLista", 100, 6, vista, controller, null, null, true, botones, 38, false, null);
         }

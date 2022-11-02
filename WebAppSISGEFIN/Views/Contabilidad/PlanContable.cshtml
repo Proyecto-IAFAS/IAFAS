@@ -7,7 +7,7 @@
         <div class="main-body">
             <div class="card">
                 <div class="card-header bg-primary">
-                    <h3><i class="fa fa-file" aria-hidden="true"></i> PLAN CONTABLE GUBERNAMENTAL</h3>
+                    <h3><i class="fa fa-file" aria-hidden="true"></i> PLAN CONTABLE EMPRESARIAL</h3>
                 </div>
                 <div class="card-block">
                     <div class="form-row">
@@ -16,36 +16,29 @@
                             <input type="number" id="txtAnioFiscal" class="control-form" value="@ViewBag.Anio">
                         </div>
                         <div class="form-group col-sm-8 m-3">
-                            <button class="input-group-inverse btn btn-inverse" id="btnConsultar"><i class="fa fa-search fa-lg" aria-hidden="true"></i></button>
+                            @*<button class="input-group-inverse btn btn-inverse" id="btnConsultar"><i class="fa fa-search fa-lg" aria-hidden="true"></i></button>*@
                             <button class="input-group-inverse btn btn-primary" id="btnNuevo">Nuevo <i class="fa fa-plus-circle fa-lg" aria-hidden="true"></i></button>
-                            <button class="input-group-inverse btn btn-info" id="btnListado"> Ver Listado <i class="fa fa-list" aria-hidden="true"></i> </button>
+                            @*<button class="input-group-inverse btn btn-info" id="btnListado"> Ver Listado <i class="fa fa-list" aria-hidden="true"></i> </button>*@
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-lg-12">
-                            <div class="tab-header card">
-                                <ul class="nav nav-tabs md-tabs tab-timeline" role="tablist" id="mytab">
-                                    <li class="nav-item">
-                                        <a class="nav-link active" id="tabMayor" data-toggle="tab" href="#items" role="tab">MAYOR</a>
-                                        <div class="slide"></div>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a class="nav-link" id="tabSubCta" data-toggle="tab" href="#items" role="tab">SUB CUENTA</a>
-                                        <div class="slide"></div>
-                                    </li>
-                                </ul>
+                        <div class="col-xl-8 col-md-12">
+                            <div class="card">
+                                <div class="card-header">
+                                    <h5>CUENTA CONTABLE</h5>
+                                </div>
+                                <div class="card-block">
+                                    <div class="table-responsive" id="divLista"></div>
+                                </div>
                             </div>
-                            <div class="tab-content">
-                                <div class="tab-pane active" id="items" role="tabpanel">
-                                    <div class="card">
-                                        <div class="card-block">
-                                            <div class="form-row">
-                                                    <div class="form-group col-md-12">
-                                                        <div class="table-responsive" id="divLista"></div>
-                                                    </div>
-                                                </div>
-                                        </div>
-                                    </div>
+                        </div>
+                        <div class="col-xl-4 col-md-12">
+                            <div class="card">
+                                <div class="card-header">
+                                    <h5>DETALLE DE LA CUENTA</h5>
+                                </div>
+                                <div class="card-block">
+                                    <div class="table-responsive" id="divLista2"></div>
                                 </div>
                             </div>
                         </div>
@@ -58,117 +51,97 @@
                                         <h5 class="modal-title" id="tituloModal"></h5>
                                     </div>
                                     <div class="modal-body">
-                                        <section id="formTabMayor">
-                                            <div class="row">
-                                                <div class="form-group col-sm-4">
-                                                    <input type="hidden" class="control-form Popup" id="txtIdRegistro">
-                                                    <label class="control-label">Año</label>
-                                                    <input type="number" id="txtAnio" class="control-form Reque Popup" value="@ViewBag.Anio" placeholder="@ViewBag.Anio" autocomplete="off">
-                                                </div>
-                                                <div class="form-group col-sm-8">
-                                                    <label class="control-label">Cuenta Mayor</label>
-                                                    <input type="text" autocomplete="off" maxlength="20" id="txtCodigo" class="control-form Reque Popup" />
-                                                </div>
+                                        <div class="row">
+                                            <div class="form-group col-sm-10">
+                                                <label class="control-label">Nivel Sub Cuenta</label>
+                                                <input type="hidden" class="control-form Popup" id="txtIdRegistro">
+                                                <select id="cboSubCta" class="SelectSearch control-form Reque Popup"></select>
                                             </div>
-                                            <div class="row">
-                                                <div class="form-group col-sm-12">
-                                                    <label class="control-label">Nombre</label>
-                                                    <input type="text" autocomplete="off" id="txtNombre" class="control-form Reque Popup" />
-                                                </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="form-group col-sm-4">
+                                                <label class="control-label">Cuenta Contable</label>
+                                                <input type="number" autocomplete="off" id="txtCtaCble" class="control-form Reque Popup" />
                                             </div>
-                                            <div class="row">
-                                                <div class="form-group col-sm-4">
-                                                    <label class="control-label">Estado</label>
-                                                    <select id="cboEstado" class="control-lectura Reque Popup"></select>
-                                                </div>
+                                            <div class="form-group col-sm-8">
+                                                <label class="control-label">Nombre</label>
+                                                <input type="text" autocomplete="off" id="txtNombre" class="control-form Reque Popup" />
                                             </div>
-                                        </section>
-                                        <section id="formTabSubCta">
-                                            <div class="row">
-                                                <div class="form-group col-sm-4">
-                                                    <input type="hidden" class="control-form PopupSubCta" id="txtIdRegistroSubCta">
-                                                    <label class="control-label">Sub Cuenta</label>
-                                                    <input type="text" autocomplete="off" maxlength="20" id="txtCodigoSubCta" class="control-form RequeSubCta PopupSubCta" />
-                                                </div>
-                                                <div class="form-group col-sm-8">
-                                                    <label class="control-label">Nombre</label>
-                                                    <input type="text" autocomplete="off" id="txtNombreSubCta" class="control-form RequeSubCta PopupSubCta" />
-                                                </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-sm-6">
+                                                <fieldset class="fieldset">
+                                                    <legend class="legend">Tipo de cuenta</legend>
+                                                    <div class="form-check">
+                                                        <input class="form-check-input optionsTipo" type="radio" data-id="A" name="optionsTipo" id="optActivo" checked>
+                                                        <label class="form-check-label" for="optActivo">
+                                                            Activo
+                                                        </label>
+                                                    </div>
+                                                    <div class="form-check">
+                                                        <input class="form-check-input optionsTipo" type="radio" data-id="P" name="optionsTipo" id="optPasivo">
+                                                        <label class="form-check-label" for="optPasivo">
+                                                            Pasivo
+                                                        </label>
+                                                    </div>
+                                                    <div class="form-check">
+                                                        <input class="form-check-input optionsTipo" type="radio" data-id="E" name="optionsTipo" id="optResultado">
+                                                        <label class="form-check-label" for="optResultado">
+                                                            Resultado
+                                                        </label>
+                                                    </div>
+                                                    <div class="form-check">
+                                                        <input class="form-check-input optionsTipo" type="radio" data-id="N" name="optionsTipo" id="optNaturaleza">
+                                                        <label class="form-check-label" for="optNaturaleza">
+                                                            Naturaleza
+                                                        </label>
+                                                    </div>
+                                                    <div class="form-check">
+                                                        <input class="form-check-input optionsTipo" type="radio" data-id="F" name="optionsTipo" id="optFuncion">
+                                                        <label class="form-check-label" for="optFuncion">
+                                                            Función
+                                                        </label>
+                                                    </div>
+                                                    <div class="form-check">
+                                                        <input class="form-check-input optionsTipo" type="radio" data-id="O" name="optionsTipo" id="optOrden">
+                                                        <label class="form-check-label" for="optOrden">
+                                                            Orden
+                                                        </label>
+                                                    </div>
+                                                    <div class="form-check">
+                                                        <input class="form-check-input optionsTipo" type="radio" data-id="M" name="optionsTipo" id="optMayor">
+                                                        <label class="form-check-label" for="optMayor">
+                                                            Mayor
+                                                        </label>
+                                                    </div>
+                                                </fieldset>
                                             </div>
-                                            <div class="row">
-                                                <div class="form-group col-sm-12" hidden>
-                                                    <label class="control-label">Naturaleza</label>
-                                                    <input type="text" autocomplete="off" id="txtNaturalezaSubCta" class="control-form PopupSubCta" />
-                                                </div>
+                                            <div class="col-sm-6">
+                                                <fieldset class="fieldset">
+                                                    <legend class="legend">Nivel de cuenta</legend>
+                                                    <div class="row">
+                                                        <div class="col-sm-12">
+                                                            <div class="form-check form-check-inline">
+                                                                <input class="form-check-input optionsNivel" type="radio" data-id="B" name="optionsNivel" id="optBalance">
+                                                                <label class="form-check-label" for="optBalance">Balance</label>
+                                                            </div>
+                                                            <div class="form-check form-check-inline">
+                                                                <input class="form-check-input optionsNivel" type="radio" data-id="S" name="optionsNivel" id="optSubCuenta">
+                                                                <label class="form-check-label" for="optSubCuenta">Sub-Cuenta</label>
+                                                            </div>
+                                                            <div class="form-check form-check-inline">
+                                                                <input class="form-check-input optionsNivel" type="radio" data-id="R" name="optionsNivel" id="optRegistro">
+                                                                <label class="form-check-label" for="optRegistro">Registro</label>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </fieldset>
                                             </div>
-                                            <div class="row">
-                                                <div class="form-group col-sm-6">
-                                                    <label class="control-label">Cuenta Mayor</label>
-                                                    <select id="cboCuentaMayorSubCta" class="control-form RequeSubCta PopupSubCta"></select>
-                                                </div>
-                                                <div class="form-group col-sm-6">
-                                                    @*<label class="control-label">Fuente Financiamiento</label>*@
-                                                    <label class="control-label">Plan de Salud</label>
-                                                    <select id="cboFuenteFinanciamientoSubCta" class="control-form PopupSubCta"></select>
-                                                </div>
-                                            </div>
-                                            <div class="row">
-                                                <div class="form-group col-sm-4">
-                                                    <label class="control-label">Estado</label>
-                                                    <select id="cboEstadoSubCta" class="control-lectura RequeSubCta PopupSubCta"></select>
-                                                </div>
-                                            </div>
-                                        </section>
+                                        </div>
                                     </div>
                                     <div class="modal-footer">
                                         <button id="btnCancelar" class="btnCancelarForm" title="Cancelar"><i class="fa fa-undo" aria-hidden="true"></i>&nbsp;Cancelar</button>
                                         <button id="btnGuardar" class="btnGuardarForm bg-customer" title="Guardar datos"><span class="fa fa-save"></span>&nbsp;Grabar</button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="form-row">
-                        <div class="modal custom-modal" tabindex="-1" role="dialog" aria-hidden="true" id="divPopupContainerForm1" style="overflow-y:auto;">
-                            <div class="modal-dialog modal-xl bg-personalizado" id="divPopupWindowForm1" style="margin-top:15px;">
-                                <div class="modal-content">
-                                    <div id="divBarraForm1" class="modal-header bg-personalizado" style="cursor:move">
-                                        <h5 class="modal-title">Listado de Plan Contable Gubernamental</h5>
-                                    </div>
-                                    <div class="modal-body">
-                                        <div class="row">
-                                            <div class="form-group col-sm-3">
-                                                <label class="control-label">Año Fiscal</label>
-                                                <input type="text" class="control-form Popup" id="txtAnioPeridoInact" value="@ViewBag.Anio" autocomplete="off">
-                                            </div>
-                                            <div class="form-group col-sm-4">
-                                                <label class="control-label">Tipo de Cuenta</label>
-                                                <select id="cboTipoCuentaInact" class="control-form PopupInact">
-                                                    <option value="1">Cuenta Mayor</option>
-                                                    <option value="2">Sub Cuenta</option>
-                                                </select>
-                                            </div>
-                                            <div class="col-sm-1" style="padding-top: 12px;">
-                                                <button class="input-group-inverse btn btn-inverse btn-md" id="btnConsultarInact" data-toggle="tooltip" data-placement="bottom" title="Consultar BD"><i class="fa fa-search fa-lg" aria-hidden="true"></i></button>
-                                            </div>
-                                        </div>
-
-                                        <div class="row">
-                                            <div class="form-group col-md-12 text-center" id="spnLoadData" style="display:none">
-                                                <span style="color: #ff5252; border-color: black; font-weight: bold; ">
-                                                    <b>Procesando información  ..</b>
-                                                    <i class="fa fa-spinner fa-pulse fa-2x fa-fw"></i>
-                                                </span>
-                                            </div>
-                                            <div class="form-group col-md-12" id="listaInactivo" style="display:none">
-                                                <div class="table-responsive" id="divListaInactivo"></div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="modal-footer">
-                                        <button id="btnCancelarForm1" class="btnCancelarForm" title="Cancelar"><i class="fa fa-undo" aria-hidden="true"></i>&nbsp;Cancelar</button>
-                                        <button class="btnGuardarForm bg-customer" id="btnSeleccionarItems" title="btn btn-success"><span class="fa fa-hand-o-left"></span>&nbsp;Agregar Items</button>
                                     </div>
                                 </div>
                             </div>

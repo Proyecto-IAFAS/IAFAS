@@ -493,6 +493,32 @@ function configurarBotones() {
             btnGuardarMov.innerHTML = "<i class='fa fa-save'></i> Grabar";
             btnGuardarMov.disabled = false;
         }
+
+        if (vista == "Asignacion") {
+            esOrdenAprobado = false;
+
+            btnGuardarAsignacion.style.display = 'block';
+            document.querySelectorAll('.section-orden-aprobada').forEach(function (el) {
+                el.removeAttribute("hidden");
+            });
+
+            listaItemAsignacion.innerHTML = '';
+            cboUbiFisicaActual.innerHTML = '';
+            cboResItemActual.innerHTML = '';
+            cboUbiFisicaNuevo.innerHTML = '';
+
+            var txtAnioCab = document.getElementById("txtAnioCab");
+            if (txtAnioCab != null) txtAnioCab.value = anioFiscal;
+
+            var cboEstadoCab = document.getElementById("cboEstadoCab");
+            if (cboEstadoCab != null) cboEstadoCab.value = 1; // 1: PENDIENTE, 2:APROBADO
+
+            var dttFechaAsig = document.getElementById("dttFechaAsig");
+            if (dttFechaAsig != null) dttFechaAsig.value = obtenerFechaActualYYYMMDD();
+
+            btnGuardarAsignacion.innerHTML = "<i class='fa fa-save'></i> Grabar";
+            btnGuardarAsignacion.disabled = false;
+        }
     }
 
     var btnNuevo = document.getElementById("btnNuevo");
@@ -1031,6 +1057,47 @@ function configurarCombos() {
             }
         }
     }
+    if (vista == "Asignacion") {
+        var cboOfiActual = document.getElementById("cboOfiActual");
+        if (cboOfiActual != null) cboOfiActual.onchange = function () {
+            listarUbicaFisicaActual("cboOfiActual", 'cboUbiFisicaActual');
+
+            var oficina = cboOfiActual.value;
+            ConsultarItemsAsignables(oficina, '');
+        }
+
+        var cboUbiFisicaActual = document.getElementById("cboUbiFisicaActual");
+        if (cboUbiFisicaActual != null) cboUbiFisicaActual.onchange = function () {
+            var oficina = cboOfiActual.value;
+            var ubiFisica = cboUbiFisicaActual.value;
+            ConsultarItemsAsignables(oficina, ubiFisica);
+
+            listarRespItemActual("cboUbiFisicaActual", 'cboResItemActual');
+        }
+
+        var cboOfiNuevo = document.getElementById("cboOfiNuevo");
+        if (cboOfiNuevo != null) cboOfiNuevo.onchange = function () {
+            listarUbicaFisica("cboOfiNuevo", 'cboUbiFisicaNuevo');
+        }
+
+        var cboResItemActual = document.getElementById("cboResItemActual");
+        if (cboResItemActual != null) cboResItemActual.onchange = function () {
+            var oficina = cboOfiActual.value;
+            var ubiFisica = cboUbiFisicaActual.value;
+            var respItem = cboResItemActual.value;
+            ConsultarItemsAsignables(oficina, ubiFisica, respItem);
+        }
+    }
+    if (vista == "MantoActivo") {
+        var cboTipoMantenimientoCab = document.getElementById("cboTipoMantenimientoCab");
+        if (cboTipoMantenimientoCab != null) cboTipoMantenimientoCab.onchange = function () {
+            txtNroOrdenSecuenciaCab.value = "";
+            txtNroOrdenCab.value = "";
+            dttFechaOrdenCab.value = "";
+            cboProveedorCab.value = "";
+            txtTotalCab.value = "";
+        }
+    }
 }
 
 function seleccionarBoton(idGrilla, idRegistro, idBoton) {
@@ -1038,6 +1105,13 @@ function seleccionarBoton(idGrilla, idRegistro, idBoton) {
     //limpiarForm("PopupMov");
 
     if (idGrilla == "divLista") {
+        if (vista == "Asignacion") {
+            if (idBoton == "Ver") {
+                var ids = idRegistro.split('-');
+                editarRegistroActivo(ids[1]);
+            }
+        }
+
         if (idBoton == "Editar") {
             let tituloModal = document.getElementById("tituloModal");
             if (tituloModal != null) {
@@ -1131,6 +1205,43 @@ function mostrarRegistroMov(rpta) {
                 else
                     el.removeAttribute("hidden");
             });
+        }
+        if (vista == "Asignacion") {
+            txtSecuenciaAsig.value = campos[0];
+            txtAnioCab.value = campos[1];
+            txtNroTramite.value = campos[2];
+            cboEstadoCab.value = campos[3];
+
+            cboOfiActual.value = campos[4];
+            listarUbicaFisicaActual("cboOfiActual", 'cboUbiFisicaActual');
+
+            cboOfiNuevo.value = campos[5];
+            listarUbicaFisica("cboOfiNuevo", 'cboUbiFisicaNuevo');
+
+            cboUbiFisicaActual.value = campos[6];
+            cboUbiFisicaNuevo.value = campos[7];
+
+            listarRespItemActual("cboUbiFisicaActual", 'cboResItemActual');
+            cboResItemActual.value = campos[8];
+            cboResItemNuevo.value = campos[9];
+
+            cboAutoriza.value = campos[10];
+            dttFechaAsig.value = formatearFechaYYYMMDD(campos[11]);
+            txtReferencia.value = campos[12];
+            ttaMotivo.value = campos[13];
+
+            var detalles = campos[14].split(',');
+
+            esOrdenAprobado = campos[3] == EST_APROBADO;
+
+            document.getElementById("divPopupContainerMov").style.display = 'block';
+
+            ConsultarItemsAsignables(
+                !esOrdenAprobado ? cboOfiActual.value : cboOfiNuevo.value,
+                !esOrdenAprobado ? cboUbiFisicaActual.value : cboUbiFisicaNuevo.value,
+                !esOrdenAprobado ? cboResItemActual.value : cboResItemNuevo.value,
+                detalles
+            );
 
             document.querySelectorAll('.section-orden-aprobada').forEach(function (el) {
                 if (esOrdenAprobado)
@@ -1179,6 +1290,7 @@ function mostrarRegistroActivo(rpta, container) {
 
         chkEsActivoDepreciable.checked = esDepreciable;
         esBienDepreciable = esDepreciable;
+
 
         chkEsVerificacionFisica.checked = campos[21] == "1" ? true : false;
 
@@ -1735,6 +1847,28 @@ function mostrarListadoOrdenes(rpta) {
     }
 }
 
+function mostrarListadoItemsAsignacion(indices, rpta) {
+    if (rpta) {
+        var listas = rpta.split('¯');
+        lista = listas[0].split("¬");
+        grillaItems = new GrillaScroll(lista, "listaItemAsignacion", 1000, 6, "listaItemsAsignacion", "Admon", null, null, null, null, 25, false, true);
+
+        if (indices?.length > 0) {
+            var divListaItemsCheck = document.getElementById('tbDatalistaItemAsignacion');
+            var allcheck = divListaItemsCheck.getElementsByClassName("selcheckbox");
+
+            for (var p = 0; p < allcheck.length; p++) {
+                var fila = allcheck[p].parentNode.parentNode;
+                var id = fila.childNodes[1].innerText;
+
+                if (indices.indexOf(id) != -1) {
+                    allcheck[p].click();
+                }
+            }
+        }
+    }
+}
+
 function mostrarListadoItems(rpta) {
     if (rpta) {
         //spnLoad.style.display = 'none';
@@ -1799,6 +1933,30 @@ function grabarMantoActivos() {
 
     btnGuardarMov.innerHTML = "Guardando <i class='fa fa-circle-o-notch fa-spin' style='color:white'></i>";
     btnGuardarMov.disabled = true;
+}
+
+function grabarAsignacion() {
+    var data = "";
+    var ids = grillaItems.obtenerIdsChecks();
+    var filtroAnio = txtPeriodoCons.value;
+
+    data = obtenerDatosGrabar("PopupMov");
+
+    data += "|";
+
+    data += "¯";
+
+    data += ids.join(',')
+
+    data += "¯" + filtroAnio;
+
+    var frm = new FormData();
+    frm.append("data", data);
+
+    Http.post("General/guardar?tbl=" + controller + vista, mostrarGrabar, frm);
+
+    btnGuardarAsignacion.innerHTML = "Guardando <i class='fa fa-circle-o-notch fa-spin' style='color:white'></i>";
+    btnGuardarAsignacion.disabled = true;
 }
 
 function grabarBajas() {
@@ -1961,6 +2119,12 @@ function obtenerDatosGrabar(clase) {
     data = data.substr(0, data.length - 1);
 
     return data;
+}
+
+function ConsultarItemsAsignables(oficina, ubiFisica, respItem = '', ids = null) {
+    var data = anioFiscal + '|' + oficina + '|' + ubiFisica + '|' + respItem;
+
+    Http.get("General/listarTabla?tbl=" + controller + vista + "Items&data=" + data, mostrarListadoItemsAsignacion.bind(null, ids));
 }
 
 function mostrarEspecificacionesTecnicas(rpta) {
@@ -2662,6 +2826,12 @@ function mostrarGrabar(rpta) {
         if (vista == "InventarioInicial" || vista == "Altas") {
             limpiarListaActivos();
             getListar();
+        }
+        else if (vista == "Asignacion") {
+            grillaItem = new GrillaScroll(lista, "divLista", 100, 6, vista, controller, null, null, true, botonesAsignacion, 38, false, null);
+        }
+        else if (vista == "Cierre") {
+            grillaItem = new GrillaScroll(lista, "divLista", 100, 6, vista, controller, null, null, true, null, 38, false, null);
         }
         else {
             grillaItem = new GrillaScroll(lista, "divLista", 100, 6, vista, controller, null, null, true, botones, 38, false, null);
