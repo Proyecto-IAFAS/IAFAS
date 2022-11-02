@@ -62,6 +62,10 @@ var botonesAsignacion = [
     { "cabecera": "Anular", "clase": "fa fa-minus-circle btn btn-danger btnCirculo", "id": "Eliminar" },
 ]
 
+var botonesOrdenAprobada = [
+    { "cabecera": "Editar", "clase": "fa fa-search btn btn-info btnCirculo", "id": "Editar" },
+];
+
 var botonInventarioGeneral = [
     { "cabecera": "Editar", "clase": "fa fa-search btn btn-info btnCirculo", "id": "Editar" },
 ];
@@ -202,7 +206,6 @@ function configurarOpcionReportes() {
     if (vista == "General") {
         var optRepGeneral = document.getElementById("optRepGeneral");
         if (optRepGeneral) optRepGeneral.onchange = function () {
-            console.log("optRepGeneral");
             var controles = document.getElementsByClassName("divOptReporte");
             ocultarControles(controles);
 
@@ -215,7 +218,6 @@ function configurarOpcionReportes() {
 
         var optRepRespActivo = document.getElementById("optRepRespActivo");
         if (optRepRespActivo) optRepRespActivo.onchange = function () {
-            console.log("optRepRespActivo");
             var controles = document.getElementsByClassName("divOptReporte");
             ocultarControles(controles);
 
@@ -225,7 +227,6 @@ function configurarOpcionReportes() {
 
         var optRepOficinaYUbiFis = document.getElementById("optRepOficinaYUbiFis");
         if (optRepOficinaYUbiFis) optRepOficinaYUbiFis.onchange = function () {
-            console.log("optRepOficinaYUbiFis");
             var controles = document.getElementsByClassName("divOptReporte");
             ocultarControles(controles);
 
@@ -236,7 +237,6 @@ function configurarOpcionReportes() {
 
         var optRepGrupoClaseFam = document.getElementById("optRepGrupoClaseFam");
         if (optRepGrupoClaseFam) optRepGrupoClaseFam.onchange = function () {
-            console.log("optRepGrupoClaseFam");
             var controles = document.getElementsByClassName("divOptReporte");
             ocultarControles(controles);
 
@@ -248,7 +248,6 @@ function configurarOpcionReportes() {
 
         var optRepKardex = document.getElementById("optRepKardex");
         if (optRepKardex) optRepKardex.onchange = function () {
-            console.log("optRepKardex");
             var controles = document.getElementsByClassName("divOptReporte");
             ocultarControles(controles);
 
@@ -259,7 +258,6 @@ function configurarOpcionReportes() {
 
         var optRepSinUbiFis = document.getElementById("optRepSinUbiFis");
         if (optRepSinUbiFis) optRepSinUbiFis.onchange = function () {
-            console.log("optRepSinUbiFis");
             var controles = document.getElementsByClassName("divOptReporte");
             ocultarControles(controles);
 
@@ -268,7 +266,6 @@ function configurarOpcionReportes() {
 
         var optRepSinCtaContable = document.getElementById("optRepSinCtaContable");
         if (optRepSinCtaContable) optRepSinCtaContable.onchange = function () {
-            console.log("optRepSinCtaContable");
             var controles = document.getElementsByClassName("divOptReporte");
             ocultarControles(controles);
 
@@ -518,6 +515,12 @@ function configurarBotones() {
         limpiarForm("NoPopupMov");
 
         if (vista == "Altas") {
+            esOrdenAprobado = false;
+
+            btnGuardarMov.style.display = 'block';
+            btnNuevo.style.display = 'block';
+            btnGuardar.style.display = 'block';
+
             document.getElementById("detalleActivo").style.display = 'none';
 
             var txtAnioCab = document.getElementById("txtAnioCab");
@@ -1069,12 +1072,8 @@ function configurarBotones() {
         }
 
         if (vista == 'General') {
-            //var filtroAnio = txtPeriodoCons.value;
-            //var data = filtroAnio;
-            //getObtenerReporteGeneralAltas(data);
             var data = obtenerDatosGrabar("PopupRep");
             var datos = data.split('|');
-            console.log(datos);
 
             var anioRep = datos[0];
             var oficinaRep = datos[1];
@@ -1162,8 +1161,6 @@ function configurarBotones() {
 
                 url = url + '/Reportes/ShowRpt/?area=Patrimonio&name=InventXAño&idrp=1&par=' + data + '&r=1';
             }
-
-            console.log(data);
 
             ifrmVistaPrevia.src = url;
 
@@ -1414,9 +1411,11 @@ function mostrarRegistroMov(rpta) {
             txtNroOrdenCab.value = campos[9];
 
             document.getElementById("divPopupContainerMov").style.display = 'block';
+            esOrdenAprobado = campos[5] != EST_PENDIENTE;
+
             getListarMovActivos(campos[0]);
 
-            actualizarBotones(campos[5])
+            actualizarBotones()
         }
         if (vista == "MantoActivo") {
             txtNroMovCab.value = campos[0];
@@ -1497,7 +1496,6 @@ function mostrarRegistroMov(rpta) {
     }
 }
 function mostrarRegistroActivo(rpta, container) {
-    console.log("mostrarRegistroActivo");
     if (rpta) {
         var campos = rpta.split("|");
         document.getElementById(container ? container : "divPopupContainer").style.display = 'block';
@@ -1824,7 +1822,6 @@ function mostrarEliminar(rpta) {
 }
 
 function seleccionarFila(fila, id, prefijo) {
-    console.log(fila);
     idRegistro = id;
     window["id" + prefijo] = id;
     if (window["fila" + prefijo] != null) window["fila" + prefijo].className = "FilaDatos";
@@ -2091,15 +2088,21 @@ function mostrarlistaSubTipos(rpta) {
 }
 
 function mostrarlistasActivos(rpta) {
-    var divLista = 'divListaActivo'
+    var divLista = 'divListaActivo';
+    var botonesTabla = botones;
+
     if (vista == "Altas") {
         document.getElementById("detalleActivo").style.display = 'block';
-        var divLista = 'divListaActivo'
+        var divLista = 'divListaActivo';
+
+        if (esOrdenAprobado)
+            botonesTabla = botonesOrdenAprobada;
     }
+
     if (rpta) {
         var listas = rpta.split("¯");
         var lista = listas[0].split("¬");
-        grillaItem = new GrillaScroll(lista, divLista, 100, 6, vista, controller, null, null, true, botones, 38, false, null);
+        grillaItem = new GrillaScroll(lista, divLista, 100, 6, vista, controller, null, null, true, botonesTabla, 38, false, null);
     }
 }
 
@@ -3102,9 +3105,11 @@ function mostrarGrabarMov(rpta) {
     }
 }
 
-function actualizarBotones(idEstado) {
-    var esAprobado = (idEstado != EST_PENDIENTE)
+function actualizarBotones() {
+    var esAprobado = esOrdenAprobado;
+
     if (vista == "Altas") {
+        console.log(esAprobado);
         if (esAprobado) {
             btnGuardarMov.style.display = 'none';
             btnNuevo.style.display = 'none';
