@@ -1083,28 +1083,29 @@ function configurarBotones() {
             var grupoRep = datos[5];
             var claseRep = datos[6];
             var familiaRep = datos[7];
-            var codItem = datos[8];
+            var codItem = datos[9];
 
             var url = location.origin;
 
             if (optRepGeneral.checked) {
                 var params = anioRep + '|' + oficinaRep + '|' + ubiFisRep + '|' + respOfiRep + '|' + respActivoRep;
-                url = url + '/Reportes/ShowRpt/?area=Patrimonio&name=Inventario&idrp=3&par=' + params + '&r=1'
+                url = url + '/Reportes/ShowRpt/?id=3&par=' + params + '&r=1'
+                console.log(url);
             }
 
             if (optRepRespActivo.checked) {
                 var params = anioRep + '|' + respActivoRep;
-                url = url + '/Reportes/ShowRpt/?area=Patrimonio&name=XResponsab&idrp=1&par=' + params + '&r=1'
+                url = url + '/Reportes/ShowRpt/?id=6&par=' + params + '&r=1'
             }
 
             if (optRepOficinaYUbiFis.checked) {
                 var params = anioRep + '|' + oficinaRep + '|' + ubiFisRep;
-                url = url + '/Reportes/ShowRpt/?area=Patrimonio&name=XOficina&idrp=1&par=' + params + '&r=1'
+                url = url + '/Reportes/ShowRpt/?id=7&par=' + params + '&r=1'
             }
 
             if (optRepGrupoClaseFam.checked) {
                 var params = anioRep + '|' + grupoRep + '|' + claseRep + '|' + familiaRep;
-                url = url + '/Reportes/ShowRpt/?area=Patrimonio&name=XGrpClsFam&idrp=1&par=' + params + '&r=1'
+                url = url + '/Reportes/ShowRpt/?id=8&par=' + params + '&r=1'
             }
 
             if (optRepKardex.checked) {
@@ -1118,17 +1119,17 @@ function configurarBotones() {
                     return false;
                 }
 
-                url = url + '/Reportes/ShowRpt/?area=Patrimonio&name=KardexXArtic&idrp=1&par=' + params + '&r=1'
+                url = url + '/Reportes/ShowRpt/?id=10&par=' + params + '&r=1'
             }
 
             if (optRepSinUbiFis.checked) {
                 var params = anioRep;
-                url = url + '/Reportes/ShowRpt/?area=Patrimonio&name=ActivosSinUbi&idrp=1&par=' + params + '&r=1'
+                url = url + '/Reportes/ShowRpt/?id=9&par=' + params + '&r=1'
             }
 
             if (optRepSinCtaContable.checked) {
                 var params = anioRep;
-                url = url + '/Reportes/ShowRpt/?area=Patrimonio&name=ActivosSinCta&idrp=1&par=' + params + '&r=1'
+                url = url + '/Reportes/ShowRpt/?id=11&par=' + params + '&r=1'
             }
 
             ifrmVistaPrevia.src = url;
@@ -1145,7 +1146,7 @@ function configurarBotones() {
 
             if (optAnioRep.checked) {
                 data = obtenerDatosGrabar("PopupRep");
-                url = url + '/Reportes/ShowRpt/?area=Patrimonio&name=InventXAño&idrp=1&par=' + data + '&r=1';
+                url = url + '/Reportes/ShowRpt/?id=4&par=' + data + '&r=1';
             }
 
             if (optNroMovRep.checked) {
@@ -1159,7 +1160,7 @@ function configurarBotones() {
                     return false;
                 }
 
-                url = url + '/Reportes/ShowRpt/?area=Patrimonio&name=InventXAño&idrp=1&par=' + data + '&r=1';
+                url = url + '/Reportes/ShowRpt/?id=5&par=' + data + '&r=1';
             }
 
             ifrmVistaPrevia.src = url;
