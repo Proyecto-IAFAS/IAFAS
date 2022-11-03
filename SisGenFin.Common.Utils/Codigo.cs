@@ -88,8 +88,10 @@ namespace SisGeFin.Common.Utils
         public static List<T> ReaderToList<T>(IDataReader pReader)
         {
             if (pReader == null) { return null; }
+
             List<T> _lstDest = new List<T>();
             T _objDest;
+
             while (pReader.Read())
             {
                 _objDest = Activator.CreateInstance<T>();
@@ -120,9 +122,41 @@ namespace SisGeFin.Common.Utils
             }
             pReader.Close();
             return _lstDest;
+
         }
 
-        public static T ObjectToObj<T>(object source)
+        public static T ReaderToObjt<T>(IDataReader pReader)
+        {
+            pReader.Read();
+            T _objDest = Activator.CreateInstance<T>();
+            foreach (PropertyInfo P in _objDest.GetType().GetProperties())
+            {
+                try
+                {
+                    var iCol = pReader.GetOrdinal(P.Name);
+                    var xVal = pReader.GetValue(iCol);
+                    if (!Object.Equals(xVal, DBNull.Value))
+                    {
+                        if (P.PropertyType.FullName.Contains("DateTime") == true)
+                        {
+                            P.SetValue(_objDest, xVal, null);
+                        }
+                        else
+                        {
+                            P.SetValue(_objDest, System.Convert.ChangeType(xVal, P.PropertyType), null);
+                        }
+                    }
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine(ex.Message);
+                }
+            }
+            pReader.Close();
+            return _objDest;
+        }
+
+        public static T ObjectToObjt<T>(object source)
         {
             var _jsonOri = JsonObj.ObjToJson(source);
             var _newObjt = JsonObj.JsonToObj<T>(_jsonOri);

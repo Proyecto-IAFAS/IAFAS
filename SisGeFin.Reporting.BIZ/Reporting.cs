@@ -14,7 +14,8 @@ namespace SisGeFin.Reporting.BIZ
 {
     public static class Reporting
     {
-        private static SisGeFinEntities _dbx = new SisGeFinEntities();
+
+        private static SisGeFinServer _server = new SisGeFinServer(); 
 
         private static ReportDocument OpenDocumRPT(string fileRpt)
         {
@@ -41,34 +42,25 @@ namespace SisGeFin.Reporting.BIZ
             
         }
          
-        private static async Task<xResponse<dynamic>> GetDataFromDbxAsync(string spName, string typeNm, string param)
+        private static xResponse<dynamic> GetDataFromDbx(string spName, string typeNm, string param)
         {
             var _response = new xResponse<dynamic>();
             try
             {
-
-                string _fileBase = "SisGeFin.Reporting.DAT.{0}";    
+                string _fileBase = "SisGeFin.Reporting.ENT.{0}";    
                 string _fileType = AppDomain.CurrentDomain.BaseDirectory + "bin\\" + string.Format(_fileBase, "dll");
                 Assembly _assembly = Assembly.LoadFrom(_fileType);
                 Type _customTy = _assembly.GetType(string.Format(_fileBase, typeNm));
-                string _sqlExecute = "dbo." + spName + " '{0}'";
+                string _sqlString = $"Exec dbo.{spName} '{param}'"; 
 
-                if (_dbx.Database.Connection.State == ConnectionState.Closed) { _dbx.Database.Connection.Open(); }
+                var _datRows = _server.ExecReaderToList(_sqlString, _customTy); 
 
-                var _commandQ = _dbx.Database.Connection.CreateCommand();
-                _commandQ.CommandType = CommandType.Text;
-                _commandQ.CommandText = string.Format(_sqlExecute, param);
-                var _readerQ = _commandQ.ExecuteReader();
-                var _dataRows = ConverT.ReaderToList(_readerQ, _customTy);
-
-                _dbx.Database.Connection.Close();
-
-                if (_dataRows != null)
+                if (_datRows != null)
                 {
-                    if (_dataRows.Count > 0)
+                    if (_datRows.Count > 0)
                     {
-                        _response.Message = $"Se hallaron {_dataRows.Count} registros.";
-                        _response.Content = _dataRows;
+                        _response.Message = $"Se hallaron {_datRows.Count} registros.";
+                        _response.Content = _datRows;
                         _response.IsOk = true;
                     }
                     else
@@ -86,19 +78,15 @@ namespace SisGeFin.Reporting.BIZ
                 _response.Message = ex.Message;
                 _response.IsOk = false;
             }
-            finally
-            {
-                _dbx.Database.Connection.Close();
-            }
             return _response;
         }
 
-        public static async Task<xResponse<dynamic>> GetReportRptAsync(string fileRpt, string spName, string typeNm, string paramx, string user, string opt)
+        public static xResponse<dynamic> GetReportRpt(string fileRpt, string spName, string typeNm, string paramx, string user, string opt)
         {
             var _response = new xResponse<dynamic>();
             try
             {
-                var _rptData = await GetDataFromDbxAsync(spName, typeNm, paramx);
+                var _rptData = GetDataFromDbx(spName, typeNm, paramx);
 
                 if (_rptData.IsOk == true)
                 {
@@ -146,8 +134,7 @@ namespace SisGeFin.Reporting.BIZ
             var _response = new xResponse<dynamic>();
             try
             {
-                _dbx = new SisGeFinEntities();
-                var _rows = _dbx.ReportesCR.ToList();
+                var _rows = _server.GetReportes();
                 if (_rows != null)
                 {
                     _response.Message = $"Se hallaron {_rows.Count} registros.";
@@ -178,8 +165,7 @@ namespace SisGeFin.Reporting.BIZ
             var _response = new xResponse<dynamic>();
             try
             {
-                var _regist = _dbx.ReportesCR.Where(q => q.IdReport == idRpt).FirstOrDefault();
-
+                var _regist = _server.GetReporte(idRpt);
                 if (_regist != null)
                 {
                     _response.Message = $"Se halló el registro solicitado.";

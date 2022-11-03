@@ -17,7 +17,7 @@ namespace SisGeFin.Reporting.ENT
         public string TypeName { get; set; }
     }
 
-    public class KardexPatrimonioRpt
+    public class KardexPatrimonio
     {
         public short IdMovimInv { get; set; }
         public string IdPatrimonio { get; set; }
@@ -51,7 +51,7 @@ namespace SisGeFin.Reporting.ENT
         public string DocumReferen { get; set; }
     }
 
-    public class vPatriminioInventario
+    public class PatriminioInventario
     {
         public int IdMovimInv { get; set; }
         public int IdMovimCab { get; set; }
