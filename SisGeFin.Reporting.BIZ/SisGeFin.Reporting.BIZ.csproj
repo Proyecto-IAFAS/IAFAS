@@ -53,6 +53,13 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Entities.cs" />
+    <Compile Include="FilesRpt\PatrimonioSinCtaConta1.cs">
+      <DependentUpon>PatrimonioSinCtaConta1.rpt</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <SubType>Component</SubType>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <DesignTime>True</DesignTime>
+    </Compile>
     <Compile Include="FilesRpt\PatrimonioActivosSinUbi1.cs">
       <DependentUpon>PatrimonioActivosSinUbi1.rpt</DependentUpon>
       <AutoGen>True</AutoGen>
@@ -145,6 +152,14 @@
       <Project>{5b84ad3a-46c4-4561-b440-c27154648efc}</Project>
       <Name>SisGeFin.Reporting.DAT</Name>
     </ProjectReference>
+    <ProjectReference Include="..\SisGeFin.Reporting.ENT\SisGeFin.Reporting.ENT.csproj">
+      <Project>{39d8e15b-b8be-492b-bd1b-67a91911d1f4}</Project>
+      <Name>SisGeFin.Reporting.ENT</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\SisGenFin.Common.SqlServer\SisGeFin.Common.SqlServer.csproj">
+      <Project>{7feceef9-fbdf-48e9-957a-8dd23232a429}</Project>
+      <Name>SisGeFin.Common.SqlServer</Name>
+    </ProjectReference>
     <ProjectReference Include="..\SisGenFin.Common.Types\SisGeFin.Common.Types.csproj">
       <Project>{B053F8F5-0C8B-493C-BAE7-4ED43F640FB9}</Project>
       <Name>SisGeFin.Common.Types</Name>
@@ -159,6 +174,11 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="FilesRpt\PatrimonioSinCtaConta1.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>PatrimonioSinCtaConta1.cs</LastGenOutput>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
     <EmbeddedResource Include="FilesRpt\PatrimonioActivosSinUbi1.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
       <LastGenOutput>PatrimonioActivosSinUbi1.cs</LastGenOutput>
