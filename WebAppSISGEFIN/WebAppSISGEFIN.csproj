@@ -1453,18 +1453,10 @@
     <Content Include="Views\Security\UserPerfil.cshtml" />
     <Content Include="Views\Security\Usuario.cshtml" />
     <Content Include="Views\Logistica\DashCompras.cshtml" />
-    <Content Include="Views\Logistica\Proveedor.cshtml" />
-    <Content Include="Views\Logistica\Oficina.cshtml" />
     <Content Include="Views\Logistica\OrdenCompra.cshtml" />
     <Content Include="Riztie\Js\Design\coming-soon.min.js" />
     <Content Include="Views\Security\Login - Copia.cshtml" />
     <Content Include="Views\Logistica\CondicionCompra.cshtml" />
-    <Content Include="Views\Logistica\Formato.cshtml" />
-    <Content Include="Views\Logistica\Grupo.cshtml" />
-    <Content Include="Views\Logistica\Clase.cshtml" />
-    <Content Include="Views\Logistica\Familia.cshtml" />
-    <Content Include="Views\Logistica\Articulo.cshtml" />
-    <Content Include="Views\Logistica\UniMed.cshtml" />
     <Content Include="Views\Logistica\PedidoCompra.cshtml" />
     <Content Include="Views\Logistica\SolicitudCompra.cshtml" />
     <Content Include="Views\Logistica\Cotizacion.cshtml" />
@@ -1596,6 +1588,16 @@
     <Content Include="Views\Reportes\FiltroMOVIM.cshtml" />
     <Content Include="Views\Reportes\FiltroARTIC.cshtml" />
     <Content Include="Views\Patrimonio\CuentaContable.cshtml" />
+    <Content Include="Views\Configuracion\ClasificadorCuenta.cshtml" />
+    <Content Include="Views\Configuracion\Articulo.cshtml" />
+    <Content Include="Views\Configuracion\Clase.cshtml" />
+    <Content Include="Views\Configuracion\Familia.cshtml" />
+    <Content Include="Views\Configuracion\Formato.cshtml" />
+    <Content Include="Views\Configuracion\Grupo.cshtml" />
+    <Content Include="Views\Configuracion\Oficina.cshtml" />
+    <Content Include="Views\Configuracion\Proveedor.cshtml" />
+    <Content Include="Views\Configuracion\UniMed.cshtml" />
+    <Content Include="Views\Presupuesto\Actividad.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

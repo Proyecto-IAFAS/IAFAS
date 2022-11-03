@@ -50,5 +50,86 @@ namespace WebAppSISGEFIN.Controllers
             ViewBag.Menu = new Menu().Listar(IdPerfil);
             return View();
         }
+
+        [FiltroAutenticacion]
+        public ActionResult Proveedor()
+        {
+            string[] Data = Session["DataUsuario"].ToString().Split('|');
+            string IdPerfil = Data[3];
+            ViewBag.Menu = new Menu().Listar(IdPerfil);
+            return View();
+        }
+
+        [FiltroAutenticacion]
+        public ActionResult Oficina()
+        {
+            string[] Data = Session["DataUsuario"].ToString().Split('|');
+            string IdPerfil = Data[3];
+            ViewBag.Menu = new Menu().Listar(IdPerfil);
+            return View();
+        }
+        
+        [FiltroAutenticacion]
+        public ActionResult Formato()
+        {
+            string[] Data = Session["DataUsuario"].ToString().Split('|');
+            string IdPerfil = Data[3];
+            ViewBag.Menu = new Menu().Listar(IdPerfil);
+            return View();
+        }
+
+        [FiltroAutenticacion]
+        public ActionResult Grupo()
+        {
+            string[] Data = Session["DataUsuario"].ToString().Split('|');
+            string IdPerfil = Data[3];
+            ViewBag.Menu = new Menu().Listar(IdPerfil);
+            return View();
+        }
+
+        [FiltroAutenticacion]
+        public ActionResult Clase()
+        {
+            string[] Data = Session["DataUsuario"].ToString().Split('|');
+            string IdPerfil = Data[3];
+            ViewBag.Menu = new Menu().Listar(IdPerfil);
+            return View();
+        }
+
+        [FiltroAutenticacion]
+        public ActionResult Familia()
+        {
+            string[] Data = Session["DataUsuario"].ToString().Split('|');
+            string IdPerfil = Data[3];
+            ViewBag.Menu = new Menu().Listar(IdPerfil);
+            return View();
+        }
+
+        [FiltroAutenticacion]
+        public ActionResult Articulo()
+        {
+            string[] Data = Session["DataUsuario"].ToString().Split('|');
+            string IdPerfil = Data[3];
+            ViewBag.Menu = new Menu().Listar(IdPerfil);
+            return View();
+        }
+
+        [FiltroAutenticacion]
+        public ActionResult UniMed()
+        {
+            string[] Data = Session["DataUsuario"].ToString().Split('|');
+            string IdPerfil = Data[3];
+            ViewBag.Menu = new Menu().Listar(IdPerfil);
+            return View();
+        }
+
+        [FiltroAutenticacion]
+        public ActionResult ClasificadorCuenta()
+        {
+            string[] Data = Session["DataUsuario"].ToString().Split('|');
+            string IdPerfil = Data[3];
+            ViewBag.Menu = new Menu().Listar(IdPerfil);
+            return View();
+        }
     }
 }

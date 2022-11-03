@@ -277,6 +277,7 @@ function configurarOpcionReportes() {
         };
     }
 }
+
 function mostrarlistas(rpta) {
     if (rpta) {
         var listas = rpta.split("¯");
@@ -1870,6 +1871,20 @@ function seleccionarFila(fila, id, prefijo) {
     }
     if ((vista == "Altas") && prefijo == "divLista") {
         idRegistroRep = id;
+    }
+
+    if (vista == "CuentaContable") {
+        Http.get("General/listarTabla?tbl=ContabilidadPlanContableDetalle" + "&data=" + idRegistro, function (response) {
+            if (response) {
+                var campos = response.split("|");
+                lblBalance.innerHTML = campos[0];
+                lblCta.innerHTML = campos[1];
+                lblSubCta.innerHTML = campos[2];
+            }
+            else {
+                mostrarMensaje("No se encontro el detalle de la cuenta", "error");
+            }
+        });
     }
 }
 
