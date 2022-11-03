@@ -11,15 +11,11 @@ var operacion = 0;
 var listaOficina_VG = [];
 var idTabActivo = "";
 var tipoPlanCta = "";
-
 var listaGrupoItem = [];
 var listaClaseItem = [];
 var listaFamiliaItem = [];
 var listaSubCuentaItem = [];
 var listaClasificadorItem = [];
-
-//const CTA_MAYOR = "Mayor";
-//const SUB_CTA = "SubCta";
 
 window.onload = function () {
     getConfigMn();
@@ -35,10 +31,8 @@ window.onload = function () {
 
 function getListar() {
     var data = "";
-    var txtAnio = document.getElementById("txtAnio");
-    if (txtAnio != null) {
-        data = txtAnio.value;
-    }
+    var anio = document.getElementById('txtAnio')?.value;
+    data = anio;
     Http.get("General/listarTabla?tbl=" + controller + vista + "&data=" + data, mostrarlistas);
 }
 
@@ -852,8 +846,6 @@ function configurarCombos() {
             });
         }
     }
-
-
 }
 
 function mostrarEliminar(rpta) {
@@ -896,6 +888,19 @@ function seleccionarFila(fila, id, prefijo) {
     if (window["fila" + prefijo] != null) window["fila" + prefijo].className = "FilaDatos";
     fila.className = "FilaSeleccionada";
     window["fila" + prefijo] = fila;
+    if (vista == "PlanContable") {
+        Http.get("General/listarTabla?tbl=" + controller + vista + "Detalle" + "&data=" + idRegistro, function (response) {
+            if (response) {
+                var campos = response.split("|");
+                lblBalance.innerHTML = campos[0];
+                lblCta.innerHTML = campos[1];
+                lblSubCta.innerHTML = campos[2];
+            }
+            else {
+                mostrarMensaje("No se encontro el detalle de la cuenta", "error");
+            }
+        });
+    }
 }
 
 function mostrarFormTabPlanCta(idTab) {

@@ -4,11 +4,11 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{5B84AD3A-46C4-4561-B440-C27154648EFC}</ProjectGuid>
+    <ProjectGuid>{7FECEEF9-FBDF-48E9-957A-8DD23232A429}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>SisGeFin.Reporting.DAT</RootNamespace>
-    <AssemblyName>SisGeFin.Reporting.DAT</AssemblyName>
+    <RootNamespace>SisGeFin.Common</RootNamespace>
+    <AssemblyName>SisGeFin.Common.SqlServer</AssemblyName>
     <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <Deterministic>true</Deterministic>
@@ -32,10 +32,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
-    <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
-    <Reference Include="System.Runtime.Serialization" />
-    <Reference Include="System.Security" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -48,21 +45,6 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="App.Config" />
-    <None Include="packages.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\SisGeFin.Reporting.ENT\SisGeFin.Reporting.ENT.csproj">
-      <Project>{39d8e15b-b8be-492b-bd1b-67a91911d1f4}</Project>
-      <Name>SisGeFin.Reporting.ENT</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\SisGenFin.Common.SqlServer\SisGeFin.Common.SqlServer.csproj">
-      <Project>{7feceef9-fbdf-48e9-957a-8dd23232a429}</Project>
-      <Name>SisGeFin.Common.SqlServer</Name>
-    </ProjectReference>
     <ProjectReference Include="..\SisGenFin.Common.Utils\SisGeFin.Common.Utils.csproj">
       <Project>{b6616e28-5b06-4cfe-9967-44362a4497c9}</Project>
       <Name>SisGeFin.Common.Utils</Name>

@@ -51,13 +51,6 @@
     <Reference Include="CrystalDecisions.ReportSource, Version=13.0.4000.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=MSIL" />
     <Reference Include="CrystalDecisions.Shared, Version=13.0.4000.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=MSIL" />
     <Reference Include="CrystalDecisions.Web, Version=13.0.4000.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=MSIL" />
-    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.dll</HintPath>
-    </Reference>
-    <Reference Include="EntityFramework.SqlServer">
-      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
-    </Reference>
     <Reference Include="EPPlus, Version=5.8.7.0, Culture=neutral, PublicKeyToken=ea159fdaa78159a1, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\DLL\EPPlus.dll</HintPath>
@@ -1453,18 +1446,10 @@
     <Content Include="Views\Security\UserPerfil.cshtml" />
     <Content Include="Views\Security\Usuario.cshtml" />
     <Content Include="Views\Logistica\DashCompras.cshtml" />
-    <Content Include="Views\Logistica\Proveedor.cshtml" />
-    <Content Include="Views\Logistica\Oficina.cshtml" />
     <Content Include="Views\Logistica\OrdenCompra.cshtml" />
     <Content Include="Riztie\Js\Design\coming-soon.min.js" />
     <Content Include="Views\Security\Login - Copia.cshtml" />
     <Content Include="Views\Logistica\CondicionCompra.cshtml" />
-    <Content Include="Views\Logistica\Formato.cshtml" />
-    <Content Include="Views\Logistica\Grupo.cshtml" />
-    <Content Include="Views\Logistica\Clase.cshtml" />
-    <Content Include="Views\Logistica\Familia.cshtml" />
-    <Content Include="Views\Logistica\Articulo.cshtml" />
-    <Content Include="Views\Logistica\UniMed.cshtml" />
     <Content Include="Views\Logistica\PedidoCompra.cshtml" />
     <Content Include="Views\Logistica\SolicitudCompra.cshtml" />
     <Content Include="Views\Logistica\Cotizacion.cshtml" />
@@ -1596,6 +1581,16 @@
     <Content Include="Views\Reportes\FiltroMOVIM.cshtml" />
     <Content Include="Views\Reportes\FiltroARTIC.cshtml" />
     <Content Include="Views\Patrimonio\CuentaContable.cshtml" />
+    <Content Include="Views\Configuracion\ClasificadorCuenta.cshtml" />
+    <Content Include="Views\Configuracion\Articulo.cshtml" />
+    <Content Include="Views\Configuracion\Clase.cshtml" />
+    <Content Include="Views\Configuracion\Familia.cshtml" />
+    <Content Include="Views\Configuracion\Formato.cshtml" />
+    <Content Include="Views\Configuracion\Grupo.cshtml" />
+    <Content Include="Views\Configuracion\Oficina.cshtml" />
+    <Content Include="Views\Configuracion\Proveedor.cshtml" />
+    <Content Include="Views\Configuracion\UniMed.cshtml" />
+    <Content Include="Views\Presupuesto\Actividad.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -1617,9 +1612,9 @@
       <Project>{31aaa752-cea2-4fbb-8355-b5365a8df432}</Project>
       <Name>SisGeFin.Reporting.BIZ</Name>
     </ProjectReference>
-    <ProjectReference Include="..\SisGeFin.Reporting.DAT\SisGeFin.Reporting.DAT.csproj">
-      <Project>{5b84ad3a-46c4-4561-b440-c27154648efc}</Project>
-      <Name>SisGeFin.Reporting.DAT</Name>
+    <ProjectReference Include="..\SisGeFin.Reporting.ENT\SisGeFin.Reporting.ENT.csproj">
+      <Project>{39D8E15B-B8BE-492B-BD1B-67A91911D1F4}</Project>
+      <Name>SisGeFin.Reporting.ENT</Name>
     </ProjectReference>
     <ProjectReference Include="..\SisGenFin.Common.Types\SisGeFin.Common.Types.csproj">
       <Project>{b053f8f5-0c8b-493c-bae7-4ed43f640fb9}</Project>

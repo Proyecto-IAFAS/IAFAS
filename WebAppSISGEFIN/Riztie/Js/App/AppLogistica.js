@@ -1537,8 +1537,6 @@ function configurarBotones() {
             if (idRegistro) {
                 Http.getDownloadBytes("General/descargarOrden?idOrden=" + idRegistro, function (data) {
                     if (data.byteLength > 0) {
-                        //archivo = idRegistro + ".pdf";
-                        //descargarArchivo(data, obtenerMime());
                         var blob = new Blob([data], { "type": "application/pdf" });
                         ifrOrden.src = URL.createObjectURL(blob);
                     }

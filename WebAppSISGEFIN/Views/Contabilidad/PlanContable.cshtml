@@ -10,17 +10,6 @@
                     <h3><i class="fa fa-file" aria-hidden="true"></i> PLAN CONTABLE EMPRESARIAL</h3>
                 </div>
                 <div class="card-block">
-                    <div class="form-row">
-                        <div class="form-group col-sm-2">
-                            <label class="control-label">Año Fiscal</label>
-                            <input type="number" id="txtAnioFiscal" class="control-form" value="@ViewBag.Anio">
-                        </div>
-                        <div class="form-group col-sm-8 m-3">
-                            @*<button class="input-group-inverse btn btn-inverse" id="btnConsultar"><i class="fa fa-search fa-lg" aria-hidden="true"></i></button>*@
-                            <button class="input-group-inverse btn btn-primary" id="btnNuevo">Nuevo <i class="fa fa-plus-circle fa-lg" aria-hidden="true"></i></button>
-                            @*<button class="input-group-inverse btn btn-info" id="btnListado"> Ver Listado <i class="fa fa-list" aria-hidden="true"></i> </button>*@
-                        </div>
-                    </div>
                     <div class="row">
                         <div class="col-xl-8 col-md-12">
                             <div class="card">
@@ -28,7 +17,16 @@
                                     <h5>CUENTA CONTABLE</h5>
                                 </div>
                                 <div class="card-block">
-                                    <div class="table-responsive" id="divLista"></div>
+                                    <div class="form-row">
+                                        <div class="form-group col-sm-12">
+                                            <button class="input-group-inverse btn btn-primary" id="btnNuevo">Nuevo <i class="fa fa-plus-circle fa-lg" aria-hidden="true"></i></button>
+                                        </div>
+                                    </div>
+                                    <div class="form-row">
+                                        <div class="form-group col-sm-12">
+                                            <div class="table-responsive" id="divLista"></div>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -38,7 +36,23 @@
                                     <h5>DETALLE DE LA CUENTA</h5>
                                 </div>
                                 <div class="card-block">
-                                    <div class="table-responsive" id="divLista2"></div>
+                                    <div class="row">
+                                        <div class="col-sm-12">
+                                            <label id="lblBalance" class="control-label"></label>
+                                        </div>
+                                    </div>
+                                    <hr />
+                                    <div class="row">
+                                        <div class="col-sm-12">
+                                            <label id="lblCta" class="control-label"></label>
+                                        </div>
+                                    </div>
+                                    <hr />
+                                    <div class="row">
+                                        <div class="col-sm-12">
+                                            <label id="lblSubCta" class="control-label"></label>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -52,6 +66,33 @@
                                     </div>
                                     <div class="modal-body">
                                         <div class="row">
+                                            <div class="col-sm-8">
+                                                <fieldset class="fieldset">
+                                                    <legend class="legend">Nivel de cuenta</legend>
+                                                    <div class="row">
+                                                        <div class="col-sm-12">
+                                                            <div class="form-check form-check-inline">
+                                                                <input class="form-check-input optionsNivel" type="radio" data-id="B" name="optionsNivel" id="optBalance">
+                                                                <label class="form-check-label" for="optBalance">Balance</label>
+                                                            </div>
+                                                            <div class="form-check form-check-inline">
+                                                                <input class="form-check-input optionsNivel" type="radio" data-id="S" name="optionsNivel" id="optCuenta">
+                                                                <label class="form-check-label" for="optCuenta">Cuenta</label>
+                                                            </div>
+                                                            <div class="form-check form-check-inline">
+                                                                <input class="form-check-input optionsNivel" type="radio" data-id="S" name="optionsNivel" id="optSubCuenta">
+                                                                <label class="form-check-label" for="optSubCuenta">Sub-Cuenta</label>
+                                                            </div>
+                                                            <div class="form-check form-check-inline">
+                                                                <input class="form-check-input optionsNivel" type="radio" data-id="R" name="optionsNivel" id="optRegistro">
+                                                                <label class="form-check-label" for="optRegistro">Registro</label>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </fieldset>
+                                            </div>
+                                        </div>
+                                        <div class="row">
                                             <div class="form-group col-sm-10">
                                                 <label class="control-label">Nivel Sub Cuenta</label>
                                                 <input type="hidden" class="control-form Popup" id="txtIdRegistro">
@@ -59,17 +100,21 @@
                                             </div>
                                         </div>
                                         <div class="row">
-                                            <div class="form-group col-sm-4">
+                                            <div class="form-group col-sm-3">
                                                 <label class="control-label">Cuenta Contable</label>
-                                                <input type="number" autocomplete="off" id="txtCtaCble" class="control-form Reque Popup" />
+                                                <label id="lblCuentaContable" class="control-label">101113</label>
                                             </div>
-                                            <div class="form-group col-sm-8">
+                                            <div class="form-group col-sm-3">
+                                                <label class="control-label">Divisionaria</label>
+                                                <input type="number" autocomplete="off" id="txtDivisionaria" class="control-form Reque Popup" />
+                                            </div>
+                                            <div class="form-group col-sm-6">
                                                 <label class="control-label">Nombre</label>
                                                 <input type="text" autocomplete="off" id="txtNombre" class="control-form Reque Popup" />
                                             </div>
                                         </div>
                                         <div class="row">
-                                            <div class="col-sm-6">
+                                            <div class="col-sm-4">
                                                 <fieldset class="fieldset">
                                                     <legend class="legend">Tipo de cuenta</legend>
                                                     <div class="form-check">
@@ -116,27 +161,7 @@
                                                     </div>
                                                 </fieldset>
                                             </div>
-                                            <div class="col-sm-6">
-                                                <fieldset class="fieldset">
-                                                    <legend class="legend">Nivel de cuenta</legend>
-                                                    <div class="row">
-                                                        <div class="col-sm-12">
-                                                            <div class="form-check form-check-inline">
-                                                                <input class="form-check-input optionsNivel" type="radio" data-id="B" name="optionsNivel" id="optBalance">
-                                                                <label class="form-check-label" for="optBalance">Balance</label>
-                                                            </div>
-                                                            <div class="form-check form-check-inline">
-                                                                <input class="form-check-input optionsNivel" type="radio" data-id="S" name="optionsNivel" id="optSubCuenta">
-                                                                <label class="form-check-label" for="optSubCuenta">Sub-Cuenta</label>
-                                                            </div>
-                                                            <div class="form-check form-check-inline">
-                                                                <input class="form-check-input optionsNivel" type="radio" data-id="R" name="optionsNivel" id="optRegistro">
-                                                                <label class="form-check-label" for="optRegistro">Registro</label>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </fieldset>
-                                            </div>
+                                            
                                         </div>
                                     </div>
                                     <div class="modal-footer">

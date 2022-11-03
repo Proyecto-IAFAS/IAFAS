@@ -13,7 +13,8 @@ namespace WebAppSISGEFIN
  
         protected void Page_Load(object sender, EventArgs e)
         {
-            string _urlReprt = "";
+            string _urlRept = "";
+            string _message = "";
             try
             {
                 string _GetUserName() {
@@ -34,7 +35,7 @@ namespace WebAppSISGEFIN
                 string _Option = Request["Option"];         
                 string _UserNm = _GetUserName();
 
-                xResponse<dynamic> _rptDocum = Reporting.GetReportRptAsync(_FileNm, _SpName, _TypeNm, _Params, _UserNm, _Option).Result;
+                xResponse <dynamic> _rptDocum = Reporting.GetReportRpt(_FileNm, _SpName, _TypeNm, _Params, _UserNm, _Option);
 
                 if (_rptDocum.IsOk == true)
                 {
@@ -60,43 +61,21 @@ namespace WebAppSISGEFIN
                 }
                 else
                 {
-                    if (_rptDocum.Code == 2)
-                    {
-                        _urlReprt = $"~/Reportes/MsgRpt/?msg={_rptDocum.Message}&e=2";
-                        Response.Redirect(_urlReprt);
-                    }
-                    else
-                    {
-                        throw new Exception(_rptDocum.Message);
-                    }
+                    _message = _rptDocum.Message.Replace("\n", " ").Replace("\r", " ");
+                    _urlRept = $"~/Reportes/MsgRpt/?msg={_message}&e=2";
                 }
             }
             catch (Exception ex)
             {
-                string _msgError = ex.Message.Replace("\n", " ").Replace("\r", " ");
-                _urlReprt = $"~/Reportes/MsgRpt/?msg={_msgError}&e=3";
-                Response.Redirect(_urlReprt);
+                _message = ex.Message.Replace("\n", " ").Replace("\r", " ");
+                _urlRept = $"~/Reportes/MsgRpt/?msg={_message}&e=3";
             }
 
-            //finally
-            //{
-            //    if (_urlReprt != "")
-            //    {
-            //        if (_fullName != "")
-            //        {
-            //            Timer _timer = new Timer(3000);
-            //            void _timer_Elapsed(object snd, ElapsedEventArgs evt)
-            //            {
-            //                File.Delete(_fullName);
-            //                _timer.Stop();
-            //            };                    
-            //            _timer.Elapsed += _timer_Elapsed;        
-            //            _timer.Start();
-            //        }
-            //        Response.Redirect(_urlReprt);
-            //    }
-            //}
-                 
+            if (_urlRept != "")
+            {
+                Response.Redirect(_urlRept);
+            }
+
         }
 
     }

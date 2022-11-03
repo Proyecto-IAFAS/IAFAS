@@ -20,7 +20,7 @@ namespace WebAppSISGEFIN.Controllers
         public ActionResult Index()
         {
             var _result = Reporting.GetLstReportes();
-            var _lstRps = ConverT.ObjectToObj<IEnumerable<rReporteCR>>(_result.Content);
+            var _lstRps = ConverT.ObjectToObjt<IEnumerable<rReporteCR>>(_result.Content);
             return View("Index", _lstRps);
         }
 
@@ -78,7 +78,7 @@ namespace WebAppSISGEFIN.Controllers
         public ActionResult ShowRpt(int id, string par, string r)
         {
             var _result = Reporting.GetOneReporte(id);
-            rReporteCR _report = ConverT.ObjectToObj<rReporteCR>(_result.Content);
+            rReporteCR _report = ConverT.ObjectToObjt<rReporteCR>(_result.Content);
             ViewBag.FileNm = _report.FileName.Replace("\n", "").Replace("\r", "");
             ViewBag.SpName = _report.SpName.Replace("\n", "").Replace("\r", "");
             ViewBag.TypeNm = _report.TypeName.Replace("\n", "").Replace("\r", "");
