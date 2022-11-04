@@ -279,7 +279,6 @@ function configurarOpcionReportes() {
         };
     }
 }
-
 function mostrarlistas(rpta) {
     if (rpta) {
         var listas = rpta.split("¯");
@@ -318,6 +317,9 @@ function mostrarlistas(rpta) {
 
             setPorcentajes(listas[14]);
             setUIT(listas[15]);
+
+            anioFiscal = listas[16].split("|")[0];
+            periodo = listas[16].split("|")[1];
 
             crearCombo(listaCentroCosto, "cboCentroCostoCons", "Ninguno");
             crearCombo(listaOficina, "cboOficinaCons", "Ninguno");
@@ -736,7 +738,7 @@ function configurarBotones() {
                 cancelButtonText: 'No'
             }).then((result) => {
                 if (result.value) {
-                    //grabarBajas();
+                    grabarBajas();
 
                     Swal.fire({
                         title: 'Procesando...',
@@ -844,8 +846,12 @@ function configurarBotones() {
     var btnGuardar = document.getElementById("btnGuardar");
     if (btnGuardar != null) btnGuardar.onclick = function () {
 
-        if (vista == "InventarioInicial") {
+        if (vista == "InventarioInicial" || vista == "Altas") {
             validarActivoDepreciable();
+
+            var fechaAlta = dttFechaAlta.value ? dttFechaAlta.value.replaceAll('-', '/') : '';
+            if (!validarFechaMayorACierre([fechaAlta]))
+                return;
         }
 
         var validar = false;
@@ -864,7 +870,7 @@ function configurarBotones() {
                 cancelButtonText: 'No'
             }).then((result) => {
                 if (result.value) {
-                    //grabarDatos();
+                    grabarDatos();
 
                     Swal.fire({
                         title: 'Procesando...',
@@ -1882,20 +1888,6 @@ function seleccionarFila(fila, id, prefijo) {
     if ((vista == "Altas") && prefijo == "divLista") {
         idRegistroRep = id;
     }
-
-    if (vista == "CuentaContable") {
-        Http.get("General/listarTabla?tbl=ContabilidadPlanContableDetalle" + "&data=" + idRegistro, function (response) {
-            if (response) {
-                var campos = response.split("|");
-                lblBalance.innerHTML = campos[0];
-                lblCta.innerHTML = campos[1];
-                lblSubCta.innerHTML = campos[2];
-            }
-            else {
-                mostrarMensaje("No se encontro el detalle de la cuenta", "error");
-            }
-        });
-    }
 }
 
 function mostrarPreviewReporte(rpta) {
@@ -1946,14 +1938,15 @@ function validarFechaMayorACierre(fechas) {
         if (fechas[i]) {
             var fecha = new Date(fechas[i]);
 
-            esFechaValida = !(periodoActual > fecha);
+            esFechaValida = !(periodoActual > fecha || fecha.getFullYear() != anioFiscal);
 
             if (!esFechaValida) {
-                mostrarMensaje("La fecha debe ser mayor a  la fecha de cierre", "error");
+                mostrarMensaje("La fecha debe ser mayor a la fecha de cierre y no mayor al año fiscal", "error");
                 return false;
             }
         }
     }
+    return esFechaValida;
 }
 
 function obtenerListaAgrupada(lista, valoresAgrupados) {
@@ -2701,16 +2694,15 @@ function validarActivoDepreciable() {
 function setCuentaContable(cuentaContable) {
     if (cuentaContable) {
         var cuenta = cuentaContable.split(';')
-        var mayor = cuenta?.[0];
-        var subcuenta = cuenta?.[1];
-        var clasificador = cuenta?.[2];
-        var descripcionCtaContable = cuenta?.[3];
+        var ctaContable = cuenta?.[0];
+        var clasificador = cuenta?.[1];
+        var descripcionCtaContable = cuenta?.[2];
 
-        if (!(mayor && subcuenta))
+        if (!ctaContable)
             return;
 
-        txtCtaContable.value = mayor + '.' + subcuenta + ' - ' + descripcionCtaContable;
-        txtMayorSubCtaClasificador.value = mayor + ';' + subcuenta + ';' + clasificador;
+        txtCtaContable.value = ctaContable + ' - ' + descripcionCtaContable;
+        txtMayorSubCtaClasificador.value = ctaContable + ';' + clasificador;
     }
 }
 
@@ -2733,13 +2725,28 @@ function esActivoDepreciable(fechaAlta, valorCompra) {
 function asignarCuentaContable(idItem, esDepreciable) {
     var cuentasContables = [];
 
+    if (!esDepreciable) {
+        Swal.fire({
+            title: 'Warning!',
+            html: 'Los bienes no cumplen con la norma dispuesta.',
+            icon: 'warning',
+            showConfirmButton: true,
+        })
+
+        cboActivos.value = "";
+        seleccionarControlSelect2(cboActivos);
+
+        return;
+    }
+
     for (var i = 0; i < listaCuentaContables_v.length; i++) {
         var ctaContable = listaCuentaContables_v[i].split('|');
         if (ctaContable[0] == idItem) {
             var mayor = ctaContable?.[1];
 
-            if ((esDepreciable && mayor == MAYOR_DEPRECIABLE) ||
-                !esDepreciable && mayor == MAYOR_NO_DEPRECIABLE)
+            //if ((esDepreciable && mayor == MAYOR_DEPRECIABLE) ||
+            //    !esDepreciable && mayor == MAYOR_NO_DEPRECIABLE)
+            if (esDepreciable)
                 cuentasContables.push(ctaContable);
         }
     }
@@ -2760,16 +2767,15 @@ function asignarCuentaContable(idItem, esDepreciable) {
 
     if (cuentasContables.length == 1) {
         var cuenta = cuentasContables[0];
-        var mayor = cuenta?.[1];
-        var subcuenta = cuenta?.[2];
+        var ctaContable = cuenta?.[1];
         var clasificador = cuenta?.[3];
         var descripcionCtaContable = cuenta?.[4];
 
-        if (!(mayor && subcuenta))
+        if (!ctaContable)
             return;
 
-        txtCtaContable.value = mayor + '.' + subcuenta + ' - ' + descripcionCtaContable;
-        txtMayorSubCtaClasificador.value = mayor + ';' + subcuenta + ';' + clasificador;
+        txtCtaContable.value = ctaContable + ' - ' + descripcionCtaContable;
+        txtMayorSubCtaClasificador.value = ctaContable + ';' + clasificador;
     }
 
     if (cuentasContables.length > 1) {
