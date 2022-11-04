@@ -31,8 +31,8 @@ namespace SisGeFin.Reporting.ENT
         public string NombreBalance { get; set; }
         public short NumeroMovim { get; set; }
         public string FechaMovCab { get; set; }
-        public string SerieItem { get; set; }
-        public string UsuarioItem { get; set; }
+        public string SerieItmCab { get; set; }
+        public string UserItmCab { get; set; }
         public string NombreMarca { get; set; }
         public string NombreModelo { get; set; }
         public string NomEstConserv { get; set; }
@@ -105,6 +105,14 @@ namespace SisGeFin.Reporting.ENT
         public string IdGrupo { get; set; }
     }
 
+    public class FuenteFinanciamiento1
+    {
+        public short IdFuenteF { get; set; }
+        public string NombreFuente { get; set; }
+        public short ConteoXFuente { get; set; }
+        public double TotalXFuente { get; set; }
+    }
+
     public class FuenteFinanciamiento
     {
         public short AñoEjecuc { get; set; }
@@ -120,6 +128,5 @@ namespace SisGeFin.Reporting.ENT
         public string CLASIF_NOMBRE { get; set; }
         public decimal MONTO_PIA { get; set; }
     }
-
 
 }

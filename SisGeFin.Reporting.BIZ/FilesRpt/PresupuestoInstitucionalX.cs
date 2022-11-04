@@ -16,14 +16,14 @@ namespace SisGeFin.Reporting.BIZ.FilesRpt {
     using CrystalDecisions.CrystalReports.Engine;
     
     
-    public class PresupuestoInstitucional1 : ReportClass {
+    public class PresupuestoInstitucionalX : ReportClass {
         
-        public PresupuestoInstitucional1() {
+        public PresupuestoInstitucionalX() {
         }
         
         public override string ResourceName {
             get {
-                return "PresupuestoInstitucional1.rpt";
+                return "PresupuestoInstitucionalX.rpt";
             }
             set {
                 // Do nothing
@@ -41,7 +41,7 @@ namespace SisGeFin.Reporting.BIZ.FilesRpt {
         
         public override string FullResourceName {
             get {
-                return "SisGeFin.Reporting.BIZ.FilesRpt.PresupuestoInstitucional1.rpt";
+                return "SisGeFin.Reporting.BIZ.FilesRpt.PresupuestoInstitucionalX.rpt";
             }
             set {
                 // Do nothing
@@ -74,7 +74,7 @@ namespace SisGeFin.Reporting.BIZ.FilesRpt {
         
         [Browsable(false)]
         [DesignerSerializationVisibilityAttribute(System.ComponentModel.DesignerSerializationVisibility.Hidden)]
-        public CrystalDecisions.CrystalReports.Engine.Section GroupHeaderSection2 {
+        public CrystalDecisions.CrystalReports.Engine.Section Section5 {
             get {
                 return this.ReportDefinition.Sections[3];
             }
@@ -82,7 +82,7 @@ namespace SisGeFin.Reporting.BIZ.FilesRpt {
         
         [Browsable(false)]
         [DesignerSerializationVisibilityAttribute(System.ComponentModel.DesignerSerializationVisibility.Hidden)]
-        public CrystalDecisions.CrystalReports.Engine.Section GroupHeaderSection3 {
+        public CrystalDecisions.CrystalReports.Engine.Section GroupFooterSection1 {
             get {
                 return this.ReportDefinition.Sections[4];
             }
@@ -90,7 +90,7 @@ namespace SisGeFin.Reporting.BIZ.FilesRpt {
         
         [Browsable(false)]
         [DesignerSerializationVisibilityAttribute(System.ComponentModel.DesignerSerializationVisibility.Hidden)]
-        public CrystalDecisions.CrystalReports.Engine.Section GroupHeaderSection4 {
+        public CrystalDecisions.CrystalReports.Engine.Section Section4 {
             get {
                 return this.ReportDefinition.Sections[5];
             }
@@ -98,65 +98,17 @@ namespace SisGeFin.Reporting.BIZ.FilesRpt {
         
         [Browsable(false)]
         [DesignerSerializationVisibilityAttribute(System.ComponentModel.DesignerSerializationVisibility.Hidden)]
-        public CrystalDecisions.CrystalReports.Engine.Section Section5 {
-            get {
-                return this.ReportDefinition.Sections[6];
-            }
-        }
-        
-        [Browsable(false)]
-        [DesignerSerializationVisibilityAttribute(System.ComponentModel.DesignerSerializationVisibility.Hidden)]
-        public CrystalDecisions.CrystalReports.Engine.Section GroupFooterSection4 {
-            get {
-                return this.ReportDefinition.Sections[7];
-            }
-        }
-        
-        [Browsable(false)]
-        [DesignerSerializationVisibilityAttribute(System.ComponentModel.DesignerSerializationVisibility.Hidden)]
-        public CrystalDecisions.CrystalReports.Engine.Section GroupFooterSection3 {
-            get {
-                return this.ReportDefinition.Sections[8];
-            }
-        }
-        
-        [Browsable(false)]
-        [DesignerSerializationVisibilityAttribute(System.ComponentModel.DesignerSerializationVisibility.Hidden)]
-        public CrystalDecisions.CrystalReports.Engine.Section GroupFooterSection2 {
-            get {
-                return this.ReportDefinition.Sections[9];
-            }
-        }
-        
-        [Browsable(false)]
-        [DesignerSerializationVisibilityAttribute(System.ComponentModel.DesignerSerializationVisibility.Hidden)]
-        public CrystalDecisions.CrystalReports.Engine.Section GroupFooterSection1 {
-            get {
-                return this.ReportDefinition.Sections[10];
-            }
-        }
-        
-        [Browsable(false)]
-        [DesignerSerializationVisibilityAttribute(System.ComponentModel.DesignerSerializationVisibility.Hidden)]
-        public CrystalDecisions.CrystalReports.Engine.Section Section4 {
-            get {
-                return this.ReportDefinition.Sections[11];
-            }
-        }
-        
-        [Browsable(false)]
-        [DesignerSerializationVisibilityAttribute(System.ComponentModel.DesignerSerializationVisibility.Hidden)]
         public CrystalDecisions.CrystalReports.Engine.Section Section2 {
             get {
-                return this.ReportDefinition.Sections[12];
+                return this.ReportDefinition.Sections[6];
             }
         }
     }
     
     [System.Drawing.ToolboxBitmapAttribute(typeof(CrystalDecisions.Shared.ExportOptions), "report.bmp")]
-    public class CachedPresupuestoInstitucional1 : Component, ICachedReport {
+    public class CachedPresupuestoInstitucionalX : Component, ICachedReport {
         
-        public CachedPresupuestoInstitucional1() {
+        public CachedPresupuestoInstitucionalX() {
         }
         
         [Browsable(false)]
@@ -193,7 +145,7 @@ namespace SisGeFin.Reporting.BIZ.FilesRpt {
         }
         
         public virtual CrystalDecisions.CrystalReports.Engine.ReportDocument CreateReport() {
-            PresupuestoInstitucional1 rpt = new PresupuestoInstitucional1();
+            PresupuestoInstitucionalX rpt = new PresupuestoInstitucionalX();
             rpt.Site = this.Site;
             return rpt;
         }

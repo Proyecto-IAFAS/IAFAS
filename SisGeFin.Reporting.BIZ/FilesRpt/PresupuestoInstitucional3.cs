@@ -16,14 +16,14 @@ namespace SisGeFin.Reporting.BIZ.FilesRpt {
     using CrystalDecisions.CrystalReports.Engine;
     
     
-    public class PresupuestoInstitucional1 : ReportClass {
+    public class PresupuestoInstitucional3 : ReportClass {
         
-        public PresupuestoInstitucional1() {
+        public PresupuestoInstitucional3() {
         }
         
         public override string ResourceName {
             get {
-                return "PresupuestoInstitucional1.rpt";
+                return "PresupuestoInstitucional3.rpt";
             }
             set {
                 // Do nothing
@@ -41,7 +41,7 @@ namespace SisGeFin.Reporting.BIZ.FilesRpt {
         
         public override string FullResourceName {
             get {
-                return "SisGeFin.Reporting.BIZ.FilesRpt.PresupuestoInstitucional1.rpt";
+                return "SisGeFin.Reporting.BIZ.FilesRpt.PresupuestoInstitucional3.rpt";
             }
             set {
                 // Do nothing
@@ -154,9 +154,9 @@ namespace SisGeFin.Reporting.BIZ.FilesRpt {
     }
     
     [System.Drawing.ToolboxBitmapAttribute(typeof(CrystalDecisions.Shared.ExportOptions), "report.bmp")]
-    public class CachedPresupuestoInstitucional1 : Component, ICachedReport {
+    public class CachedPresupuestoInstitucional3 : Component, ICachedReport {
         
-        public CachedPresupuestoInstitucional1() {
+        public CachedPresupuestoInstitucional3() {
         }
         
         [Browsable(false)]
@@ -193,7 +193,7 @@ namespace SisGeFin.Reporting.BIZ.FilesRpt {
         }
         
         public virtual CrystalDecisions.CrystalReports.Engine.ReportDocument CreateReport() {
-            PresupuestoInstitucional1 rpt = new PresupuestoInstitucional1();
+            PresupuestoInstitucional3 rpt = new PresupuestoInstitucional3();
             rpt.Site = this.Site;
             return rpt;
         }
