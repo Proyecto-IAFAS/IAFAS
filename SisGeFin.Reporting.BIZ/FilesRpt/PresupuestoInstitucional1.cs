@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace WebAppSISGEFIN.FilesRpt {
+namespace SisGeFin.Reporting.BIZ.FilesRpt {
     using System;
     using System.ComponentModel;
     using CrystalDecisions.Shared;
@@ -16,14 +16,14 @@ namespace WebAppSISGEFIN.FilesRpt {
     using CrystalDecisions.CrystalReports.Engine;
     
     
-    public class PatrimonioInventarioX : ReportClass {
+    public class PresupuestoInstitucional1 : ReportClass {
         
-        public PatrimonioInventarioX() {
+        public PresupuestoInstitucional1() {
         }
         
         public override string ResourceName {
             get {
-                return "PatrimonioInventarioX.rpt";
+                return "PresupuestoInstitucional1.rpt";
             }
             set {
                 // Do nothing
@@ -41,7 +41,7 @@ namespace WebAppSISGEFIN.FilesRpt {
         
         public override string FullResourceName {
             get {
-                return "WebAppSISGEFIN.FilesRpt.PatrimonioInventarioX.rpt";
+                return "SisGeFin.Reporting.BIZ.FilesRpt.PresupuestoInstitucional1.rpt";
             }
             set {
                 // Do nothing
@@ -106,9 +106,9 @@ namespace WebAppSISGEFIN.FilesRpt {
     }
     
     [System.Drawing.ToolboxBitmapAttribute(typeof(CrystalDecisions.Shared.ExportOptions), "report.bmp")]
-    public class CachedPatrimonioInventarioX : Component, ICachedReport {
+    public class CachedPresupuestoInstitucional1 : Component, ICachedReport {
         
-        public CachedPatrimonioInventarioX() {
+        public CachedPresupuestoInstitucional1() {
         }
         
         [Browsable(false)]
@@ -145,7 +145,7 @@ namespace WebAppSISGEFIN.FilesRpt {
         }
         
         public virtual CrystalDecisions.CrystalReports.Engine.ReportDocument CreateReport() {
-            PatrimonioInventarioX rpt = new PatrimonioInventarioX();
+            PresupuestoInstitucional1 rpt = new PresupuestoInstitucional1();
             rpt.Site = this.Site;
             return rpt;
         }

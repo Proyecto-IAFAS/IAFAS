@@ -1,11 +1,10 @@
 ﻿using SisGeFin.Reporting.ENT;
 
-public class rPatriminioInventario : PatriminioInventario
-{ }
+public class rFuenteFinanciamiento : FuenteFinanciamiento { }
 
-public class rKardexPatrimonio : KardexPatrimonio
-{ }
+public class rPatriminioInventario : PatriminioInventario { }
 
-public class rReporteCR : ReporteCR
-{ }
+public class rKardexPatrimonio : KardexPatrimonio { }
+
+public class rReporteCR : ReporteCR { }
 
