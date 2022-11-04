@@ -75,6 +75,14 @@ namespace WebAppSISGEFIN.Controllers
         }
 
         [HttpGet]
+        public string GetFuentesFinan()
+        {
+            string _data = "vFuentesFinan|IdFuente|NombreFuente|";
+            var _trama = Runs.GetTrama4Combo(_data);
+            return _trama;
+        }
+
+        [HttpGet]
         public ActionResult ShowRpt(int id, string par, string r)
         {
             var _result = Reporting.GetOneReporte(id);

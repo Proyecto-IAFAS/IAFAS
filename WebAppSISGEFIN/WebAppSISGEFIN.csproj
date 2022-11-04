@@ -1591,6 +1591,7 @@
     <Content Include="Views\Configuracion\Proveedor.cshtml" />
     <Content Include="Views\Configuracion\UniMed.cshtml" />
     <Content Include="Views\Presupuesto\Actividad.cshtml" />
+    <Content Include="Views\Reportes\FiltroFINANC.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
