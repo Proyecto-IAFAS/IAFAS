@@ -1593,12 +1593,7 @@
     <Content Include="Views\Configuracion\Proveedor.cshtml" />
     <Content Include="Views\Configuracion\UniMed.cshtml" />
     <Content Include="Views\Presupuesto\Actividad.cshtml" />
-    <Content Include="Views\Presupuesto\PIA.cshtml" />
-    <Content Include="Views\Presupuesto\PIM.cshtml" />
-    <Content Include="Views\Presupuesto\Notas.cshtml" />
-    <Content Include="Views\Tesoreria\Bancos.cshtml" />
-    <Content Include="Views\Tesoreria\CuentaBanca.cshtml" />
-    <Content Include="Views\Tesoreria\ProgramaPago.cshtml" />
+    <Content Include="Views\Reportes\FiltroFINANC.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

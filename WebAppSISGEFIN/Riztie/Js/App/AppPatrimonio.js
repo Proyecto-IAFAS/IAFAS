@@ -21,8 +21,8 @@ var listaFamilias_v = []
 
 var FLAG_INICIAL_INVENTARIO_INICIAL = 1;
 var FLAG_INICIAL_ALTAS = 0;
-var MAYOR_NO_DEPRECIABLE = 9105; //DEPRECIABLE
-var MAYOR_DEPRECIABLE = 1503; //NO DEPRECIABLE
+var MAYOR_NO_DEPRECIABLE = 9105; //NO DEPRECIABLE
+var MAYOR_DEPRECIABLE = 1503; //DEPRECIABLE
 
 var TIPO_ALTAS = 1;
 var TIPO_BAJAS = 2;
@@ -35,7 +35,9 @@ var periodo = "";
 var tabGeneral = "";
 var EST_PENDIENTE = 1;
 var EST_APROBADO = 2;
-var esOrdenAprobado = false;
+var EST_ANULADO = 3;
+
+var esOrdenAprobadoOAnulado = false;
 var esBienDepreciable = false;
 
 
@@ -277,7 +279,6 @@ function configurarOpcionReportes() {
         };
     }
 }
-
 function mostrarlistas(rpta) {
     if (rpta) {
         var listas = rpta.split("¯");
@@ -285,7 +286,7 @@ function mostrarlistas(rpta) {
         if (vista == "CuentaContable") {
             grillaItem = new GrillaScroll(lista, "divLista", 100, 6, vista, controller, null, null, null, null, 38, false, null);
         }
-       else if (vista == "UbicaFisica") {
+        else if (vista == "UbicaFisica") {
             var listaOficina = listas[1].split("¬");
             var listaResponsable = listas[2].split("¬");
             var listaEstado = listas[3].split("¬");
@@ -316,6 +317,9 @@ function mostrarlistas(rpta) {
 
             setPorcentajes(listas[14]);
             setUIT(listas[15]);
+
+            anioFiscal = listas[16].split("|")[0];
+            periodo = listas[16].split("|")[1];
 
             crearCombo(listaCentroCosto, "cboCentroCostoCons", "Ninguno");
             crearCombo(listaOficina, "cboOficinaCons", "Ninguno");
@@ -523,7 +527,7 @@ function configurarBotones() {
         limpiarForm("NoPopupMov");
 
         if (vista == "Altas") {
-            esOrdenAprobado = false;
+            esOrdenAprobadoOAnulado = false;
 
             btnGuardarMov.style.display = 'block';
             btnNuevo.style.display = 'block';
@@ -547,7 +551,7 @@ function configurarBotones() {
             if (dttFechaMovCab != null) dttFechaMovCab.value = obtenerFechaActualYYYMMDD();
         }
         if (vista == "Bajas") {
-            esOrdenAprobado = false;
+            esOrdenAprobadoOAnulado = false;
 
             btnGuardarBajas.style.display = 'block';
             document.querySelectorAll('.section-orden-aprobada').forEach(function (el) {
@@ -580,7 +584,7 @@ function configurarBotones() {
         }
 
         if (vista == "MantoActivo") {
-            esOrdenAprobado = false;
+            esOrdenAprobadoOAnulado = false;
 
             btnGuardarMov.style.display = 'block';
             document.querySelectorAll('.section-orden-aprobada').forEach(function (el) {
@@ -610,7 +614,7 @@ function configurarBotones() {
         }
 
         if (vista == "Asignacion") {
-            esOrdenAprobado = false;
+            esOrdenAprobadoOAnulado = false;
 
             btnGuardarAsignacion.style.display = 'block';
             document.querySelectorAll('.section-orden-aprobada').forEach(function (el) {
@@ -758,6 +762,12 @@ function configurarBotones() {
             validar = true;
         }
 
+        if (vista == "Altas") {
+            var fechaMov = dttFechaMovCab.value ? dttFechaMovCab.value.replaceAll('-', '/') : '';
+
+            validar = validarFechaMayorACierre([fechaMov]);
+        }
+
         if (vista == "MantoActivo") {
             if (!esMantenimientoActivoValido()) {
                 validar = false;
@@ -836,8 +846,12 @@ function configurarBotones() {
     var btnGuardar = document.getElementById("btnGuardar");
     if (btnGuardar != null) btnGuardar.onclick = function () {
 
-        if (vista == "InventarioInicial") {
+        if (vista == "InventarioInicial" || vista == "Altas") {
             validarActivoDepreciable();
+
+            var fechaAlta = dttFechaAlta.value ? dttFechaAlta.value.replaceAll('-', '/') : '';
+            if (!validarFechaMayorACierre([fechaAlta]))
+                return;
         }
 
         var validar = false;
@@ -1420,7 +1434,7 @@ function mostrarRegistroMov(rpta) {
             txtNroOrdenCab.value = campos[9];
 
             document.getElementById("divPopupContainerMov").style.display = 'block';
-            esOrdenAprobado = campos[5] != EST_PENDIENTE;
+            esOrdenAprobadoOAnulado = campos[5] != EST_PENDIENTE;
 
             getListarMovActivos(campos[0]);
 
@@ -1446,10 +1460,10 @@ function mostrarRegistroMov(rpta) {
 
             getListarMovActivos(campos[0]);
 
-            esOrdenAprobado = campos[9] != EST_PENDIENTE;
+            esOrdenAprobadoOAnulado = campos[9] != EST_PENDIENTE;
 
             document.querySelectorAll('.section-orden-aprobada').forEach(function (el) {
-                if (esOrdenAprobado)
+                if (esOrdenAprobadoOAnulado)
                     el.setAttribute("hidden", "hidden");
                 else
                     el.removeAttribute("hidden");
@@ -1481,19 +1495,21 @@ function mostrarRegistroMov(rpta) {
 
             var detalles = campos[14].split(',');
 
-            esOrdenAprobado = campos[3] != EST_PENDIENTE;
+            esOrdenAprobadoOAnulado = campos[3] != EST_PENDIENTE;
+
+            var esAprobado = campos[3] == EST_APROBADO;
 
             document.getElementById("divPopupContainerMov").style.display = 'block';
 
             ConsultarItemsAsignables(
-                !esOrdenAprobado ? cboOfiActual.value : cboOfiNuevo.value,
-                !esOrdenAprobado ? cboUbiFisicaActual.value : cboUbiFisicaNuevo.value,
-                !esOrdenAprobado ? cboResItemActual.value : cboResItemNuevo.value,
+                !esAprobado ? cboOfiActual.value : cboOfiNuevo.value,
+                !esAprobado ? cboUbiFisicaActual.value : cboUbiFisicaNuevo.value,
+                !esAprobado ? cboResItemActual.value : cboResItemNuevo.value,
                 detalles
             );
 
             document.querySelectorAll('.section-orden-aprobada').forEach(function (el) {
-                if (esOrdenAprobado)
+                if (esOrdenAprobadoOAnulado)
                     el.setAttribute("hidden", "hidden");
                 else
                     el.removeAttribute("hidden");
@@ -1644,12 +1660,12 @@ function mostrarRegistro(rpta) {
             cboTipoMovCab.value = campos[8];
             cboCausalBaja.value = campos[9];
 
-            esOrdenAprobado = campos[7] != EST_PENDIENTE;
+            esOrdenAprobadoOAnulado = campos[7] != EST_PENDIENTE;
 
             getListarMovActivos(campos[0]);
 
             document.querySelectorAll('.section-orden-aprobada').forEach(function (el) {
-                if (esOrdenAprobado)
+                if (esOrdenAprobadoOAnulado)
                     el.setAttribute("hidden", "hidden");
                 else
                     el.removeAttribute("hidden");
@@ -1872,20 +1888,6 @@ function seleccionarFila(fila, id, prefijo) {
     if ((vista == "Altas") && prefijo == "divLista") {
         idRegistroRep = id;
     }
-
-    if (vista == "CuentaContable") {
-        Http.get("General/listarTabla?tbl=ContabilidadPlanContableDetalle" + "&data=" + idRegistro, function (response) {
-            if (response) {
-                var campos = response.split("|");
-                lblBalance.innerHTML = campos[0];
-                lblCta.innerHTML = campos[1];
-                lblSubCta.innerHTML = campos[2];
-            }
-            else {
-                mostrarMensaje("No se encontro el detalle de la cuenta", "error");
-            }
-        });
-    }
 }
 
 function mostrarPreviewReporte(rpta) {
@@ -1925,6 +1927,26 @@ function obtenerValoresAgrupados(valoresAgrupados, ctaMayor, subCta) {
             return valoresAgrupados[i];
         }
     }
+}
+
+
+function validarFechaMayorACierre(fechas) {
+    var esFechaValida = true;
+    var periodoActual = new Date(anioFiscal, periodo - 1);
+
+    for (var i = 0; i < fechas.length; i++) {
+        if (fechas[i]) {
+            var fecha = new Date(fechas[i]);
+
+            esFechaValida = !(periodoActual > fecha || fecha.getFullYear() != anioFiscal);
+
+            if (!esFechaValida) {
+                mostrarMensaje("La fecha debe ser mayor a la fecha de cierre y no mayor al año fiscal", "error");
+                return false;
+            }
+        }
+    }
+    return esFechaValida;
 }
 
 function obtenerListaAgrupada(lista, valoresAgrupados) {
@@ -2118,7 +2140,7 @@ function mostrarlistasActivos(rpta) {
         document.getElementById("detalleActivo").style.display = 'block';
         var divLista = 'divListaActivo';
 
-        if (esOrdenAprobado)
+        if (esOrdenAprobadoOAnulado)
             botonesTabla = botonesOrdenAprobada;
     }
 
@@ -2511,7 +2533,7 @@ function adicionarItem(datos) {
         var montoAsignado = campos[13];
 
         filaDetalle += "<td style='white-space:pre-wrap;width:100px;text-align: center'>";
-        filaDetalle += "<input type='number' class='monto' " + (esOrdenAprobado ? "disabled" : "") + " value='" + montoAsignado + "'/>";
+        filaDetalle += "<input type='number' class='monto' " + (esOrdenAprobadoOAnulado ? "disabled" : "") + " value='" + montoAsignado + "'/>";
         filaDetalle += "</td> ";
     }
 
@@ -2534,7 +2556,7 @@ function adicionarItem(datos) {
     filaDetalle += "<i class='fa fa-search btn btn-info btnCirculo' title='Ver Item' onclick='editarRegistroActivo("
     filaDetalle += item;
     filaDetalle += ");'></i>";
-    if (!esOrdenAprobado) {
+    if (!esOrdenAprobadoOAnulado) {
         filaDetalle += "<i class='fa fa-trash ml-1 btn-danger btnCirculo' style='width: 30px;height: 26px;' title='Quitar Item' onclick='retirarItem(this,\"";
         filaDetalle += item;
         filaDetalle += "\");'></i>";
@@ -2608,6 +2630,12 @@ function esMantenimientoActivoValido() {
 function esBajasValido() {
     var nfilas = tbDetalleActivos.rows.length;
 
+    var fechaMov = dttFechaMovCab.value ? dttFechaMovCab.value.replaceAll('-', '/') : '';
+
+    if (!validarFechaMayorACierre([fechaMov])) {
+        return false;
+    }
+
     if (!validarInformacion("RequeMov")) {
         return false;
     }
@@ -2666,16 +2694,15 @@ function validarActivoDepreciable() {
 function setCuentaContable(cuentaContable) {
     if (cuentaContable) {
         var cuenta = cuentaContable.split(';')
-        var mayor = cuenta?.[0];
-        var subcuenta = cuenta?.[1];
-        var clasificador = cuenta?.[2];
-        var descripcionCtaContable = cuenta?.[3];
+        var ctaContable = cuenta?.[0];
+        var clasificador = cuenta?.[1];
+        var descripcionCtaContable = cuenta?.[2];
 
-        if (!(mayor && subcuenta))
+        if (!ctaContable)
             return;
 
-        txtCtaContable.value = mayor + '.' + subcuenta + ' - ' + descripcionCtaContable;
-        txtMayorSubCtaClasificador.value = mayor + ';' + subcuenta + ';' + clasificador;
+        txtCtaContable.value = ctaContable + ' - ' + descripcionCtaContable;
+        txtMayorSubCtaClasificador.value = ctaContable + ';' + clasificador;
     }
 }
 
@@ -2698,13 +2725,28 @@ function esActivoDepreciable(fechaAlta, valorCompra) {
 function asignarCuentaContable(idItem, esDepreciable) {
     var cuentasContables = [];
 
+    if (!esDepreciable) {
+        Swal.fire({
+            title: 'Warning!',
+            html: 'Los bienes no cumplen con la norma dispuesta.',
+            icon: 'warning',
+            showConfirmButton: true,
+        })
+
+        cboActivos.value = "";
+        seleccionarControlSelect2(cboActivos);
+
+        return;
+    }
+
     for (var i = 0; i < listaCuentaContables_v.length; i++) {
         var ctaContable = listaCuentaContables_v[i].split('|');
         if (ctaContable[0] == idItem) {
             var mayor = ctaContable?.[1];
 
-            if ((esDepreciable && mayor == MAYOR_DEPRECIABLE) ||
-                !esDepreciable && mayor == MAYOR_NO_DEPRECIABLE)
+            //if ((esDepreciable && mayor == MAYOR_DEPRECIABLE) ||
+            //    !esDepreciable && mayor == MAYOR_NO_DEPRECIABLE)
+            if (esDepreciable)
                 cuentasContables.push(ctaContable);
         }
     }
@@ -2725,16 +2767,15 @@ function asignarCuentaContable(idItem, esDepreciable) {
 
     if (cuentasContables.length == 1) {
         var cuenta = cuentasContables[0];
-        var mayor = cuenta?.[1];
-        var subcuenta = cuenta?.[2];
+        var ctaContable = cuenta?.[1];
         var clasificador = cuenta?.[3];
         var descripcionCtaContable = cuenta?.[4];
 
-        if (!(mayor && subcuenta))
+        if (!ctaContable)
             return;
 
-        txtCtaContable.value = mayor + '.' + subcuenta + ' - ' + descripcionCtaContable;
-        txtMayorSubCtaClasificador.value = mayor + ';' + subcuenta + ';' + clasificador;
+        txtCtaContable.value = ctaContable + ' - ' + descripcionCtaContable;
+        txtMayorSubCtaClasificador.value = ctaContable + ';' + clasificador;
     }
 
     if (cuentasContables.length > 1) {
@@ -3129,11 +3170,8 @@ function mostrarGrabarMov(rpta) {
 }
 
 function actualizarBotones() {
-    var esAprobado = esOrdenAprobado;
-
     if (vista == "Altas") {
-        console.log(esAprobado);
-        if (esAprobado) {
+        if (esOrdenAprobadoOAnulado) {
             btnGuardarMov.style.display = 'none';
             btnNuevo.style.display = 'none';
             btnGuardar.style.display = 'none';
