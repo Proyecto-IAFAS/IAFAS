@@ -40,10 +40,8 @@ function getListarProgramacion() {
 function getListar() {
     var data = "";
 
-    var txtAnio = document.getElementById("txtAnio");
-    if (txtAnio != null) {
-        data = txtAnio.value;
-    }
+    var anio = document.getElementById("txtAnio")?.value;
+    data = anio;
     
     Http.get("General/listarTabla?tbl=" + controller + vista + "&data=" + data, mostrarlistas);
 }
@@ -89,18 +87,11 @@ function mostrarlistas(rpta) {
             crearCombo(listaEstado, "cboEstado", "Seleccione");
         }
         else if (vista == "ClasiGasto") {
-
-           // listaMetaItem_VG = listas[1].split("¬");
             let listaTipo = listas[1].split("¬");
             var listaEstado = listas[2].split("¬");
              grillaItem = new GrillaScroll(lista, "divLista", 100, 6, vista, controller, null, null, true, botones, 38, false, null);
-            /*crearCombo(listaMetaItem_VG, "cboPadre", "Ninguno");*/
             crearCombo(listaTipo, "cboTipoBien", "Ninguno");
             crearCombo(listaEstado, "cboEstado", "Seleccione");
-            //var select2cboPadre= document.getElementById("select2-cboPadre-container");
-            //if (select2cboPadre != null) select2cboPadre.innerHTML = "Ninguno";
-           
-            //listarMetaItem();
         }
         else if (vista == "CentroCosto") {
             var listaEntidad = listas[1].split("¬");
@@ -109,9 +100,17 @@ function mostrarlistas(rpta) {
             grillaItem = new GrillaScroll(lista, "divLista", 100, 6, vista, controller, null, null, true, botones, 38, false, null);
             crearCombo(listaEntidad, "cboEntidad", "Seleccione");
             crearCombo(listaEstado, "cboEstado", "Seleccione");
-            
             listarMetaItem();
         }
+        else if (vista == "Actividad") {
+            var listaMeta = listas[1].split("¬");
+            listaSubMetaItem_v = listas[2].split("¬");
+            var listaEstado = listas[3].split("¬");
+
+            grillaItem = new GrillaScroll(lista, "divLista", 100, 6, vista, controller, null, null, true, botones, 38, false, null);
+            crearCombo(listaMeta, "cboMeta", "Seleccione");
+            crearCombo(listaEstado, "cboEstado", "Seleccione");
+       }
         
         else if (vista == "PCA") {
             var listaEntidad = listas[1].split("¬");
@@ -125,7 +124,6 @@ function mostrarlistas(rpta) {
 
             crearCombo(listaEntidad, "cboEntidad", "Seleccione");
             crearCombo(listaFinanciamiento, "cboFuenteFto", "Seleccione");
-            //listarSelect2Item(listaEntidad, "cboEntidad");
             listarSelect2Item(listaMeta, "cboMeta");
             crearCombo(listaEstado, "cboEstado", "Seleccione");
             listarSubMetaItem();
@@ -174,7 +172,6 @@ function mostrarlistas(rpta) {
 
 
 function listarMetaItem() {
-    //var idTipoItem = cboTipoBien.value;
     var nRegistros = listaMetaItem_VG.length;
     var contenido = "<option value=''>Seleccione</option>";
     var campos, idCodigo, nombre;
@@ -243,7 +240,6 @@ function listarSubMetaItem() {
     var cbo = document.getElementById("cboSubMeta");
     if (cbo != null) {
         cbo.innerHTML = contenido;
-       /* listarClaseItem();*/
     }
 }
 
@@ -451,7 +447,20 @@ function mostrarRegistro(rpta) {
            if (divPopupContainer != null) { divPopupContainer.style.display = 'block'; };
            return;
         }
-
+       else if (vista == "Actividad") {
+           txtIdRegistro.value = campos[0];
+           cboMeta.value = campos[1];
+           document.getElementById('select2-cboMeta-container').innerHTML = cboMeta.options[cboMeta.selectedIndex].text;
+           listarSubMetaItem();
+           cboSubMeta.value = campos[2];
+           document.getElementById('select2-cboSubMeta-container').innerHTML = cboSubMeta.options[cboSubMeta.selectedIndex].text;
+           txtCodigo.value = campos[3];
+           txtNombre.value = campos[4];
+           cboEstado.value = campos[5];
+           var divPopupContainer = document.getElementById("divPopupContainer");
+           if (divPopupContainer != null) { divPopupContainer.style.display = 'block'; };
+           return;
+       }
        else if (vista == "FamiliaClasificador") {
            
            txtIdRegistro.value = campos[0];

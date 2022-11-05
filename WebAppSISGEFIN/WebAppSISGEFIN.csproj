@@ -1334,6 +1334,7 @@
     <Content Include="Riztie\Images\navbar-img-6.jpg" />
     <Content Include="Riztie\Images\NOFOTO.jpg" />
     <Content Include="Riztie\Images\user-bg.jpg" />
+    <Content Include="Riztie\Js\App\AppTeso.js" />
     <Content Include="Riztie\Js\App\AppIngresos.js" />
     <Content Include="Riztie\Js\App\AppRRHH.js" />
     <Content Include="Riztie\Js\App\AppContabilidad.js" />
@@ -1403,6 +1404,7 @@
     <Compile Include="Controllers\ReportesController.cs" />
     <Compile Include="Controllers\RRHHController.cs" />
     <Compile Include="Controllers\SecurityController.cs" />
+    <Compile Include="Controllers\TesoreriaController.cs" />
     <Compile Include="Filtros\FiltroAuditoria.cs" />
     <Compile Include="Filtros\FiltroAutenticacion.cs" />
     <Compile Include="Filtros\FiltroCifrado.cs" />
@@ -1591,6 +1593,12 @@
     <Content Include="Views\Configuracion\Proveedor.cshtml" />
     <Content Include="Views\Configuracion\UniMed.cshtml" />
     <Content Include="Views\Presupuesto\Actividad.cshtml" />
+    <Content Include="Views\Presupuesto\PIA.cshtml" />
+    <Content Include="Views\Presupuesto\PIM.cshtml" />
+    <Content Include="Views\Presupuesto\Notas.cshtml" />
+    <Content Include="Views\Tesoreria\Bancos.cshtml" />
+    <Content Include="Views\Tesoreria\CuentaBanca.cshtml" />
+    <Content Include="Views\Tesoreria\ProgramaPago.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

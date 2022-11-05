@@ -123,6 +123,36 @@ namespace WebAppSISGEFIN.Controllers
             return View();
         }
 
+        [FiltroAutenticacion]
+        public ActionResult PIA()
+        {
+            string[] Data = Session["DataUsuario"].ToString().Split('|');
+            string IdPerfil = Data[3];
+            ViewBag.Menu = new Menu().Listar(IdPerfil);
+            ViewBag.AnhoActual = Convert.ToString(DateTime.Now.Year);
+            return View();
+        }
+
+        [FiltroAutenticacion]
+        public ActionResult PIM()
+        {
+            string[] Data = Session["DataUsuario"].ToString().Split('|');
+            string IdPerfil = Data[3];
+            ViewBag.Menu = new Menu().Listar(IdPerfil);
+            ViewBag.AnhoActual = Convert.ToString(DateTime.Now.Year);
+            return View();
+        }
+
+        [FiltroAutenticacion]
+        public ActionResult Notas()
+        {
+            string[] Data = Session["DataUsuario"].ToString().Split('|');
+            string IdPerfil = Data[3];
+            ViewBag.Menu = new Menu().Listar(IdPerfil);
+            ViewBag.AnhoActual = Convert.ToString(DateTime.Now.Year);
+            return View();
+        }
+
         public ActionResult MarcoPresu()
         {
             string[] Data = Session["DataUsuario"].ToString().Split('|');
