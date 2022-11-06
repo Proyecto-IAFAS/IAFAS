@@ -59,14 +59,14 @@
                     </div>
                     <div class="form-row">
                         <div class="modal custom-modal" tabindex="-1" role="dialog" aria-hidden="true" id="divPopupContainer" style="overflow-y:auto;">
-                            <div class="modal-dialog modal-lg bg-personalizado" id="divPopupWindow" style="margin-top:30px;">
+                            <div class="modal-dialog modal-md bg-personalizado" id="divPopupWindow" style="margin-top:30px;">
                                 <div class="modal-content">
                                     <div id="divBarra" class="modal-header bg-personalizado" style="cursor:move">
                                         <h5 class="modal-title" id="tituloModal"></h5>
                                     </div>
                                     <div class="modal-body">
                                         <div class="row">
-                                            <div class="col-sm-8">
+                                            <div class="col-sm-12">
                                                 <fieldset class="fieldset">
                                                     <legend class="legend">Nivel de cuenta</legend>
                                                     <div class="row">
@@ -76,7 +76,7 @@
                                                                 <label class="form-check-label" for="optBalance">Balance</label>
                                                             </div>
                                                             <div class="form-check form-check-inline">
-                                                                <input class="form-check-input optionsNivel" type="radio" data-id="S" name="optionsNivel" id="optCuenta">
+                                                                <input class="form-check-input optionsNivel" type="radio" data-id="C" name="optionsNivel" id="optCuenta">
                                                                 <label class="form-check-label" for="optCuenta">Cuenta</label>
                                                             </div>
                                                             <div class="form-check form-check-inline">
@@ -92,29 +92,41 @@
                                                 </fieldset>
                                             </div>
                                         </div>
-                                        <div class="row">
-                                            <div class="form-group col-sm-10">
-                                                <label class="control-label">Nivel Sub Cuenta</label>
+                                        <div class="row mt-2 seccionNivelCuenta" id="seccionBalance">
+                                            <div class="form-group col-sm-12">
+                                                <label class="control-label">Nivel Balance</label>
                                                 <input type="hidden" class="control-form Popup" id="txtIdRegistro">
-                                                <select id="cboSubCta" class="SelectSearch control-form Reque Popup"></select>
+                                                <select id="cboBalance" class="SelectSearch control-form Popup"></select>
                                             </div>
                                         </div>
-                                        <div class="row">
-                                            <div class="form-group col-sm-3">
-                                                <label class="control-label">Cuenta Contable</label>
-                                                <label id="lblCuentaContable" class="control-label">101113</label>
+                                        <div class="row mt-2 seccionNivelCuenta" id="seccionCta">
+                                            <div class="form-group col-sm-12">
+                                                <label class="control-label">Nivel Cuenta</label>
+                                                <select id="cboCta" class="SelectSearch control-form Popup"></select>
                                             </div>
-                                            <div class="form-group col-sm-3">
-                                                <label class="control-label">Divisionaria</label>
-                                                <input type="number" autocomplete="off" id="txtDivisionaria" class="control-form Reque Popup" />
+                                        </div>
+                                        <div class="row mt-2 seccionNivelCuenta" id="seccionSubCta">
+                                            <div class="form-group col-sm-12">
+                                                <label class="control-label">Nivel Sub Cuenta</label>
+                                                <select id="cboSubCta" class="SelectSearch control-form Popup"></select>
+                                            </div>
+                                        </div>
+                                        <div class="row mt-2 ">
+                                            <div class="form-group col-sm-6">
+                                                <label class="control-label">Cuenta Contable</label>
+                                                <label id="lblCuentaContable" class="control-label"></label>
                                             </div>
                                             <div class="form-group col-sm-6">
+                                                <label class="control-label">Divisionaria</label>
+                                                <input type="text" autocomplete="off" id="txtDivisionaria" class="control-form Reque Popup" onkeypress="soloNumeros(event)" ondrop="return false;" onpaste="return false;" />
+                                            </div>
+                                            <div class="form-group col-sm-12">
                                                 <label class="control-label">Nombre</label>
                                                 <input type="text" autocomplete="off" id="txtNombre" class="control-form Reque Popup" />
                                             </div>
                                         </div>
                                         <div class="row">
-                                            <div class="col-sm-4">
+                                            <div class="col-sm-12">
                                                 <fieldset class="fieldset">
                                                     <legend class="legend">Tipo de cuenta</legend>
                                                     <div class="form-check">
@@ -161,7 +173,7 @@
                                                     </div>
                                                 </fieldset>
                                             </div>
-                                            
+
                                         </div>
                                     </div>
                                     <div class="modal-footer">
