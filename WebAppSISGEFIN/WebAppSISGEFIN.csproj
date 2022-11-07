@@ -1593,7 +1593,6 @@
     <Content Include="Views\Configuracion\UniMed.cshtml" />
     <Content Include="Views\Presupuesto\Actividad.cshtml" />
     <Content Include="Views\Reportes\FiltroFINANC.cshtml" />
-<<<<<<< Updated upstream
     <Content Include="Views\Configuracion\TipoCambio.cshtml" />
     <Content Include="Views\Tesoreria\Bancos.cshtml" />
     <Content Include="Views\Tesoreria\CuentaBanca.cshtml" />
@@ -1609,11 +1608,9 @@
     <Content Include="Views\Tesoreria\Aperturacaja.cshtml" />
     <Content Include="Views\Tesoreria\Movimientocaja.cshtml" />
     <Content Include="Views\Tesoreria\CierreCaja.cshtml" />
-=======
     <Content Include="Views\Shared\_TextBox.cshtml" />
     <Content Include="Views\General\Index2.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
->>>>>>> Stashed changes
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
