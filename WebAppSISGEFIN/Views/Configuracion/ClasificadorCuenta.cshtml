@@ -33,8 +33,9 @@
                                     <div class="modal-body">
                                         <div class="row">
                                             <div class="form-group col-sm-4">
+                                                <input type="hidden" class="control-form Popup">
                                                 <label class="control-label">Entidad</label>
-                                                <select id="cboTipoBien" class="control-form Reque Popup"></select>
+                                                <select id="cboEntidad" class="control-form Reque Popup"></select>
                                             </div>
                                         </div>
                                         <div class="row">
@@ -52,26 +53,18 @@
                                         <div class="row">
                                             <div class="form-group col-sm-10">
                                                 <label class="control-label">Clase</label>
-                                                <select id="cboClase" class="SelectSearch control-form Reque Popup"></select>
-                                                <input type="hidden" class="control-form Popup" id="txtIdRegistro">
+                                                <select id="cboClase" class="SelectSearch control-form Popup"></select>
                                             </div>
                                         </div>
                                         <div class="row">
                                             <div class="form-group col-sm-10">
                                                 <label class="control-label">Familia</label>
-                                                <select id="cboClase" class="SelectSearch control-form Reque Popup"></select>
-                                                <input type="hidden" class="control-form Popup" id="txtIdRegistro">
-                                            </div>
-                                        </div>
-                                        <div class="row">
-                                            <div class="form-group col-sm-4">
-                                                <label class="control-label">Estado</label>
-                                                <select id="cboEstado" class="control-lectura Reque Popup"></select>
+                                                <select id="cboFamilia" class="SelectSearch control-form Popup"></select>
                                             </div>
                                         </div>
                                         <div class="form-row">
                                             <div class="form-group col-sm-12">
-                                                <div class="table-responsive" id="divLista"></div>
+                                                <div class="table-responsive" id="divListaCtaContable"></div>
                                             </div>
                                         </div>
 
@@ -83,38 +76,59 @@
                                 </div>
                             </div>
                         </div>
-                    </div>
-
-                    <div class="form-row">
                         <div class="modal custom-modal" tabindex="-1" role="dialog" aria-hidden="true" id="divPopupContainerForm1" style="overflow-y:auto;">
-                            <div class="modal-dialog modal-xl bg-personalizado" id="divPopupWindowForm1" style="margin-top:30px;">
+                            <div class="modal-dialog modal-lg bg-personalizado" id="divPopupWindowForm1" style="margin-top:30px;">
                                 <div class="modal-content">
                                     <div id="divBarraForm1" class="modal-header bg-personalizado" style="cursor:move">
-                                        <h5 class="modal-title">Listado de Familia</h5>
+                                        <h5 class="modal-title" id="tituloModal"></h5>
                                     </div>
                                     <div class="modal-body">
-
                                         <div class="row">
-                                            <div class="form-group col-md-12 text-center" id="spnLoadData" style="display:none">
-                                                <span style="color: #ff5252; border-color: black; font-weight: bold; ">
-                                                    <b>Procesando información  ..</b>
-                                                    <i class="fa fa-spinner fa-pulse fa-2x fa-fw"></i>
-                                                </span>
+                                            <div class="form-group col-sm-4">
+                                                <input id="txtIdRegistroEdit" type="hidden" class="control-lectura RequeEdit PopupEdit">
+                                                <label class="control-label">Entidad</label>
+                                                <select id="cboEntidadEdit" class="control-lectura RequeEdit PopupEdit" disabled></select>
                                             </div>
-                                            <div class="form-group col-md-12" id="listaInactivo" style="display:none">
-                                                <div class="table-responsive" id="divListaInactivo"></div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="form-group col-sm-4">
+                                                <label class="control-label">Tipo de Bien</label>
+                                                <select id="cboTipoBienEdit" class="control-lectura RequeEdit PopupEdit" disabled></select>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="form-group col-sm-10">
+                                                <label class="control-label">Grupo</label>
+                                                <select id="cboGrupoEdit" class="control-lectura RequeEdit PopupEdit" disabled></select>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="form-group col-sm-10">
+                                                <label class="control-label">Clase</label>
+                                                <select id="cboClaseEdit" class="control-lectura RequeEdit PopupEdit" disabled></select>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="form-group col-sm-10">
+                                                <label class="control-label">Familia</label>
+                                                <select id="cboFamiliaEdit" class="control-lectura RequeEdit PopupEdit" disabled></select>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="form-group col-sm-10">
+                                                <label class="control-label">Cuenta Contable</label>
+                                                <select id="cboCtaContableEdit" class="SelectSearch control-form RequeEdit PopupEdit"></select>
                                             </div>
                                         </div>
                                     </div>
                                     <div class="modal-footer">
-                                        <button id="btnCancelarForm1" class="btnCancelarForm" title="Cancelar"><i class="fa fa-undo" aria-hidden="true"></i>&nbsp;Cancelar</button>
-                                        <button class="btnGuardarForm bg-customer" id="btnSeleccionarItems" title="btn btn-success"><span class="fa fa-hand-o-left"></span>&nbsp;Agregar Items</button>
+                                        <button id="btnCancelarEdicion" class="btnCancelarForm" title="Cancelar"><i class="fa fa-undo" aria-hidden="true"></i>&nbsp;Cancelar</button>
+                                        <button id="btnGuardarEdicion" class="btnGuardarForm bg-customer" title="Guardar datos"><span class="fa fa-save"></span>&nbsp;Grabar</button>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-
                 </div>
             </div>
         </div>
