@@ -45,20 +45,184 @@
                             </div>
                             <div class="tab-content">
                                 <div class="tab-pane active" id="items" role="tabpanel">
-                                    <div class="card">
-                                        <div class="card-block">
-                                            <div class="form-row">
-                                                <div class="form-group col-md-12">
-                                                    <div class="table-responsive" id="divLista"></div>
+                                    <div class="row">
+                                        <div class="col-xl-12">
+                                            <div class="card">
+                                                <div class="card-block">
+                                                    <div class="form-row">
+                                                        <div class="col-xl-4 col-md-12">
+                                                            <div class="card table-card">
+                                                                <div class="card-header">
+                                                                    <h5>CENTRO DE COSTO</h5>
+                                                                </div>
+                                                                <div class="card-block">
+                                                                    <div class="table-responsive">
+                                                                        <div class="table-responsive" id="divLista"></div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-xl-4 col-md-12">
+                                                            <div class="card table-card">
+                                                                <div class="card-header">
+                                                                    <h5>META</h5>
+                                                                </div>
+                                                                <div class="card-block">
+                                                                    <div class="table-responsive">
+                                                                        <div class="table-responsive" id="divListaMeta"></div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-xl-4 col-md-12">
+                                                            <div class="card table-card">
+                                                                <div class="card-header">
+                                                                    <h5>SUB META</h5>
+                                                                </div>
+                                                                <div class="card-block">
+                                                                    <div class="table-responsive">
+                                                                        <div class="table-responsive" id="divListaSubMeta"></div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-xl-12">
+                                            <div class="card">
+                                                <div class="card-block">
+                                                    <div class="form-row">
+                                                        <div class="col-xl-6 col-md-12">
+                                                            <div class="card table-card">
+                                                                <div class="card-header">
+                                                                    <h5>ACTIVIDAD</h5>
+                                                                </div>
+                                                                <div class="card-block">
+                                                                    <div class="table-responsive">
+                                                                        <div class="table-responsive" id="divListaActividad"></div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-xl-6 col-md-12">
+                                                            <div class="card table-card">
+                                                                <div class="card-header">
+                                                                    <h5>CLASIFICADOR</h5>
+                                                                </div>
+                                                                <div class="card-block">
+                                                                    <div class="table-responsive">
+                                                                        <div class="table-responsive" id="divListaClasificador"></div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!--<div class="row">
+                                    <div class="col-xl-12">
+                                        <div class="card">
+                                            <div class="card-block">
+                                                <div class="form-row">
+                                                    <div class="col-xl-6 col-md-12">
+                                                        <div class="card table-card">
+                                                            <div class="card-header">
+                                                                <h5>CLASIFICADOR</h5>
+                                                            </div>
+                                                            <div class="card-block">
+                                                                <div class="table-responsive">
+                                                                    <div class="table-responsive" id="divListaClasificador"></div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>-->
+                                    @*<div class="col-xl-6 col-md-12">
+                                            <div class="card table-card">
+                                                <div class="card-header">
+                                                    <h5>ACTIVIDAD</h5>
+                                                </div>
+                                                <div class="card-block">
+                                                    <div class="table-responsive">
+                                                        <div class="table-responsive" id="divListaActividad"></div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>*@
+                                    <!--</div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>-->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="modal custom-modal" tabindex="-1" role="dialog" aria-hidden="true" id="divPopupContainer" style="overflow-y:auto;">
+                            <div class="modal-dialog modal-lg bg-personalizado" id="divPopupWindow" style="margin-top:30px;">
+                                <div class="modal-content">
+                                    <div id="divBarra" class="modal-header bg-personalizado" style="cursor:move">
+                                        <h5 class="modal-title" id="tituloModal">Nuevo Registro</h5>
+                                    </div>
+                                    <div class="modal-body">
+                                        <div class="row">
+                                            <div class="form-group col-sm-10">
+                                                <label class="control-label">Centro Costo</label>
+                                                <input type="hidden" class="control-form Popup" id="txtIdRegistro">
+                                                <select id="cboCentroCosto" class="control-form Reque Popup"></select>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="form-group col-sm-10">
+                                                <label class="control-label">Meta</label>
+                                                <select id="cboMeta" class="SelectSearch control-form Reque Popup"></select>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="form-group col-sm-10">
+                                                <label class="control-label">Sub Meta</label>
+                                                <select id="cboSubMeta" class="SelectSearch control-form Reque Popup"></select>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="form-group col-sm-10">
+                                                <label class="control-label">Actividad</label>
+                                                <select id="cboActividad" class="SelectSearch control-form Reque Popup"></select>
+                                            </div>
+                                        </div>
+                                        <div class="form-row">
+                                            <div class="form-group col-md-12">
+                                                <div class="table-responsive" id="divListaClasificadorActivar">
+                                                    <table class="grilla bordered Tabla" id="tblItem">
+                                                    <thead>
+                                                        <tr class="FilaHead">
+                                                        <th style="white-space:pre-wrap;width:10px;display:none">id</th>
+                                                        <th style="white-space:pre-wrap;width:140px">Código</th>
+                                                        <th style="white-space:pre-wrap;width:350px">Nombre Clasificador</th>
+                                                        <th style="white-space:pre-wrap;width:130px">Monto</th>
+                                                            </tr>
+                                                        </thead>
+                                                    <tbody id="tbDetalleClasificador">
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button id="btnCancelar" class="btnCancelarForm" title="Cancelar"><i class="fa fa-undo" aria-hidden="true"></i>&nbsp;Cancelar</button>
+                                        <button id="btnGuardar" class="btnGuardarForm bg-customer" title="Guardar datos"><span class="fa fa-save"></span>&nbsp;Grabar</button>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-
                 </div>
             </div>
         </div>

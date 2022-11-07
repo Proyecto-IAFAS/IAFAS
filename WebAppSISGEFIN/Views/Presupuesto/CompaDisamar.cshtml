@@ -1,6 +1,6 @@
 ﻿
 @{
-    ViewBag.Title = "CentroGasto";
+    ViewBag.Title = "CompaDisamar";
     Layout = "~/Views/_LayoutPage.cshtml";
 }
 
@@ -9,7 +9,7 @@
         <div class="main-body">
             <div class="card">
                 <div class="card-header bg-primary">
-                    <h3><i class="fa fa-industry" aria-hidden="true"></i> COMPROMISO @ViewBag.AnhoActual</h3>
+                    <h3><i class="fa fa-industry" aria-hidden="true"></i> COMPROMISO PAGO - DISAMAR</h3>
                 </div>
                 <div class="card-block">
                     <div class="form-row">
@@ -32,28 +32,35 @@
                                     <div class="modal-body">
                                         <div class="row">
                                             <div class="form-group col-sm-10">
+                                                <label class="control-label">Meta</label>
                                                 <input type="hidden" class="control-form Popup" id="txtIdRegistro">
-                                                <label class="control-label">Empresa</label>
-                                                <select id="cboEmpresa" class="control-form Reque Popup" style="background-color: #FCFAC5"></select>
+                                                <select id="cboMeta" class="SelectSearch control-form Reque Popup"></select>
                                             </div>
                                         </div>
                                         <div class="row">
-                                            <div class="form-group col-sm-12">
-                                                <label class="control-label">Nombre</label>
-                                                <input type="text" autocomplete="off" maxlength="150" class="control-form Reque Popup" id="txtNombre">
+                                            <div class="form-group col-sm-10">
+                                                <label class="control-label">Sub Meta</label>
+                                                <select id="cboSubMeta" class="SelectSearch control-form Reque Popup"></select>
                                             </div>
                                         </div>
                                         <div class="row">
                                             <div class="form-group col-sm-6">
-                                                <label class="control-label">Abreviatura</label>
-                                                <input type="text" autocomplete="off" maxlength="20" class="control-form Reque Popup" id="txtAbreviatura">
+                                                <label class="control-label">Codigo</label>
+                                                <input type="text" autocomplete="off" class="control-form Reque Popup" maxlength="10" id="txtCodigo">
                                             </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="form-group col-sm-12">
+                                                <label class="control-label">Nombre de la Actividad</label>
+                                                <input type="text" autocomplete="off" class="control-form Reque Popup" maxlength="200" id="txtNombre">
+                                            </div>
+                                        </div>
+                                        <div class="row">
                                             <div class="form-group col-sm-6">
                                                 <label class="control-label">Estado</label>
                                                 <select id="cboEstado" class="control-lectura Reque Popup"></select>
                                             </div>
                                         </div>
-                                        
                                     </div>
                                     <div class="modal-footer">
                                         <button id="btnCancelar" class="btnCancelarForm" title="Cancelar"><i class="fa fa-undo" aria-hidden="true"></i>&nbsp;Cancelar</button>
@@ -70,3 +77,4 @@
 </div>
 <iframe name="print_frame" width="0" height="0" frameborder="0" src="about:blank"></iframe>
 <script src="~/Riztie/Js/App/AppPresu.js"></script>
+

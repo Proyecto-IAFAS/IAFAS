@@ -1474,7 +1474,6 @@
     <Content Include="Views\Presupuesto\PCA.cshtml" />
     <Content Include="Views\Presupuesto\CentroCosto.cshtml" />
     <Content Include="Views\Presupuesto\MarcoPresu.cshtml" />
-    <Content Include="Views\Presupuesto\Compromiso.cshtml" />
     <Content Include="Views\Logistica\RegistroCN.cshtml" />
     <Content Include="Views\Logistica\AprobacionCN.cshtml" />
     <Content Include="Views\Licitacion\Tipoproceso.cshtml" />
@@ -1594,6 +1593,21 @@
     <Content Include="Views\Configuracion\UniMed.cshtml" />
     <Content Include="Views\Presupuesto\Actividad.cshtml" />
     <Content Include="Views\Reportes\FiltroFINANC.cshtml" />
+    <Content Include="Views\Configuracion\TipoCambio.cshtml" />
+    <Content Include="Views\Tesoreria\Bancos.cshtml" />
+    <Content Include="Views\Tesoreria\CuentaBanca.cshtml" />
+    <Content Include="Views\Tesoreria\ProgramaPago.cshtml" />
+    <Content Include="Views\Presupuesto\PIA.cshtml" />
+    <Content Include="Views\Presupuesto\PIM.cshtml" />
+    <Content Include="Views\Presupuesto\NotaIafas.cshtml" />
+    <Content Include="Views\Presupuesto\NotaDisamar.cshtml" />
+    <Content Include="Views\Presupuesto\NotaAprobacion.cshtml" />
+    <Content Include="Views\Presupuesto\CompaIafas.cshtml" />
+    <Content Include="Views\Presupuesto\CompaDisamar.cshtml" />
+    <Content Include="Views\Presupuesto\CompaAprobacion.cshtml" />
+    <Content Include="Views\Tesoreria\Aperturacaja.cshtml" />
+    <Content Include="Views\Tesoreria\Movimientocaja.cshtml" />
+    <Content Include="Views\Tesoreria\CierreCaja.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

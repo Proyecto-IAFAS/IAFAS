@@ -55,5 +55,35 @@ namespace WebAppSISGEFIN.Controllers
             ViewBag.AnhoActual = Convert.ToString(DateTime.Now.Year);
             return View();
         }
+
+        [FiltroAutenticacion]
+        public ActionResult Aperturacaja()
+        {
+            string[] Data = Session["DataUsuario"].ToString().Split('|');
+            string IdPerfil = Data[3];
+            ViewBag.Menu = new Menu().Listar(IdPerfil);
+            ViewBag.AnhoActual = Convert.ToString(DateTime.Now.Year);
+            return View();
+        }
+
+        [FiltroAutenticacion]
+        public ActionResult Movimientocaja()
+        {
+            string[] Data = Session["DataUsuario"].ToString().Split('|');
+            string IdPerfil = Data[3];
+            ViewBag.Menu = new Menu().Listar(IdPerfil);
+            ViewBag.AnhoActual = Convert.ToString(DateTime.Now.Year);
+            return View();
+        }
+
+        [FiltroAutenticacion]
+        public ActionResult CierreCaja()
+        {
+            string[] Data = Session["DataUsuario"].ToString().Split('|');
+            string IdPerfil = Data[3];
+            ViewBag.Menu = new Menu().Listar(IdPerfil);
+            ViewBag.AnhoActual = Convert.ToString(DateTime.Now.Year);
+            return View();
+        }
     }
 }

@@ -1,14 +1,15 @@
 ﻿
 @{
-    ViewBag.Title = "Formato";
+    ViewBag.Title = "CompaIafas";
     Layout = "~/Views/_LayoutPage.cshtml";
 }
+
 <div class="pcoded-content">
     <div class="pcoded-inner-content">
         <div class="main-body">
             <div class="card">
                 <div class="card-header bg-primary">
-                    <h3><i class="fa fa-users" aria-hidden="true"></i> TIPOS DE DOCUMENTO</h3>
+                    <h3><i class="fa fa-industry" aria-hidden="true"></i> COMPROMISO PAGO - IAFAS</h3>
                 </div>
                 <div class="card-block">
                     <div class="form-row">
@@ -30,29 +31,30 @@
                                     </div>
                                     <div class="modal-body">
                                         <div class="row">
-                                            <div class="form-group col-sm-6">
+                                            <div class="form-group col-sm-10">
+                                                <label class="control-label">Meta</label>
                                                 <input type="hidden" class="control-form Popup" id="txtIdRegistro">
-                                                <label class="control-label">Entidad</label>
-                                                <select id="cboEntidad" class="control-lectura Reque Popup"></select>
+                                                <select id="cboMeta" class="SelectSearch control-form Reque Popup"></select>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="form-group col-sm-10">
+                                                <label class="control-label">Sub Meta</label>
+                                                <select id="cboSubMeta" class="SelectSearch control-form Reque Popup"></select>
                                             </div>
                                         </div>
                                         <div class="row">
                                             <div class="form-group col-sm-6">
-                                                <label class="control-label">Tipo Documento</label>
-                                                <select id="cboDocumento" class="control-form Reque Popup"></select>
+                                                <label class="control-label">Codigo</label>
+                                                <input type="text" autocomplete="off" class="control-form Reque Popup" maxlength="10" id="txtCodigo">
                                             </div>
                                         </div>
                                         <div class="row">
-                                            <div class="form-group col-sm-6">
-                                                <label class="control-label">Serie</label>
-                                                <input type="text" autocomplete="off" maxlength="10" class="control-form Reque Popup" id="txtSerie">
-                                            </div>
-                                            <div class="form-group col-sm-6">
-                                                <label class="control-label">Número</label>
-                                                <input type="text" autocomplete="off" maxlength="20" value="0" class="control-form Reque Popup" id="txtNumero">
+                                            <div class="form-group col-sm-12">
+                                                <label class="control-label">Nombre de la Actividad</label>
+                                                <input type="text" autocomplete="off" class="control-form Reque Popup" maxlength="200" id="txtNombre">
                                             </div>
                                         </div>
-                                        
                                         <div class="row">
                                             <div class="form-group col-sm-6">
                                                 <label class="control-label">Estado</label>
@@ -74,5 +76,5 @@
     </div>
 </div>
 <iframe name="print_frame" width="0" height="0" frameborder="0" src="about:blank"></iframe>
-<script src="~/Riztie/Js/App/AppLogistica.js"></script>
+<script src="~/Riztie/Js/App/AppPresu.js"></script>
 

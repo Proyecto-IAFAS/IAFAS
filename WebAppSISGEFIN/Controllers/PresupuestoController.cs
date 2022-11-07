@@ -144,7 +144,27 @@ namespace WebAppSISGEFIN.Controllers
         }
 
         [FiltroAutenticacion]
-        public ActionResult Notas()
+        public ActionResult NotaIafas()
+        {
+            string[] Data = Session["DataUsuario"].ToString().Split('|');
+            string IdPerfil = Data[3];
+            ViewBag.Menu = new Menu().Listar(IdPerfil);
+            ViewBag.AnhoActual = Convert.ToString(DateTime.Now.Year);
+            return View();
+        }
+
+        [FiltroAutenticacion]
+        public ActionResult NotaDisamar()
+        {
+            string[] Data = Session["DataUsuario"].ToString().Split('|');
+            string IdPerfil = Data[3];
+            ViewBag.Menu = new Menu().Listar(IdPerfil);
+            ViewBag.AnhoActual = Convert.ToString(DateTime.Now.Year);
+            return View();
+        }
+
+        [FiltroAutenticacion]
+        public ActionResult NotaAprobacion()
         {
             string[] Data = Session["DataUsuario"].ToString().Split('|');
             string IdPerfil = Data[3];
@@ -161,12 +181,34 @@ namespace WebAppSISGEFIN.Controllers
             ViewBag.AnhoActual = Convert.ToString(DateTime.Now.Year);
             return View();
         }
-        public ActionResult Compromiso()
+
+        [FiltroAutenticacion]
+        public ActionResult CompaIafas()
         {
             string[] Data = Session["DataUsuario"].ToString().Split('|');
             string IdPerfil = Data[3];
             ViewBag.Menu = new Menu().Listar(IdPerfil);
             ViewBag.AnhoActual =Convert.ToString(DateTime.Now.Year); 
+            return View();
+        }
+
+        [FiltroAutenticacion]
+        public ActionResult CompaDisamar()
+        {
+            string[] Data = Session["DataUsuario"].ToString().Split('|');
+            string IdPerfil = Data[3];
+            ViewBag.Menu = new Menu().Listar(IdPerfil);
+            ViewBag.AnhoActual = Convert.ToString(DateTime.Now.Year);
+            return View();
+        }
+
+        [FiltroAutenticacion]
+        public ActionResult CompaAprobacion()
+        {
+            string[] Data = Session["DataUsuario"].ToString().Split('|');
+            string IdPerfil = Data[3];
+            ViewBag.Menu = new Menu().Listar(IdPerfil);
+            ViewBag.AnhoActual = Convert.ToString(DateTime.Now.Year);
             return View();
         }
     }

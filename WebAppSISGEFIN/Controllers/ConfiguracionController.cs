@@ -30,6 +30,19 @@ namespace WebAppSISGEFIN.Controllers
             ViewBag.AnioCN = Anio + 1;
             return View();
         }
+        [FiltroAutenticacion]
+        public ActionResult TipoCambio()
+        {
+            int Anio = DateTime.Now.Year;
+            string[] Data = Session["DataUsuario"].ToString().Split('|');
+            string IdPerfil = Data[3];
+            ViewBag.Menu = new Menu().Listar(IdPerfil);
+            ViewBag.Anio = Anio;
+            ViewBag.AnioCN = Anio + 1;
+            return View();
+        }
+
+        
 
         [FiltroAutenticacion]
         public ActionResult Periodo()

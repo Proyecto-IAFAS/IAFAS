@@ -14,27 +14,44 @@ var listaSubMetaItem_v = [];
 var listaGrupoItem = [];
 var listaClaseItem = [];
 var listaFamiliaItem = [];
+var idPlan = 1;
+var idCenCos,idMeta,idSubMeta,idActividad;
+var listaActividad = [];
 
 window.onload = function () {
     getConfigMn();
     vista = window.sessionStorage.getItem("Vista");
     controller = window.sessionStorage.getItem("Controller");
     mostrarLoading("divLista");
-    if (vista == "PCA") {
+    if (vista == "PIA") {
+        idPlan = 1;
         getListarProgramacion();
     }
     else {
         getListar();
     }
     configurarBotones();
-   configurarCombos();
+    configurarCombos();
 }
 function getListarProgramacion() {
-
     var data = "";
-    var txtAnhoFiscal = document.getElementById("txtAnioFiscal").value;
-    data = txtAnhoFiscal;
-    Http.get("General/listarTabla/?tbl=" + controller + vista + "&data=" + data, mostrarlistas);
+    var anioFiscal = document.getElementById("txtAnioFiscal")?.value;
+    data = anioFiscal + '|' + idPlan;
+    Http.get("General/listarTabla/?tbl=" + controller + vista + "&data=" + data, mostrarlistaPlan);
+}
+
+function mostrarlistaPlan(rpta) {
+    if (rpta) {
+        var listas = rpta.split("¯");
+        var lista = listas[0].split("¬");
+        var listaCentroCosto = listas[1].split("¬");
+        var listaMeta = listas[2].split("¬");
+        listaSubMetaItem_v = listas[3].split("¬");
+        listaActividad= listas[4].split("¬");
+        grillaItem = new GrillaScroll(lista, "divLista", 100, 6, vista, controller, null, null, null, null, 25, false, null);
+        crearCombo(listaCentroCosto, "cboCentroCosto", "Seleccione");
+        crearCombo(listaMeta, "cboMeta", "Seleccione");
+    }
 }
 
 function getListar() {
@@ -42,7 +59,7 @@ function getListar() {
 
     var anio = document.getElementById("txtAnio")?.value;
     data = anio;
-    
+
     Http.get("General/listarTabla?tbl=" + controller + vista + "&data=" + data, mostrarlistas);
 }
 
@@ -59,21 +76,21 @@ function mostrarlistas(rpta) {
             crearCombo(listaEstado, "cboEstado", "Seleccione");
         }
 
-        else if (vista == "FuenteFto") { 
+        else if (vista == "FuenteFto") {
             var listaEstado = listas[1].split("¬");
-             grillaItem = new GrillaScroll(lista, "divLista", 100, 6, vista, controller, null, null, true, botones, 38, false, null);
+            grillaItem = new GrillaScroll(lista, "divLista", 100, 6, vista, controller, null, null, true, botones, 38, false, null);
             crearCombo(listaEstado, "cboEstado", "Seleccione");
         }
 
         else if (vista == "Meta") {
             var listaEstado = listas[1].split("¬");
-             grillaItem = new GrillaScroll(lista, "divLista", 100, 6, vista, controller, null, null, true, botones, 38, false, null);
+            grillaItem = new GrillaScroll(lista, "divLista", 100, 6, vista, controller, null, null, true, botones, 38, false, null);
             crearCombo(listaEstado, "cboEstado", "Seleccione");
         }
         else if (vista == "SubMeta") {
             listaMetaItem_VG = listas[1].split("¬");
             var listaEstado = listas[2].split("¬");
-  
+
             grillaItem = new GrillaScroll(lista, "divLista", 100, 6, vista, controller, null, null, true, botones, 38, false, null);
             crearCombo(listaEstado, "cboEstado", "Seleccione");
             listarMetaItem();
@@ -82,21 +99,21 @@ function mostrarlistas(rpta) {
         else if (vista == "ClasiIngreso") {
             let listaTipo = listas[1].split("¬");
             var listaEstado = listas[2].split("¬");
-             grillaItem = new GrillaScroll(lista, "divLista", 100, 6, vista, controller, null, null, true, botones, 38, false, null);
+            grillaItem = new GrillaScroll(lista, "divLista", 100, 6, vista, controller, null, null, true, botones, 38, false, null);
             crearCombo(listaTipo, "cboTipoBien", "Ninguno");
             crearCombo(listaEstado, "cboEstado", "Seleccione");
         }
         else if (vista == "ClasiGasto") {
             let listaTipo = listas[1].split("¬");
             var listaEstado = listas[2].split("¬");
-             grillaItem = new GrillaScroll(lista, "divLista", 100, 6, vista, controller, null, null, true, botones, 38, false, null);
+            grillaItem = new GrillaScroll(lista, "divLista", 100, 6, vista, controller, null, null, true, botones, 38, false, null);
             crearCombo(listaTipo, "cboTipoBien", "Ninguno");
             crearCombo(listaEstado, "cboEstado", "Seleccione");
         }
         else if (vista == "CentroCosto") {
             var listaEntidad = listas[1].split("¬");
             var listaEstado = listas[2].split("¬");
- 
+
             grillaItem = new GrillaScroll(lista, "divLista", 100, 6, vista, controller, null, null, true, botones, 38, false, null);
             crearCombo(listaEntidad, "cboEntidad", "Seleccione");
             crearCombo(listaEstado, "cboEstado", "Seleccione");
@@ -110,8 +127,8 @@ function mostrarlistas(rpta) {
             grillaItem = new GrillaScroll(lista, "divLista", 100, 6, vista, controller, null, null, true, botones, 38, false, null);
             crearCombo(listaMeta, "cboMeta", "Seleccione");
             crearCombo(listaEstado, "cboEstado", "Seleccione");
-       }
-        
+        }
+
         else if (vista == "PCA") {
             var listaEntidad = listas[1].split("¬");
             var listaFinanciamiento = listas[2].split("¬");
@@ -119,7 +136,7 @@ function mostrarlistas(rpta) {
             listaSubMetaItem_v = listas[4].split("¬");
             var listaEstado = listas[5].split("¬");
             var listaPresup = listas[6].split("¬");
-             
+
             grillaItem = new GrillaScroll(lista, "divLista", 100, 6, vista, controller, null, null, true, botones, 38, false, null);
 
             crearCombo(listaEntidad, "cboEntidad", "Seleccione");
@@ -135,7 +152,7 @@ function mostrarlistas(rpta) {
             var listaMeta = listas[2].split('¬');
             listaSubMetaItem_v = listas[3].split('¬');
             var listaClasificador = listas[4].split('¬');
-             
+
             grillaItem = new GrillaScroll(lista, "divLista", 100, 6, vista, controller, null, null, true, botones, 38, false, null);
 
             listarSubMetaItem();
@@ -165,7 +182,7 @@ function mostrarlistas(rpta) {
             crearCombo(listaTipo, "cboTipoBienInact", "Seleccione");
         }
         else {
-              grillaItem = new GrillaScroll(lista, "divLista", 100, 6, vista, controller, null, null, true, botones, 38, false, null);
+            grillaItem = new GrillaScroll(lista, "divLista", 100, 6, vista, controller, null, null, true, botones, 38, false, null);
         }
     }
 }
@@ -175,7 +192,7 @@ function listarMetaItem() {
     var nRegistros = listaMetaItem_VG.length;
     var contenido = "<option value=''>Seleccione</option>";
     var campos, idCodigo, nombre;
-    
+
     for (var i = 0; i < nRegistros; i++) {
         campos = listaMetaItem_VG[i].split('|');
         idCodigo = campos[0];
@@ -185,7 +202,7 @@ function listarMetaItem() {
         contenido += "'>";
         contenido += nombre;
         contenido += "</option>";
-       
+
     }
     var cbo = document.getElementById("cboMeta");
     if (cbo != null) {
@@ -199,7 +216,7 @@ function listarMetaItem() {
     }
 }
 
-function listarSelect2Item(lista,idCombo) {
+function listarSelect2Item(lista, idCombo) {
     var nRegistros = lista.length;
     var contenido = "<option value=''>Seleccione</option>";
     var campos, idCodigo, nombre;
@@ -238,6 +255,33 @@ function listarSubMetaItem() {
         }
     }
     var cbo = document.getElementById("cboSubMeta");
+    if (cbo != null) {
+        cbo.innerHTML = contenido;
+    }
+}
+
+
+function listarActividadItem() {
+    var idMeta = cboMeta.value;
+    var idSubMeta = cboSubMeta.value;
+    var nRegistros = listaActividad.length;
+    var contenido = "<option value=''>Seleccione</option>";
+    var campos, idCodigo, nombre, idxMetaItem, idxSubMetaItem;
+    for (var i = 0; i < nRegistros; i++) {
+        campos = listaActividad[i].split('|');
+        idCodigo = campos[0];
+        nombre = campos[1];
+        idxMetaItem = campos[2];
+        idxSubMetaItem = campos[3];
+        if (idxMetaItem == idMeta && idxSubMetaItem == idSubMeta) {
+            contenido += "<option value='";
+            contenido += idCodigo;
+            contenido += "'>";
+            contenido += nombre;
+            contenido += "</option>";
+        }
+    }
+    var cbo = document.getElementById("cboActividad");
     if (cbo != null) {
         cbo.innerHTML = contenido;
     }
@@ -313,7 +357,7 @@ function mostrarGrabar(rpta) {
         var tipo = mensajeResul[0];
         var mensaje = mensajeResul[1];
         divPopupContainer.style.display = 'none';
-          grillaItem = new GrillaScroll(lista, "divLista", 100, 6, vista, controller, null, null, true, botones, 38, false, null);
+        grillaItem = new GrillaScroll(lista, "divLista", 100, 6, vista, controller, null, null, true, botones, 38, false, null);
 
         if (vista == "PCA") {
             var listaPresup = listas[2].split("¬");
@@ -416,7 +460,7 @@ function mostrarRegistro(rpta) {
         var select2cboPadre = document.getElementById("select2-cboPadre-container");
         if (select2cboPadre != null) select2cboPadre.innerHTML = "Seleccione";
 
-       if (vista == "PCA") {
+        if (vista == "PCA") {
             //txtIdRegistro.value = campos[0];
             //txtAnho.value = campos[1];
             //cboEntidad.value = campos[2];
@@ -430,58 +474,58 @@ function mostrarRegistro(rpta) {
             //txtEjecutado.value = campos[8];
             //txtDisponible.value = campos[9];
             //cboEstado.value = campos[10];
-       }
-       else if (vista == "MarcoPresu") {
-            txtIdRegistro.value = campos[0];
-           cboPCA.value = campos[1];
-           document.getElementById('select2-cboPCA-container').innerHTML = cboPCA.options[cboPCA.selectedIndex].text;
-           cboMeta.value = campos[2];
-           document.getElementById('select2-cboMeta-container').innerHTML = cboMeta.options[cboMeta.selectedIndex].text;
-            listarSubMetaItem();
-           cboSubMeta.value = campos[3];
-           document.getElementById('select2-cboSubMeta-container').innerHTML = cboSubMeta.options[cboSubMeta.selectedIndex].text;
-           cboClasificador.value = campos[4];
-           document.getElementById('select2-cboClasificador-container').innerHTML = cboClasificador.options[cboClasificador.selectedIndex].text;
-           console.log(rpta);
-           var divPopupContainer = document.getElementById("divPopupContainer");
-           if (divPopupContainer != null) { divPopupContainer.style.display = 'block'; };
-           return;
         }
-       else if (vista == "Actividad") {
-           txtIdRegistro.value = campos[0];
-           cboMeta.value = campos[1];
-           document.getElementById('select2-cboMeta-container').innerHTML = cboMeta.options[cboMeta.selectedIndex].text;
-           listarSubMetaItem();
-           cboSubMeta.value = campos[2];
-           document.getElementById('select2-cboSubMeta-container').innerHTML = cboSubMeta.options[cboSubMeta.selectedIndex].text;
-           txtCodigo.value = campos[3];
-           txtNombre.value = campos[4];
-           cboEstado.value = campos[5];
-           var divPopupContainer = document.getElementById("divPopupContainer");
-           if (divPopupContainer != null) { divPopupContainer.style.display = 'block'; };
-           return;
-       }
-       else if (vista == "FamiliaClasificador") {
-           
-           txtIdRegistro.value = campos[0];
-           txtAnioPerido.value = campos[1];
-           cboTipoUso.value = campos[2];
-           cboTipoBien.value = campos[3];
-           listarGrupoItem();
-           cboGrupo.value = campos[4];
-           document.getElementById('select2-cboGrupo-container').innerHTML = cboGrupo.options[cboGrupo.selectedIndex].text;
-           listarClaseItem();
-           cboClase.value = campos[5];
-           document.getElementById('select2-cboClase-container').innerHTML = cboClase.options[cboClase.selectedIndex].text;
-           listarFamiliaItem();
-           cboFamilia.value = campos[6];
-           document.getElementById('select2-cboFamilia-container').innerHTML = cboClase.options[cboClase.selectedIndex].text;
-           cboClasificador.value = campos[7];
-           document.getElementById('select2-cboClasificador-container').innerHTML = cboClasificador.options[cboClasificador.selectedIndex].text;
-           cboEstado.value = campos[8];
-           document.getElementById("divPopupContainer").style.display = 'block';
-           return;
-       }
+        else if (vista == "MarcoPresu") {
+            txtIdRegistro.value = campos[0];
+            cboPCA.value = campos[1];
+            document.getElementById('select2-cboPCA-container').innerHTML = cboPCA.options[cboPCA.selectedIndex].text;
+            cboMeta.value = campos[2];
+            document.getElementById('select2-cboMeta-container').innerHTML = cboMeta.options[cboMeta.selectedIndex].text;
+            listarSubMetaItem();
+            cboSubMeta.value = campos[3];
+            document.getElementById('select2-cboSubMeta-container').innerHTML = cboSubMeta.options[cboSubMeta.selectedIndex].text;
+            cboClasificador.value = campos[4];
+            document.getElementById('select2-cboClasificador-container').innerHTML = cboClasificador.options[cboClasificador.selectedIndex].text;
+            console.log(rpta);
+            var divPopupContainer = document.getElementById("divPopupContainer");
+            if (divPopupContainer != null) { divPopupContainer.style.display = 'block'; };
+            return;
+        }
+        else if (vista == "Actividad") {
+            txtIdRegistro.value = campos[0];
+            cboMeta.value = campos[1];
+            document.getElementById('select2-cboMeta-container').innerHTML = cboMeta.options[cboMeta.selectedIndex].text;
+            listarSubMetaItem();
+            cboSubMeta.value = campos[2];
+            document.getElementById('select2-cboSubMeta-container').innerHTML = cboSubMeta.options[cboSubMeta.selectedIndex].text;
+            txtCodigo.value = campos[3];
+            txtNombre.value = campos[4];
+            cboEstado.value = campos[5];
+            var divPopupContainer = document.getElementById("divPopupContainer");
+            if (divPopupContainer != null) { divPopupContainer.style.display = 'block'; };
+            return;
+        }
+        else if (vista == "FamiliaClasificador") {
+
+            txtIdRegistro.value = campos[0];
+            txtAnioPerido.value = campos[1];
+            cboTipoUso.value = campos[2];
+            cboTipoBien.value = campos[3];
+            listarGrupoItem();
+            cboGrupo.value = campos[4];
+            document.getElementById('select2-cboGrupo-container').innerHTML = cboGrupo.options[cboGrupo.selectedIndex].text;
+            listarClaseItem();
+            cboClase.value = campos[5];
+            document.getElementById('select2-cboClase-container').innerHTML = cboClase.options[cboClase.selectedIndex].text;
+            listarFamiliaItem();
+            cboFamilia.value = campos[6];
+            document.getElementById('select2-cboFamilia-container').innerHTML = cboClase.options[cboClase.selectedIndex].text;
+            cboClasificador.value = campos[7];
+            document.getElementById('select2-cboClasificador-container').innerHTML = cboClasificador.options[cboClasificador.selectedIndex].text;
+            cboEstado.value = campos[8];
+            document.getElementById("divPopupContainer").style.display = 'block';
+            return;
+        }
 
         var divPopupContainer = document.getElementById("divPopupContainer");
         if (divPopupContainer != null) { divPopupContainer.style.display = 'block'; };
@@ -579,7 +623,7 @@ function configurarBotones() {
             txtEjecutado.value = 0;
             txtDisponible.value = 0;
         }
-          
+
         var txtAnioPerido = document.getElementById("txtAnioPerido");
         if (txtAnioPerido != null) {
             var anio = txtAnioPerido.getAttribute('value');
@@ -691,10 +735,20 @@ function configurarBotones() {
 }
 
 function configurarCombos() {
-     
+
     var cboMeta = document.getElementById("cboMeta");
     if (cboMeta != null) cboMeta.onchange = function () {
         listarSubMetaItem();
+    }
+
+    var cboSubMeta = document.getElementById("cboSubMeta");
+    if (cboSubMeta != null) cboSubMeta.onchange = function () {
+        listarActividadItem();
+    }
+
+    var cboActividad = document.getElementById("cboActividad");
+    if (cboActividad != null) cboActividad.onchange = function () {
+        listarClasificadorItem();
     }
 
     var cboTipoBien = document.getElementById("cboTipoBien");
@@ -759,8 +813,78 @@ function seleccionarFila(fila, id, prefijo) {
     if (window["fila" + prefijo] != null) window["fila" + prefijo].className = "FilaDatos";
     fila.className = "FilaSeleccionada";
     window["fila" + prefijo] = fila;
+
+    if (vista == 'PIA') {
+        if (prefijo == "divLista") {
+            var data = "";
+            var anioFiscal = document.getElementById("txtAnioFiscal")?.value;
+            limpiarGrilla();
+            idCenCos = idRegistro
+            data = anioFiscal + '|' + idPlan + '|' + idCenCos;
+            Http.get("General/listarTabla?tbl=" + controller + vista + "Meta&data=" + data, function (response) {
+                if (response) {
+                    var lista = response.split("¬");
+                    grillaItems = new GrillaScroll(lista, "divListaMeta", 100, 6, vista, controller, null, null, null, null, 25, false, null);
+                }
+            });
+        }
+        else if (prefijo == "divListaMeta") {
+            var data = "";
+            var anioFiscal = document.getElementById("txtAnioFiscal")?.value;
+            idMeta = idRegistro;
+            data = anioFiscal + '|' + idPlan + '|' + idCenCos + '|' + idMeta;
+            Http.get("General/listarTabla?tbl=" + controller + vista + "SubMeta&data=" + data, function (datos) {
+                if (datos) {
+                    var lista = datos.split("¬");
+                    grillaItems = new GrillaScroll(lista, "divListaSubMeta", 100, 6, vista, controller, null, null, null, null, 25, false, null);
+                }
+            });
+        }
+        else if (prefijo == "divListaSubMeta") {
+            var data = "";
+            var anioFiscal = document.getElementById("txtAnioFiscal")?.value;
+            idSubMeta = idRegistro;
+            data = anioFiscal + '|' + idPlan + '|' + idCenCos + '|' + idMeta + '|' + idSubMeta;
+            Http.get("General/listarTabla?tbl=" + controller + vista + "Actividad&data=" + data, function (datos) {
+                if (datos) {
+                    var lista = datos.split("¬");
+                    grillaItems = new GrillaScroll(lista, "divListaActividad", 100, 6, vista, controller, null, null, null, null, 25, false, null);
+                }
+            });
+        }
+        else if (prefijo == "divListaActividad") {
+            var data = "";
+            var anioFiscal = document.getElementById("txtAnioFiscal")?.value;
+            idActividad = idRegistro;
+            data = anioFiscal + '|' + idPlan + '|' + idCenCos + '|' + idMeta + '|' + idSubMeta + '|' + idActividad;
+            Http.get("General/listarTabla?tbl=" + controller + vista + "Clasificador&data=" + data, function (datos) {
+                if (datos) {
+                    var lista = datos.split("¬");
+                    grilla = new GrillaScroll(lista, "divListaClasificador", 100, 6, vista, controller, null, null, null, botones, 25, false, null);
+                }
+            });
+        }
+    }
 }
 
+function limpiarGrilla() {
+    divListaClasificador.innerHTML = "";
+    divListaActividad.innerHTML = "";
+    divListaSubMeta.innerHTML = "";
+    divListaMeta.innerHTML = "";
+}
+
+function listarClasificadorItem() {
+    var data = "";
+    Http.get("General/listarTabla?tbl=" + controller + vista + "ClasificadorActivar&data=" + data, function (datos) {
+        if (datos) {
+           // var lista = datos.split("¬");
+            mostrarClasificadorItem(datos)
+            //generarTablaItem(lista, "divListaClasificadorActivar", "tblItem", true, null, true);
+            //grilla = new GrillaScroll(lista, "divListaClasificadorActivar", 100, 6, vista, controller, null, null, null, null, 25, false, true);
+        }
+    });
+}
 
 function listarGrupoItem() {
     var idTipoItem = cboTipoBien.value;
@@ -838,4 +962,40 @@ function listarFamiliaItem() {
     }
     var cbo = document.getElementById("cboFamilia");
     if (cbo != null) cbo.innerHTML = contenido;
+}
+
+function mostrarClasificadorItem(rpta) {
+    var contenido = "";
+   // tbDetallePedido.innerHTML = "";
+    var lista = rpta.split('¬');
+    var nRegistros = lista.length;
+    var campos = [];
+    for (var i = 0; i < nRegistros; i++) {
+        campos = lista[i].split("|");
+        contenido += "<tr>";
+        contenido += "<td style='display:none'>";
+        contenido += campos[0];
+        contenido += "</td> ";
+        contenido += "<td style='vertical-align:top'>";
+        contenido += campos[1];
+        contenido += "</td> ";
+        contenido += "<td style='max-width:600px;white-space: pre-wrap;white-space: -moz-pre-wrap;white-space: -o-pre-wrap;'>";
+        contenido += campos[2];
+        contenido += "</td> ";
+        contenido += "<td style='vertical-align:top;'>";
+        contenido += "<input type='number' style='text-align:right'";
+        //onkeyup = 'validarCantidad(this,\"";
+        //contenido += campos[7]
+        //contenido += "\",\"";
+        //contenido += campos[8];
+        //contenido += "\");' 
+        contenido += "min = 1 value = ";
+        contenido += campos[3];
+        contenido += "></td> ";
+        contenido += "</tr>";
+    }
+   // divListaClasificadorActivar.innerHTML = contenido;
+    tbDetalleClasificador.innerHTML = contenido;
+   // spnNroItems.innerHTML = 'Items: ' + nRegistros;
+    //configurarEnterCantidad(tbDetallePedido, 8);
 }
