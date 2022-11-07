@@ -1,0 +1,40 @@
+﻿@using WebAppSISGEFIN.Models;
+
+@model ControlX
+
+@{
+
+    var _Disabled = (Model.Enabled == false ? "disabled" : "");
+    string _eventKeyF2 = $"{@Model.OnKeyF2}(this)";
+    string _direct = "";
+
+    switch (Model.Capt.Postn)
+    {
+        case ePost.eLeft:
+            _direct = "row";
+            break;
+        case ePost.eTop:
+            _direct = "column";
+            break;
+        default:
+            _direct = "auto";
+            break;
+    }
+
+}
+
+<div style="width:fit-content; display:flex; flex-direction:@_direct; padding:5px;">
+
+    <div style="width:@Model.Capt.Width; text-align:@Model.Capt.Align;">
+        <label>@Model.Capt.Value </label>
+    </div>
+
+    <input id="@Model.Name"
+           type="@Model.Type" name="@Model.Name"
+           class="form-control form-control-sm"
+           value="@Model.Text.Value" @_Disabled autocomplete="off"
+           style="text-align:@Model.Text.Align; width:@Model.Text.Width;"
+           onkeyup="if (event.keyCode == 113) { eval(@_eventKeyF2); }" />
+
+</div>
+

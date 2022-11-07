@@ -1415,6 +1415,7 @@
     </Compile>
     <Compile Include="Models\Runs.cs" />
     <Compile Include="Models\Menu.cs" />
+    <Compile Include="Models\Types.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="rptViewer.aspx.cs">
       <DependentUpon>rptViewer.aspx</DependentUpon>
@@ -1515,7 +1516,6 @@
     <Content Include="Templates\Patrimonio\Template_InventarioInicial.xlsx" />
     <Content Include="Views\Patrimonio\General.cshtml" />
     <Content Include="Views\_ViewStart.cshtml" />
-    <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Patrimonio\TasaUIT.cshtml" />
     <Content Include="Views\Ingresos\EstadoCuenta.cshtml" />
     <Content Include="Views\Reportes\_PuenteRpt.cshtml" />
@@ -1593,6 +1593,7 @@
     <Content Include="Views\Configuracion\UniMed.cshtml" />
     <Content Include="Views\Presupuesto\Actividad.cshtml" />
     <Content Include="Views\Reportes\FiltroFINANC.cshtml" />
+<<<<<<< Updated upstream
     <Content Include="Views\Configuracion\TipoCambio.cshtml" />
     <Content Include="Views\Tesoreria\Bancos.cshtml" />
     <Content Include="Views\Tesoreria\CuentaBanca.cshtml" />
@@ -1608,6 +1609,11 @@
     <Content Include="Views\Tesoreria\Aperturacaja.cshtml" />
     <Content Include="Views\Tesoreria\Movimientocaja.cshtml" />
     <Content Include="Views\Tesoreria\CierreCaja.cshtml" />
+=======
+    <Content Include="Views\Shared\_TextBox.cshtml" />
+    <Content Include="Views\General\Index2.cshtml" />
+    <Content Include="Views\Shared\_Layout.cshtml" />
+>>>>>>> Stashed changes
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

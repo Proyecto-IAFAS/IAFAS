@@ -1,0 +1,65 @@
+﻿@using WebAppSISGEFIN.Models
+
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@section header{
+    <h1>Header Content</h1>
+}
+
+@{Html.RenderPartial("_TextBox", new ControlX
+    {
+        Enabled = true,
+        Name = "Nombre",
+        Type = "text",
+        Capt = new ctlCapt
+        {
+            Postn = ePost.eLeft,
+            Align = "left",
+            Width = "150px",
+            Value = "Nombre del Alumno",
+        },
+        Text = new ctlText
+        {
+            Align = "left",
+            Width = "150px",
+            Value = ""
+        },
+        OnKeyF2 = "showPopup1"
+    });}
+
+@{Html.RenderPartial("_TextBox", new ControlX
+    {
+        Enabled = true,
+        Name = "Apellido",
+        Type = "text",
+        Capt = new ctlCapt
+        {
+            Postn = ePost.eLeft,
+            Align = "left",
+            Width = "150px",
+            Value = "Apellido del Alumno",
+        },
+        Text = new ctlText
+        {
+            Align = "left",
+            Width = "300px",
+            Value = ""
+        },
+        OnKeyF2 = "showPopup1"
+    });}
+
+@section scripts {
+
+    <link href="~/Riztie/Css/bootstrap.min.css" rel="stylesheet" />
+
+    <script>
+
+        function showPopup1(e) {
+            alert(`Nombre ${e.name} = ${e.value}`);
+        }
+
+    </script>
+
+}

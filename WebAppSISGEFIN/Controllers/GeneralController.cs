@@ -434,6 +434,13 @@ namespace WebAppTurnera.Controllers
             return rpta;
         }
 
+        //----------------------------------------------------------------------
+
+        public ActionResult Index2()
+        {
+            return View();
+        }
+
 
     }
 
