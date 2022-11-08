@@ -30,7 +30,6 @@
                 </div>
 
                 <div style="flex-direction: column;">
-
                     <table class="table table-sm" style="font-size:12px;">
                         <tr>
                             <td>
@@ -49,7 +48,6 @@
                             </td>
                         </tr>
                     </table>
-
                 </div>
 
                 <div>
@@ -58,7 +56,7 @@
 
             </div>
             <div>
-                <iframe id="iFrame" src="about://blank" frameborder="0"></iframe>
+                <iframe id="iFrame" title="Documento" src="about://blank" frameborder="0"></iframe>
             </div>
         </div>
     </div>
@@ -85,20 +83,12 @@
         _iFrame.src = _UrlDoc;
     }
 
-    function ActualizarSel() {
-        const _txtAñoEjec = document.getElementById('txtAñoEjec');
-        const _cboFinancia = document.getElementById('cboFuentesFinan');
-        const _Params = document.getElementById('Params');
-        _Params.value = _txtAñoEjec.value;
-        _Params.value += '|' + _cboFinancia.value;
-    }
-
     async function CargarCombo(nombre) {
         const _cboName = 'cbo' + nombre;
         const _actName = 'Get' + nombre;
         var _data = sessionStorage.getItem(_cboName);
         if (_data == null) {
-            const _auxUrl = '@Url.Action("X","Reportes")';
+            const _auxUrl = '@Url.Action("X", "Data4Combo")';
             const _newUrl = _auxUrl.replace('X', _actName);
             const response = await fetch(_newUrl);
             _data = await response.text();
@@ -106,6 +96,14 @@
         }
         var _lista = _data.split('¬');
         crearCombo(_lista, _cboName, "Seleccione un item")
+    }
+
+    function ActualizarSel() {
+        const _txtAñoEjec = document.getElementById('txtAñoEjec');
+        const _cboFinancia = document.getElementById('cboFuentesFinan');
+        const _Params = document.getElementById('Params');
+        _Params.value = _txtAñoEjec.value;
+        _Params.value += '|' + _cboFinancia.value;
     }
 
     window.onload = async function () {
