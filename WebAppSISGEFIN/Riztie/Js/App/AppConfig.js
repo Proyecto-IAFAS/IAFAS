@@ -47,6 +47,8 @@ function NumCheck(e, field) {
 
 function getListar() {
     var data = "";
+    var anio = txtAnioFiscal?.value
+    data = anio;
     Http.get("General/listarTabla?tbl=" + controller + vista + "&data=" + data, mostrarlistas);
 }
 
@@ -117,7 +119,9 @@ function mostrarlistas(rpta) {
 
             crearComboCtaContable(listaCtaContable, "cboCtaContableEdit", "Seleccione");
         }
-
+        else if (vista == "TipoCambio") {
+            grillaItem = new GrillaScroll(lista, "divLista", 100, 6, vista, controller, null, null, true, null, 38, false, null);
+        }
         else {
             grillaItem = new GrillaScroll(lista, "divLista", 100, 6, vista, controller, null, null, true, botones, 38, false, null);
         }

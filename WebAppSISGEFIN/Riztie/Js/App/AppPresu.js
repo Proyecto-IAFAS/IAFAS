@@ -15,7 +15,7 @@ var listaGrupoItem = [];
 var listaClaseItem = [];
 var listaFamiliaItem = [];
 var idPlan = 1;
-var idCenCos,idMeta,idSubMeta,idActividad;
+var idCenCos, idMeta, idSubMeta, idActividad;
 var listaActividad = [];
 
 window.onload = function () {
@@ -25,7 +25,10 @@ window.onload = function () {
     mostrarLoading("divLista");
     if (vista == "PIA") {
         idPlan = 1;
-        getListarProgramacion();
+        getListarProgramacion(idPlan);
+    }
+    else if (vista == "ClasiGasto" || vista == "ClasiIngreso") {
+        getListarClasificador(1);
     }
     else {
         getListar();
@@ -33,7 +36,7 @@ window.onload = function () {
     configurarBotones();
     configurarCombos();
 }
-function getListarProgramacion() {
+function getListarProgramacion(idPlan) {
     var data = "";
     var anioFiscal = document.getElementById("txtAnioFiscal")?.value;
     data = anioFiscal + '|' + idPlan;
@@ -47,11 +50,16 @@ function mostrarlistaPlan(rpta) {
         var listaCentroCosto = listas[1].split("¬");
         var listaMeta = listas[2].split("¬");
         listaSubMetaItem_v = listas[3].split("¬");
-        listaActividad= listas[4].split("¬");
+        listaActividad = listas[4].split("¬");
         grillaItem = new GrillaScroll(lista, "divLista", 100, 6, vista, controller, null, null, null, null, 25, false, null);
         crearCombo(listaCentroCosto, "cboCentroCosto", "Seleccione");
         crearCombo(listaMeta, "cboMeta", "Seleccione");
     }
+}
+
+function getListarClasificador(idEstado) {
+    var data = "";
+    Http.get("General/listarTabla?tbl=" + controller + vista + "&data=" + idEstado, mostrarlistas);
 }
 
 function getListar() {
@@ -291,18 +299,19 @@ function grabarDatos() {
     var data = ""
     var frm = new FormData();
     data = obtenerDatosGrabar("Popup");
-    if (vista == "PCA") {
+
+    if (vista == "PIA") {
         var txtAnhoFiscal = document.getElementById("txtAnioFiscal").value;
-        data += "|" + txtAnhoFiscal;
+        data += "|" + txtAnhoFiscal + "|" + idPlan;
+        frm.append("data", data);
+        Http.post("General/guardar/?tbl=" + controller + vista, mostrarGrabarPIA, frm);
     }
-
-    var txtAnio = document.getElementById("txtAnio");
-    if (txtAnio != null) {
-        data += "¯" + txtAnio.value;
+    else {
+        var anio = document.getElementById("txtAnio")?.value;
+        data += "¯" + anio;
+        frm.append("data", data);
+        Http.post("General/guardar/?tbl=" + controller + vista, mostrarGrabar, frm);
     }
-
-    frm.append("data", data);
-    Http.post("General/guardar/?tbl=" + controller + vista, mostrarGrabar, frm);
 }
 
 
@@ -347,6 +356,45 @@ function obtenerDatosGrabar(clase) {
     return data;
 }
 
+
+function mostrarGrabarPIA(rpta) {
+    var mensajeResul = [];
+    if (rpta) {
+        listas = rpta.split("¯")
+        lista = listas[0].split("¬");
+        mensajeResul = listas[1].split("|");
+        var tipo = mensajeResul[0];
+        var mensaje = mensajeResul[1];
+        divPopupContainer.style.display = 'none';
+        grilla = new GrillaScroll(lista, "divListaClasificador", 100, 6, vista, controller, null, null, null, botones, 25, false, null);
+
+        if (tipo == 'A') {
+            Swal.fire({
+                title: 'Finalizado!',
+                text: mensaje,
+                icon: 'success',
+                showConfirmButton: true,
+                timer: 2000
+            })
+            alerta = 'success';
+        }
+        else {
+            Swal.fire({
+                title: 'Error!',
+                text: mensaje,
+                icon: 'error',
+                showConfirmButton: true,
+                timer: 2000
+            })
+        }
+    }
+    else {
+        mostrarMensaje("No se realizó el registro", "error")
+    }
+
+    btnGuardar.innerHTML = "<i class='fa fa-save'></i> Grabar";
+    btnGuardar.disabled = false;
+}
 
 function mostrarGrabar(rpta) {
     var mensajeResul = [];
@@ -584,6 +632,44 @@ function mostrarRegistro(rpta) {
 }
 
 function configurarBotones() {
+    var btnTabBasico = document.getElementById("btnTabBasico");
+    if (btnTabBasico != null) btnTabBasico.onclick = function () {
+        limpiarGrilla();
+        idPlan = btnTabBasico.getAttribute('data-id');
+        getListarProgramacion(idPlan);
+    }
+
+    var btnTabOnconaval = document.getElementById("btnTabOnconaval");
+    if (btnTabOnconaval != null) btnTabOnconaval.onclick = function () {
+        limpiarGrilla();
+        idPlan = btnTabOnconaval.getAttribute('data-id');
+        getListarProgramacion(idPlan);
+    }
+
+    var btnTabSegundaCapa = document.getElementById("btnTabSegundaCapa");
+    if (btnTabSegundaCapa != null) btnTabSegundaCapa.onclick = function () {
+        limpiarGrilla();
+        idPlan = btnTabSegundaCapa.getAttribute('data-id');
+        getListarProgramacion(idPlan);
+    }
+
+    var btnTabCopagos = document.getElementById("btnTabCopagos");
+    if (btnTabCopagos != null) btnTabCopagos.onclick = function () {
+        limpiarGrilla();
+        idPlan = btnTabCopagos.getAttribute('data-id');
+        getListarProgramacion(idPlan);
+    }
+
+    var optActivo = document.getElementById("optActivo");
+    if (optActivo != null) optActivo.onclick = function () {
+        getListarClasificador(1);
+    }
+
+    var optInactivo = document.getElementById("optInactivo");
+    if (optInactivo != null) optInactivo.onclick = function () {
+        getListarClasificador(2);
+    }
+
     var btnNuevo = document.getElementById("btnNuevo");
     if (btnNuevo != null) btnNuevo.onclick = function () {
         divPopupContainer.style.display = 'block';
@@ -832,23 +918,27 @@ function seleccionarFila(fila, id, prefijo) {
             var data = "";
             var anioFiscal = document.getElementById("txtAnioFiscal")?.value;
             idMeta = idRegistro;
-            data = anioFiscal + '|' + idPlan + '|' + idCenCos + '|' + idMeta;
-            Http.get("General/listarTabla?tbl=" + controller + vista + "SubMeta&data=" + data, function (datos) {
+            data = anioFiscal + '-' + idPlan + '-' + idCenCos + '-' + idMeta;
+            Http.get("General/listarTabla?tbl=" + controller + vista + "Clasificador&data=" + data, function (datos) {
                 if (datos) {
                     var lista = datos.split("¬");
                     grillaItems = new GrillaScroll(lista, "divListaSubMeta", 100, 6, vista, controller, null, null, null, null, 25, false, null);
                 }
             });
+
         }
         else if (prefijo == "divListaSubMeta") {
             var data = "";
-            var anioFiscal = document.getElementById("txtAnioFiscal")?.value;
-            idSubMeta = idRegistro;
-            data = anioFiscal + '|' + idPlan + '|' + idCenCos + '|' + idMeta + '|' + idSubMeta;
-            Http.get("General/listarTabla?tbl=" + controller + vista + "Actividad&data=" + data, function (datos) {
+            var codigoclasificador = fila.childNodes[1].innerHTML;
+            Http.get("General/listarTabla?tbl=" + controller + vista + "ClasificadorDetalle&data=" + codigoclasificador, function (datos) {
                 if (datos) {
-                    var lista = datos.split("¬");
-                    grillaItems = new GrillaScroll(lista, "divListaActividad", 100, 6, vista, controller, null, null, null, null, 25, false, null);
+                    var campos = datos.split("|");
+                    lblTipo.innerHTML = 'TIPO: ' +campos[0];
+                    lblGenerica.innerHTML = 'GENERICA: ' +campos[1];
+                    lblSubGenerica1.innerHTML = 'SUB GENERICA 1: ' +campos[2];
+                    lblSubGenerica2.innerHTML = 'SUB GENERICA 2: ' +campos[3];
+                    lblSubEspecifica1.innerHTML = 'SUB ESPECIFICA 1: ' +campos[4];
+                    lblSubEspecifica2.innerHTML = 'SUB ESPECIFICA 2: ' +campos[5];
                 }
             });
         }
@@ -869,7 +959,7 @@ function seleccionarFila(fila, id, prefijo) {
 
 function limpiarGrilla() {
     divListaClasificador.innerHTML = "";
-    divListaActividad.innerHTML = "";
+   // divListaActividad.innerHTML = "";
     divListaSubMeta.innerHTML = "";
     divListaMeta.innerHTML = "";
 }
@@ -878,10 +968,9 @@ function listarClasificadorItem() {
     var data = "";
     Http.get("General/listarTabla?tbl=" + controller + vista + "ClasificadorActivar&data=" + data, function (datos) {
         if (datos) {
-           // var lista = datos.split("¬");
-            mostrarClasificadorItem(datos)
-            //generarTablaItem(lista, "divListaClasificadorActivar", "tblItem", true, null, true);
-            //grilla = new GrillaScroll(lista, "divListaClasificadorActivar", 100, 6, vista, controller, null, null, null, null, 25, false, true);
+            var lista = datos.split("¬");
+            crearCombo(lista, "cboClasificador", "Seleccionar");
+            //mostrarClasificadorItem(datos)
         }
     });
 }
@@ -966,7 +1055,7 @@ function listarFamiliaItem() {
 
 function mostrarClasificadorItem(rpta) {
     var contenido = "";
-   // tbDetallePedido.innerHTML = "";
+    // tbDetallePedido.innerHTML = "";
     var lista = rpta.split('¬');
     var nRegistros = lista.length;
     var campos = [];
@@ -994,8 +1083,8 @@ function mostrarClasificadorItem(rpta) {
         contenido += "></td> ";
         contenido += "</tr>";
     }
-   // divListaClasificadorActivar.innerHTML = contenido;
+    // divListaClasificadorActivar.innerHTML = contenido;
     tbDetalleClasificador.innerHTML = contenido;
-   // spnNroItems.innerHTML = 'Items: ' + nRegistros;
+    // spnNroItems.innerHTML = 'Items: ' + nRegistros;
     //configurarEnterCantidad(tbDetallePedido, 8);
 }

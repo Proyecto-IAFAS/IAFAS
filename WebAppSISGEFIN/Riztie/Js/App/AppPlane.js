@@ -20,8 +20,13 @@ window.onload = function () {
     // configurarConsultas();
 }
 
+function getListarClasificador() {
+    var data = "";
+    Http.get("General/listarTabla?tbl=" + controller + vista + "&data=" + data, mostrarlistas);
+}
+
 function getListar() {
-    var anioCN = document.getElementById("txtAnioCN").value;
+    var anioCN = document.getElementById("txtAnioCN")?.value;
     var data = anioCN;
     Http.get("General/listarTabla?tbl=" + controller + vista + "&data=" + data, mostrarlistas);
 }

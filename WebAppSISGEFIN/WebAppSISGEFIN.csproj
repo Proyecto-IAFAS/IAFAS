@@ -1599,9 +1599,6 @@
     <Content Include="Views\Tesoreria\ProgramaPago.cshtml" />
     <Content Include="Views\Presupuesto\PIA.cshtml" />
     <Content Include="Views\Presupuesto\PIM.cshtml" />
-    <Content Include="Views\Presupuesto\NotaIafas.cshtml" />
-    <Content Include="Views\Presupuesto\NotaDisamar.cshtml" />
-    <Content Include="Views\Presupuesto\NotaAprobacion.cshtml" />
     <Content Include="Views\Presupuesto\CompaIafas.cshtml" />
     <Content Include="Views\Presupuesto\CompaDisamar.cshtml" />
     <Content Include="Views\Presupuesto\CompaAprobacion.cshtml" />
@@ -1611,6 +1608,7 @@
     <Content Include="Views\Shared\_TextBox.cshtml" />
     <Content Include="Views\General\Index2.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
+    <Content Include="Views\Presupuesto\NotaModi.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
