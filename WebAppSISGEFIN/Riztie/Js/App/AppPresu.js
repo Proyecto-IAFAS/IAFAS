@@ -54,6 +54,9 @@ function mostrarlistaPlan(rpta) {
         grillaItem = new GrillaScroll(lista, "divLista", 100, 6, vista, controller, null, null, null, null, 25, false, null);
         crearCombo(listaCentroCosto, "cboCentroCosto", "Seleccione");
         crearCombo(listaMeta, "cboMeta", "Seleccione");
+
+        crearCombo(listaCentroCosto, "cboFuenteRep", "Todos");
+        crearCombo(listaMeta, "cboMetaRep", "Todos");
     }
 }
 
@@ -268,7 +271,6 @@ function listarSubMetaItem() {
     }
 }
 
-
 function listarActividadItem() {
     var idMeta = cboMeta.value;
     var idSubMeta = cboSubMeta.value;
@@ -290,6 +292,56 @@ function listarActividadItem() {
         }
     }
     var cbo = document.getElementById("cboActividad");
+    if (cbo != null) {
+        cbo.innerHTML = contenido;
+    }
+}
+
+function listarSubMetaItemReporte() {
+    var idMeta = cboMetaRep.value;
+    var nRegistros = listaSubMetaItem_v.length;
+    var contenido = "<option value=''>Todos</option>";
+    var campos, idCodigo, nombre, idxMetaItem;
+    for (var i = 0; i < nRegistros; i++) {
+        campos = listaSubMetaItem_v[i].split('|');
+        idCodigo = campos[0];
+        nombre = campos[1];
+        idxMetaItem = campos[2];
+        if (idxMetaItem == idMeta) {
+            contenido += "<option value='";
+            contenido += idCodigo;
+            contenido += "'>";
+            contenido += nombre;
+            contenido += "</option>";
+        }
+    }
+    var cbo = document.getElementById("cboSubMetaRep");
+    if (cbo != null) {
+        cbo.innerHTML = contenido;
+    }
+}
+
+function listarActividadItemReporte() {
+    var idMeta = cboMetaRep.value;
+    var idSubMeta = cboSubMetaRep.value;
+    var nRegistros = listaActividad.length;
+    var contenido = "<option value=''>Todos</option>";
+    var campos, idCodigo, nombre, idxMetaItem, idxSubMetaItem;
+    for (var i = 0; i < nRegistros; i++) {
+        campos = listaActividad[i].split('|');
+        idCodigo = campos[0];
+        nombre = campos[1];
+        idxMetaItem = campos[2];
+        idxSubMetaItem = campos[3];
+        if (idxMetaItem == idMeta && idxSubMetaItem == idSubMeta) {
+            contenido += "<option value='";
+            contenido += idCodigo;
+            contenido += "'>";
+            contenido += nombre;
+            contenido += "</option>";
+        }
+    }
+    var cbo = document.getElementById("cboActividadRep");
     if (cbo != null) {
         cbo.innerHTML = contenido;
     }
@@ -818,6 +870,86 @@ function configurarBotones() {
             getListar();
         }
     }
+
+    var btnImprimir = document.getElementById("btnImprimir");
+    if (btnImprimir != null) btnImprimir.onclick = function () {
+
+        if (vista == "PIA") {
+            btnSeleccionarOpcionReporte.disabled = false;
+            btnSeleccionarOpcionReporte.innerText = "Generar";
+
+            txtAnioRep.value = new Date().getFullYear();
+            cboFuenteRep.value = "";
+            cboMetaRep.value = "";
+            cboSubMetaRep.value = "";
+            cboActividadRep.value = "";
+
+            seleccionarControlSelect2(cboFuenteRep, 'Todos');
+            seleccionarControlSelect2(cboMetaRep, 'Todos');
+            seleccionarControlSelect2(cboSubMetaRep, 'Todos');
+            seleccionarControlSelect2(cboActividadRep, 'Todos');
+        }
+
+        divPopupContainerOpcionReporte.style.display = 'block';
+    }
+
+    var btnCancelarOpcionReporte = document.getElementById("btnCancelarOpcionReporte");
+    if (btnCancelarOpcionReporte != null) btnCancelarOpcionReporte.onclick = function () {
+        divPopupContainerOpcionReporte.style.display = 'none';
+    }
+
+    var btnSeleccionarOpcionReporte = document.getElementById("btnSeleccionarOpcionReporte");
+    if (btnSeleccionarOpcionReporte != null) btnSeleccionarOpcionReporte.onclick = function () {
+        btnSeleccionarOpcionReporte.innerHTML = "Generando <i class='fa fa-circle-o-notch fa-spin' style='color:white'></i>";
+        btnSeleccionarOpcionReporte.disabled = true;
+
+        if (vista == 'PIA') {
+            var data = obtenerDatosGrabar("PopupRep");
+            var datos = data.split('|');
+
+            var anioRep = datos[0];
+            var fuenteRep = datos[1];
+            var metaRep = datos[2];
+            var subMetaRep = datos[3];
+            var actividadRep = datos[4];
+
+            var url = location.origin;
+            var idReporte = 21;
+            var params = anioRep;
+
+            if (fuenteRep) {
+                params = params + '|' + fuenteRep;
+                idReporte = 22;
+            }
+            if (metaRep) {
+                params = params + '|' + metaRep;
+                idReporte = 23;
+            }
+            if (subMetaRep) {
+                params = params + '|' + subMetaRep;
+                idReporte = 24;
+            }
+            if (actividadRep) {
+                params = params + '|' + actividadRep;
+                idReporte = 25;
+            }
+
+            url = url + '/Reportes/ShowRpt/?id=' + idReporte + '&par=' + params + '&r=1'
+            console.log(url);
+
+            ifrmVistaPrevia.src = url;
+
+            document.getElementById("divPopupContainerReporte").style.display = 'block';
+
+            btnSeleccionarOpcionReporte.innerHTML = "<i class='fa fa-search'></i> Ver Reporte";
+            btnSeleccionarOpcionReporte.disabled = false;
+        }
+    }
+
+    var btnCancelarReporte = document.getElementById("btnCancelarReporte");
+    if (btnCancelarReporte != null) btnCancelarReporte.onclick = function () {
+        divPopupContainerReporte.style.display = 'none';
+    }
 }
 
 function configurarCombos() {
@@ -835,6 +967,17 @@ function configurarCombos() {
     var cboActividad = document.getElementById("cboActividad");
     if (cboActividad != null) cboActividad.onchange = function () {
         listarClasificadorItem();
+    }
+
+    var cboMetaRep = document.getElementById("cboMetaRep");
+    if (cboMetaRep != null) cboMetaRep.onchange = function () {
+        listarSubMetaItemReporte();
+        listarActividadItemReporte();
+    }
+
+    var cboSubMetaRep = document.getElementById("cboSubMetaRep");
+    if (cboSubMetaRep != null) cboSubMetaRep.onchange = function () {
+        listarActividadItemReporte();
     }
 
     var cboTipoBien = document.getElementById("cboTipoBien");
@@ -933,12 +1076,12 @@ function seleccionarFila(fila, id, prefijo) {
             Http.get("General/listarTabla?tbl=" + controller + vista + "ClasificadorDetalle&data=" + codigoclasificador, function (datos) {
                 if (datos) {
                     var campos = datos.split("|");
-                    lblTipo.innerHTML = 'TIPO: ' +campos[0];
-                    lblGenerica.innerHTML = 'GENERICA: ' +campos[1];
-                    lblSubGenerica1.innerHTML = 'SUB GENERICA 1: ' +campos[2];
-                    lblSubGenerica2.innerHTML = 'SUB GENERICA 2: ' +campos[3];
-                    lblSubEspecifica1.innerHTML = 'SUB ESPECIFICA 1: ' +campos[4];
-                    lblSubEspecifica2.innerHTML = 'SUB ESPECIFICA 2: ' +campos[5];
+                    lblTipo.innerHTML = 'TIPO: ' + campos[0];
+                    lblGenerica.innerHTML = 'GENERICA: ' + campos[1];
+                    lblSubGenerica1.innerHTML = 'SUB GENERICA 1: ' + campos[2];
+                    lblSubGenerica2.innerHTML = 'SUB GENERICA 2: ' + campos[3];
+                    lblSubEspecifica1.innerHTML = 'SUB ESPECIFICA 1: ' + campos[4];
+                    lblSubEspecifica2.innerHTML = 'SUB ESPECIFICA 2: ' + campos[5];
                 }
             });
         }
@@ -959,7 +1102,7 @@ function seleccionarFila(fila, id, prefijo) {
 
 function limpiarGrilla() {
     divListaClasificador.innerHTML = "";
-   // divListaActividad.innerHTML = "";
+    // divListaActividad.innerHTML = "";
     divListaSubMeta.innerHTML = "";
     divListaMeta.innerHTML = "";
 }
@@ -1087,4 +1230,16 @@ function mostrarClasificadorItem(rpta) {
     tbDetalleClasificador.innerHTML = contenido;
     // spnNroItems.innerHTML = 'Items: ' + nRegistros;
     //configurarEnterCantidad(tbDetallePedido, 8);
+}
+
+function seleccionarControlSelect2(control, texto) {
+    var controlSelect = 'select2-' + control.id + '-container';
+    var cboControlSelect = document.getElementById(controlSelect);
+    if (cboControlSelect != null) {
+        var selected = control.options[control.selectedIndex]?.text;
+        if (selected)
+            cboControlSelect.innerHTML = selected;
+        else
+            cboControlSelect.innerHTML = texto ? texto : "Seleccione";
+    }
 }
