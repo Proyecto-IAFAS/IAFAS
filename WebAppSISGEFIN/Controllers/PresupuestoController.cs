@@ -143,6 +143,8 @@ namespace WebAppSISGEFIN.Controllers
             return View();
         }
 
+
+
         [FiltroAutenticacion]
         public ActionResult NotaIafas()
         {
@@ -150,6 +152,7 @@ namespace WebAppSISGEFIN.Controllers
             string IdPerfil = Data[3];
             ViewBag.Menu = new Menu().Listar(IdPerfil);
             ViewBag.AnhoActual = Convert.ToString(DateTime.Now.Year);
+            ViewBag.idEnt = 1;
             return View();
         }
 
@@ -160,6 +163,7 @@ namespace WebAppSISGEFIN.Controllers
             string IdPerfil = Data[3];
             ViewBag.Menu = new Menu().Listar(IdPerfil);
             ViewBag.AnhoActual = Convert.ToString(DateTime.Now.Year);
+            ViewBag.idEnt = 2;
             return View();
         }
 

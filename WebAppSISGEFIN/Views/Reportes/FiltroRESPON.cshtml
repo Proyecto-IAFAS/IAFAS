@@ -98,7 +98,7 @@
         const _actName = 'Get' + nombre;
         var _data = sessionStorage.getItem(_cboName);
         if (_data == null) {
-            const _auxUrl = '@Url.Action("X","Reportes")';
+            const _auxUrl = '@Url.Action("X", "Data4Combo")';
             const _newUrl = _auxUrl.replace('X', _actName);
             const response = await fetch(_newUrl);
             _data = await response.text();

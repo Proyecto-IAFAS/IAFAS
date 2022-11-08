@@ -129,24 +129,36 @@
         _Params.value += '|' + _cboFamils.value;
     }
 
-    async function CargarCombo(nombre, params) {
+    async function CargarCombo(nombre, params, saved = true) {
+
         const _cboName = 'cbo' + nombre;
         const _actName = 'Get' + nombre;
 
-        const _basUrl = '@Url.Action("X","Reportes")';
-        const _auxUrl = _basUrl.replace('X', _actName);
-
-        let _newUrl = _auxUrl;
-        if (params != null) {
-            _newUrl = _auxUrl + '/?' + params;
+        var _getData = async function () {
+            const _auxUrl = '@Url.Action("X", "Data4Combo")';
+            const _newUrl = _auxUrl.replace('X', _actName);
+            if (params != null) { _newUrl += '/?' + params; }
+            const _response = await fetch(_newUrl);
+            return await _response.text();
         }
 
-        const response = await fetch(_newUrl);
-        _data = await response.text();
-        sessionStorage.setItem(_cboName, _data);
+        var _data = null;
+
+        if (saved == true) {
+            _data = sessionStorage.getItem(_cboName);
+            if ((_data == null) || (typeof (_data) == 'undefined')) {
+                _data = await _getData();
+                sessionStorage.setItem(_cboName, _data);
+            }
+        }
+        else {
+            _data = await _getData();
+        }
 
         var _lista = _data.split('¬');
-        crearCombo(_lista, _cboName, "Selecciona un item")
+
+        crearCombo(_lista, _cboName, "Seleccione un item");
+
     }
 
     window.onload = async function ()

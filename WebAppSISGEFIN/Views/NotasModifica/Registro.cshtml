@@ -1,0 +1,392 @@
+﻿
+@{
+    ViewBag.Title = "Registro";
+
+    byte _action = ViewBag.Action;
+    int  _idNota = ViewBag.IdNota;
+
+    string _titulo = (_action == 1 ? "Nuevo" : "Modificar");
+
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+}
+
+<style>
+    .row {
+        margin-bottom: 5px;
+    }
+</style>
+
+<div class="modal custom-modal" tabindex="-1" role="dialog" aria-hidden="true" id="divPopupContainer" style="overflow-y:auto;">
+    <div class="modal-dialog modal-xl bg-personalizado" id="divPopupWindow" style="margin-top:30px;">
+        <div class="modal-content">
+            <div id="divBarra" class="modal-header bg-personalizado" style="cursor:move">
+                <h5 class="modal-title" id="tituloModal">@_titulo</h5>
+            </div>
+
+            <div class="modal-body">
+
+                <div class="row">
+
+                    <div class="col-sm-12 col-lg-12 mb-2">
+
+                        <fieldset class="fieldset h-100 p-3">
+
+                            <div class="row">
+
+                                <div class="form-group col-sm-12">
+
+                                    <div class="row">
+                                        <label class="control-label col-sm-3">Entidad</label>
+                                        <div class="col-sm-9">
+                                            <select class="control-form" id="cboEntidades"></select>
+                                        </div>
+                                    </div>
+
+                                    <div class="row">
+                                        <label class="control-label col-sm-3">Financiamiento</label>
+                                        <div class="col-sm-9">
+                                            <select class="control-form" id="cboFinancias"></select>
+                                        </div>
+                                    </div>
+
+                                    <div class="row">
+                                        <label class="control-label col-sm-3">Centro Costo</label>
+                                        <div class="col-sm-9">
+                                            <select class="control-form" id="cboCentroCosto"></select>
+                                        </div>
+                                    </div>
+
+                                    <div class="row">
+                                        <label class="control-label col-sm-3">Tipo Operac.</label>
+                                        <div class="col-sm-9">
+                                            <select class="control-form" id="cboOperac" onchange="ActualizarOpe(this.value)" >
+                                                <option value="0">Seleccione un item</option>
+                                                <option value="1">AUMENTAR</option>
+                                                <option value="2">DISMINUIR</option>
+                                            </select>
+                                        </div>
+                                    </div>
+
+                                </div>
+
+                            </div>
+
+                            <div class="row">
+
+                                <div class="col-sm-6">
+
+                                    <div class="card">
+                                        <div class="card-header card-block-small">
+                                            <table border="0" width="100%">
+                                                <tr>
+                                                    <td>
+                                                        <h5>Origen</h5>
+                                                    </td>
+                                                    <td align="right">
+                                                        <span id="xSign1" style="font-size:20px"></span>
+                                                    </td>
+                                                </tr>
+                                            </table>                                     
+                                        </div>
+                                        <div class="card-body">
+
+                                            <div class="row">
+                                                <label class="control-label col-sm-3">Meta</label>
+                                                <div class="col-sm-9">
+                                                    <select class="control-form" id="cboMeta1"></select>
+                                                </div>
+                                            </div>
+
+                                            <div class="row">
+                                                <label class="control-label col-sm-3">Sub-Meta</label>
+                                                <div class="col-sm-9">
+                                                    <select class="control-form" id="cboSubMeta1"></select>
+                                                </div>
+                                            </div>
+
+                                            <div class="row">
+                                                <label class="control-label col-sm-3">Actividad</label>
+                                                <div class="col-sm-9">
+                                                    <select class="control-form" id="cboActividad1"></select>
+                                                </div>
+                                            </div>
+
+                                            <div class="row">
+                                                <label class="control-label col-sm-3">Clasificador</label>
+                                                <div class="col-sm-9">
+                                                    <select class="control-form" id="cboClasifica1"></select>
+                                                </div>
+                                            </div>
+
+                                            <div class="row">
+                                                <label class="control-label col-sm-3">Saldo Actual</label>
+                                                <div class="col-sm-9">
+                                                    <input type="number" class="control-form" id="txtSaldoAct1" style="text-align:right" value="1000" readonly />
+                                                </div>
+                                            </div>
+
+                                            <div class="row">
+                                                <label class="control-label col-sm-3">Monto</label>
+                                                <div class="col-sm-9">
+                                                    <input type="number" class="control-form" id="txtMontoReg1" style="text-align:right" onkeyup="CalcularSaldo(1)" />
+                                                </div>
+                                            </div>
+
+                                            <div class="row">
+                                                <label class="control-label col-sm-3">Nuevo Saldo</label>
+                                                <div class="col-sm-9">
+                                                    <input type="number" class="control-form" id="txtNewSaldo1" style="text-align:right" readonly />
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </div>
+
+                                </div>
+
+                                <div class="col-sm-6">
+
+                                    <div class="card">
+                                        <div class="card-header card-block-small">
+                                            <table border="0" width="100%">
+                                                <tr>
+                                                    <td>
+                                                        <h5>Destino</h5>
+                                                    </td>
+                                                    <td align="right">
+                                                        <span id="xSign2" style="font-size:20px"></span>
+                                                    </td>
+                                                </tr>
+                                            </table>
+                                        </div>
+                                        <div class="card-body">
+
+                                            <div class="row">
+                                                <label class="control-label col-sm-3">Meta</label>
+                                                <div class="col-sm-9">
+                                                    <select class="control-form" id="cboMeta2"></select>
+                                                </div>
+                                            </div>
+
+                                            <div class="row">
+                                                <label class="control-label col-sm-3">Sub-Meta</label>
+                                                <div class="col-sm-9">
+                                                    <select class="control-form" id="cboSubMeta2"></select>
+                                                </div>
+                                            </div>
+
+                                            <div class="row">
+                                                <label class="control-label col-sm-3">Actividad</label>
+                                                <div class="col-sm-9">
+                                                    <select class="control-form" id="cboActividad2"></select>
+                                                </div>
+                                            </div>
+
+                                            <div class="row">
+                                                <label class="control-label col-sm-3">Clasificador</label>
+                                                <div class="col-sm-9">
+                                                    <select class="control-form" id="cboClasifica2"></select>
+                                                </div>
+                                            </div>
+
+                                            <div class="row">
+                                                <label class="control-label col-sm-3">Saldo Actual</label>
+                                                <div class="col-sm-9">
+                                                    <input type="number" class="control-form" id="txtSaldoAct2" style="text-align:right;" value="1000" readonly />
+                                                </div>
+                                            </div>
+
+                                            <div class="row">
+                                                <label class="control-label col-sm-3">Monto</label>
+                                                <div class="col-sm-9">
+                                                    <input type="number" class="control-form" id="txtMontoReg2" style="text-align:right" onkeyup="CalcularSaldo(2)" />
+                                                </div>
+                                            </div>
+
+                                            <div class="row">
+                                                <label class="control-label col-sm-3">Nuevo Saldo</label>
+                                                <div class="col-sm-9">
+                                                    <input type="number" class="control-form" id="txtNewSaldo2" style="text-align:right;" readonly />
+                                                </div>
+                                            </div>
+
+                                        </div>
+
+                                    </div>
+
+                                </div>
+
+
+                            </div>
+
+                            @*<div class="row">
+                                <div class="form-group col-sm-12">
+                                    <label class="control-label">Observaciones</label>
+                                    <textarea class="control-form Popup" rows="2" id="ttaObservacion"></textarea>
+                                </div>
+                            </div>*@
+
+                        </fieldset>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+            <div class="modal-footer">
+                <button id="btnCancelar" onclick="CancelarRegist()" class="btnCancelarForm" title="Cancelar"><i class="fa fa-undo" aria-hidden="true"></i>&nbsp;Cancelar</button>
+                <button id="btnGuardar" onclick="GuardarRegist()" class="btnGuardarForm bg-customer" title="Guardar datos"><span class="fa fa-save"></span>&nbsp;Grabar</button>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<script>
+
+    function ActualizarOpe(opt) {
+        if (opt == 0) {
+            xSign1.innerText = "";
+            xSign2.innerText = "";
+        }
+        else {
+            if (opt == 1) {
+                xSign1.innerText = "-";
+                xSign2.innerText = "+";
+            }
+            else {
+                xSign1.innerText = "+";
+                xSign2.innerText = "-";
+            }
+        }
+        txtMontoReg1.value = "";
+        txtMontoReg2.value = "";
+        txtNewSaldo1.value = "";
+        txtNewSaldo2.value = "";
+
+    }
+
+    function CalcularSaldo(o) {
+
+        const _SelOpera = document.getElementById("cboOperac").value;
+
+        let _SaldoAct = 0; let _MontoReg = 0; let _NewSaldo = null;
+
+        if (o == 1) {
+            _SaldoAct = parseFloat(document.getElementById("txtSaldoAct1").value);
+            _MontoReg = parseFloat(document.getElementById("txtMontoReg1").value);
+            _NewSaldo = document.getElementById("txtNewSaldo1");
+        }
+        else {
+            _SaldoAct = parseFloat(document.getElementById("txtSaldoAct2").value);
+            _MontoReg = parseFloat(document.getElementById("txtMontoReg2").value);
+            _NewSaldo = document.getElementById("txtNewSaldo2");
+        }
+
+        if (_SelOpera == 1) {
+
+            if (o == 2)
+            {
+                //AUMENTAR
+                _NewSaldo.value = _SaldoAct + _MontoReg;
+            }
+            else {
+                //DISMINUIR
+                _NewSaldo.value = _SaldoAct - _MontoReg;
+            }
+
+        }
+        else {
+            if (o == 2) {
+                //DISMINUIR
+                _NewSaldo.value = _SaldoAct - _MontoReg;
+            }
+            else {
+                //AUMENTAR
+                _NewSaldo.value = _SaldoAct + _MontoReg;
+            }
+        }
+
+    }
+
+    function CancelarRegist() {
+         divPopupContainer.style.display = 'none';
+    }
+
+    function GuardarRegist() {
+
+        const _aceptar = function () {
+
+            const _mensaje = "El registro se guardó satisfactoriamente.";
+
+            //divPopupContainer.style.display = 'none';
+
+            mensajeAlerta(_mensaje, "exito");
+
+        }
+
+        mostrarConfirma("¿Está seguro que desea guardar los cambios.?", _aceptar);
+
+    }
+
+    async function CargarCombo(nombre, params, saved = true) {
+
+        const _cboName = 'cbo' + nombre;
+        const _actName = 'Get' + nombre;
+
+        var _getData = async function () {
+            const _auxUrl = '@Url.Action("X", "Data4Combo")';
+            const _newUrl = _auxUrl.replace('X', _actName);
+            if (params != null) { _newUrl += '/?' + params; }
+            const _response = await fetch(_newUrl);
+            return await _response.text();
+        }
+
+        var _data = null;
+
+        if (saved == true) {
+            _data = sessionStorage.getItem(_cboName);
+            if ((_data == null) || (typeof (_data) == 'undefined')) {
+                _data = await _getData();
+                sessionStorage.setItem(_cboName, _data);
+            }
+        }
+        else {
+            _data = await _getData();
+        }             
+
+        var _lista = _data.split('¬');
+
+        var _cbo = crearCombo(_lista, _cboName, "Seleccione un item");
+
+        return _cbo;
+
+    }
+
+    async function CargarFinanc(sel) {
+
+        var _entidad = document.getElementById("cboEntidades");
+
+        cboFinancias
+
+    }
+
+    async function CargarEntidad(sel) {
+        const _cbo = await CargarCombo("Entidades", null, false);
+        _cbo.value = sel;
+    }
+
+    window.onload = async function () {
+        CargarEntidad(1);
+    }
+
+    function GuardarDatos() {
+
+    }
+
+</script>
+

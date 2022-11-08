@@ -31,6 +31,7 @@
         else xhr.send();
     }
     return Http;
+
 })();
 
 function validarInformacion(clase) {
@@ -87,6 +88,7 @@ function crearCombo(lista, idCombo, primerItem) {
     }
     var cbo = document.getElementById(idCombo);
     if (cbo != null) cbo.innerHTML = contenido;
+    return cbo;
 }
 
 
@@ -294,6 +296,26 @@ function mostrarMensaje(mensaje, status) {
     }
     toastr[status](mensaje, "")
 }
+
+function mostrarConfirma(mensaje, accept) {
+
+    Swal.fire({
+        title: 'Pregunta',
+        text: mensaje,
+        icon: 'question',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Si',
+        cancelButtonText: 'No'      
+    }).then((result) => {
+        if (result.isConfirmed) {
+            accept();
+        }
+    })
+
+}
+
 
 function moverVentana(divContainer, divWindow, divBarra) {
     var divBarra = document.getElementById(divBarra);
