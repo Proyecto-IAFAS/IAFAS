@@ -21,31 +21,30 @@
 
                 <div>
                     <span>Año</span>
-                    <input type="number" id="txtAñoEjecn" onchange="ActualizarSel()" class="form-control form-control-sm" min="2000" max="2100" value="2022" />
+                    <input type="number" id="txtAñoEjec" onchange="ActualizarSel()" class="form-control form-control-sm" min="2000" max="2100" value="2022" />
                 </div>
 
                 <div>
-                    <span>Oficinas</span>
-                    <select id="cboOficinas" onchange="CargarUbicas()" class="form-control form-control-sm" style="width:250px;"></select>
+                    <span>Fuentes F.</span>
+                    <select id="cboFuentesFinan" onchange="CargarMetas()" class="form-control form-control-sm" style="width: 250px;"></select>
                 </div>
 
                 <div>
-                    <span>Ubicaciones</span>
-                    <select id="cboUbicaciones" onchange="ActualizarSel()" class="form-control form-control-sm" style="width:250px;"></select>
+                    <span>Metas</span>
+                    <select id="cboMetasXFuente" onchange="CargarSubMetas()" class="form-control form-control-sm" style="width: 250px; "></select>
                 </div>
 
                 <div>
-                    <span>Responsable</span>
-                    <input type="number" id="txtResponsable" onchange="ActualizarSel()" class="form-control form-control-sm" />
+                    <span>SubMetas</span>
+                    <select id="cboSubMetasXFuente" onchange="CargarActividad()" class="form-control form-control-sm" style="width: 250px; "></select>
                 </div>
 
                 <div>
-                    <span>Usuario</span>
-                    <input type="number" id="txtUsuario" onchange="ActualizarSel()" class="form-control form-control-sm" />
+                    <span>Actividad</span>
+                    <select id="cboActidadesXFuente" onchange="ActualizarSel()" class="form-control form-control-sm" style="width: 250px; "></select>
                 </div>
 
                 <div style="flex-direction: column;">
-
                     <table class="table table-sm" style="font-size:12px;">
                         <tr>
                             <td>
@@ -64,7 +63,6 @@
                             </td>
                         </tr>
                     </table>
-
                 </div>
 
                 <div>
@@ -73,7 +71,7 @@
 
             </div>
             <div>
-                <iframe id="iFrame" src="about://blank" frameborder="0"></iframe>
+                <iframe id="iFrame" title="Documento" src="about://blank" frameborder="0"></iframe>
             </div>
         </div>
     </div>
@@ -81,6 +79,11 @@
 </div>
 
 <script>
+
+    function LimpiarCombo(id) {
+        var cbo = document.getElementById(id);
+        if (cbo != null) cbo.innerHTML = '';
+    }
 
     function ConsultarSel() {
         mostrarProgreso('Consultando..');
@@ -98,27 +101,6 @@
             ocultarProgreso();
         }
         _iFrame.src = _UrlDoc;
-    }
-
-    function ActualizarSel() {
-        const _txtAñoEjecn = document.getElementById('txtAñoEjecn');
-        const _cboOficinas = document.getElementById('cboOficinas');
-        const _cboUbicacns = document.getElementById('cboUbicaciones');
-        const _txtRespons = document.getElementById('txtResponsable');
-        const _txtUsuario = document.getElementById('txtUsuario');
-        const _Params = document.getElementById('Params');
-        _Params.value = _txtAñoEjecn.value;
-        _Params.value += '|' + _cboOficinas.value;
-        _Params.value += '|' + _cboUbicacns.value;
-        _Params.value += '|' + _txtRespons.value;
-        _Params.value += '|' + _txtUsuario.value;
-    }
-
-    async function CargarUbicas() {
-        const _valor = document.getElementById('cboOficinas').value;
-        const _param = 'idOficina=' + _valor;
-        await CargarCombo('Ubicaciones', _param);
-        ActualizarSel();
     }
 
     async function CargarCombo(nombre, params, saved = false) {
@@ -159,9 +141,53 @@
 
     }
 
-    window.onload = async function ()
-    {
-        await CargarCombo('Oficinas');
+    async function CargarMetas() {
+        debugger
+        const _añoEjec = document.getElementById('txtAñoEjec').value;
+        const _idFuent = document.getElementById('cboFuentesFinan').value;
+        const _param = `añoEjec=${_añoEjec}&idFuente=${_idFuent}`;
+        await CargarCombo('MetasXFuente', _param);
+        LimpiarCombo('cboSubMetasXFuente');
+        LimpiarCombo('cboActidadesXFuente');
+        ActualizarSel();
+    }
+
+    async function CargarSubMetas() {
+        const _añoEjec = document.getElementById('txtAñoEjec').value;
+        const _idFuent = document.getElementById('cboFuentesFinan').value;
+        const _idMeta = document.getElementById('cboMetasXFuente').value;
+        const _param = `añoEjec=${_añoEjec}&idFuente=${_idFuent}&idMeta=${_idMeta}`;
+        await CargarCombo('SubMetasXFuente', _param);
+        LimpiarCombo('cboActidadesXFuente');
+        ActualizarSel();
+    }
+
+    async function CargarActividad() {
+        const _añoEjec = document.getElementById('txtAñoEjec').value;
+        const _idFuent = document.getElementById('cboFuentesFinan').value;
+        const _idMeta = document.getElementById('cboMetasXFuente').value;
+        const _idSubM = document.getElementById('cboSubMetasXFuente').value;
+        const _param = `añoEjec=${_añoEjec}&idFuente=${_idFuent}&idMeta=${_idMeta}&idSubM=${_idSubM}`;
+        await CargarCombo('ActidadesXFuente', _param);
+        ActualizarSel();
+    }
+
+    function ActualizarSel() {
+        const _txtAñoEjec  = document.getElementById('txtAñoEjec');
+        const _cboFinancia = document.getElementById('cboFuentesFinan');
+        const _cboMetasXFf = document.getElementById('cboMetasXFuente');
+        const _cboSbMetasF = document.getElementById('cboSubMetasXFuente');
+        const _cboActivida = document.getElementById('cboActidadesXFuente');
+        const _Params = document.getElementById('Params');
+        _Params.value = _txtAñoEjec.value;
+        _Params.value += '|' + _cboFinancia.value;
+        _Params.value += '|' + _cboMetasXFf.value;
+        _Params.value += '|' + _cboSbMetasF.value;
+        _Params.value += '|' + _cboActivida.value;
+    }
+
+    window.onload = async function () {
+        await CargarCombo('FuentesFinan', null, true);
         ActualizarSel();
     }
 

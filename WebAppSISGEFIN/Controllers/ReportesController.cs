@@ -25,64 +25,6 @@ namespace WebAppSISGEFIN.Controllers
         }
 
         [HttpGet]
-        public string GetGrupos()
-        {
-            string _data = "vGruposPA|IdGrupo|NombreGrupo|";
-            var _trama = Runs.GetTrama4Combo(_data);
-            return _trama;
-        }
-
-        [HttpGet]
-        public string GetClases(string idGrupo)
-        {
-            string _data = $"vClasesPA|IdClase|NombreClase|IdGrupo='{idGrupo}'";
-            var _trama = Runs.GetTrama4Combo(_data);
-            return _trama;
-        }
-
-        [HttpGet]
-        public string GetFamilias(string idGrupo, string idClase)
-        {
-            string _data = $"vFamiliasPA|IdFamilia|NombreFamilia|IdGrupo='{idGrupo}' And IdClase='{idClase}'";
-            var _trama = Runs.GetTrama4Combo(_data);
-            return _trama;
-        }
-
-        //---------------------------------------------------
-
-        [HttpGet]
-        public string GetOficinas()
-        {
-            string _data = "vOficinasPA|IdOficina|NombreOficina|";
-            var _trama = Runs.GetTrama4Combo(_data);
-            return _trama;
-        }
-        
-        [HttpGet]
-        public string GetUbicaciones(string idOficina)
-        {
-            string _data = $"vUbicacionesPA|IdUbicacion|NombreUbicacion|IdOficina='{idOficina}'";
-            var _trama = Runs.GetTrama4Combo(_data);
-            return _trama;
-        }
-
-        [HttpGet]
-        public string GetReponsables()
-        {
-            string _data = "vProveedoresPA|IdProveedor|NombreProveedor|";
-            var _trama = Runs.GetTrama4Combo(_data);
-            return _trama;
-        }
-
-        [HttpGet]
-        public string GetFuentesFinan()
-        {
-            string _data = "vFuentesFinan|IdFuente|NombreFuente|";
-            var _trama = Runs.GetTrama4Combo(_data);
-            return _trama;
-        }
-
-        [HttpGet]
         public ActionResult ShowRpt(int id, string par, string r)
         {
             var _result = Reporting.GetOneReporte(id);
@@ -104,7 +46,8 @@ namespace WebAppSISGEFIN.Controllers
             }
             return View(_vName);
         }
-         
+
+        [HttpGet]
         public ActionResult MsgRpt(string msg, byte e)
         {
             rMensaje _mensj = new rMensaje();

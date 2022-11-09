@@ -21,31 +21,20 @@
 
                 <div>
                     <span>Año</span>
-                    <input type="number" id="txtAñoEjecn" onchange="ActualizarSel()" class="form-control form-control-sm" min="2000" max="2100" value="2022" />
+                    <input type="number" id="txtAñoEjec" onchange="ActualizarSel()" class="form-control form-control-sm" min="2000" max="2100" value="2022" />
                 </div>
 
                 <div>
-                    <span>Oficinas</span>
-                    <select id="cboOficinas" onchange="CargarUbicas()" class="form-control form-control-sm" style="width:250px;"></select>
+                    <span>Fuente de Financ.</span>
+                    <select id="cboFuentesFinan" onchange="CargarMetas()" class="form-control form-control-sm" style="width: 350px;"></select>
                 </div>
 
                 <div>
-                    <span>Ubicaciones</span>
-                    <select id="cboUbicaciones" onchange="ActualizarSel()" class="form-control form-control-sm" style="width:250px;"></select>
-                </div>
-
-                <div>
-                    <span>Responsable</span>
-                    <input type="number" id="txtResponsable" onchange="ActualizarSel()" class="form-control form-control-sm" />
-                </div>
-
-                <div>
-                    <span>Usuario</span>
-                    <input type="number" id="txtUsuario" onchange="ActualizarSel()" class="form-control form-control-sm" />
+                    <span>Metas por FF</span>
+                    <select id="cboMetasXFuente" onchange="ActualizarSel()" class="form-control form-control-sm" style="width: 350px;"></select>
                 </div>
 
                 <div style="flex-direction: column;">
-
                     <table class="table table-sm" style="font-size:12px;">
                         <tr>
                             <td>
@@ -64,7 +53,6 @@
                             </td>
                         </tr>
                     </table>
-
                 </div>
 
                 <div>
@@ -73,7 +61,7 @@
 
             </div>
             <div>
-                <iframe id="iFrame" src="about://blank" frameborder="0"></iframe>
+                <iframe id="iFrame" title="Documento" src="about://blank" frameborder="0"></iframe>
             </div>
         </div>
     </div>
@@ -100,24 +88,13 @@
         _iFrame.src = _UrlDoc;
     }
 
-    function ActualizarSel() {
-        const _txtAñoEjecn = document.getElementById('txtAñoEjecn');
-        const _cboOficinas = document.getElementById('cboOficinas');
-        const _cboUbicacns = document.getElementById('cboUbicaciones');
-        const _txtRespons = document.getElementById('txtResponsable');
-        const _txtUsuario = document.getElementById('txtUsuario');
-        const _Params = document.getElementById('Params');
-        _Params.value = _txtAñoEjecn.value;
-        _Params.value += '|' + _cboOficinas.value;
-        _Params.value += '|' + _cboUbicacns.value;
-        _Params.value += '|' + _txtRespons.value;
-        _Params.value += '|' + _txtUsuario.value;
-    }
-
-    async function CargarUbicas() {
-        const _valor = document.getElementById('cboOficinas').value;
-        const _param = 'idOficina=' + _valor;
-        await CargarCombo('Ubicaciones', _param);
+    async function CargarMetas() {
+        debugger
+        const _añoEjec = document.getElementById('txtAñoEjec').value;
+        const _idFuent = document.getElementById('cboFuentesFinan').value;
+        const _param = `añoEjec=${_añoEjec}&idFuente=${_idFuent}`;
+        await CargarCombo('MetasXFuente', _param);
+        //LimpiarCombo('cboFamilias');
         ActualizarSel();
     }
 
@@ -159,9 +136,18 @@
 
     }
 
-    window.onload = async function ()
-    {
-        await CargarCombo('Oficinas');
+    function ActualizarSel() {
+        const _txtAñoEjec = document.getElementById('txtAñoEjec');
+        const _cboFinancia = document.getElementById('cboFuentesFinan');
+        const _cboMetasXFf = document.getElementById('cboMetasXFuente');
+        const _Params = document.getElementById('Params');
+        _Params.value = _txtAñoEjec.value;
+        _Params.value += '|' + _cboFinancia.value;
+        _Params.value += '|' + _cboMetasXFf.value;
+    }
+
+    window.onload = async function () {
+        await CargarCombo('FuentesFinan', null, true);
         ActualizarSel();
     }
 

@@ -1393,6 +1393,7 @@
     <Compile Include="Controllers\AdmonController.cs" />
     <Compile Include="Controllers\ConfiguracionController.cs" />
     <Compile Include="Controllers\ContabilidadController.cs" />
+    <Compile Include="Controllers\Data4ComboController.cs" />
     <Compile Include="Controllers\GeneralController.cs" />
     <Compile Include="Controllers\IngresosController.cs" />
     <Compile Include="Controllers\InventarioController.cs" />
@@ -1609,6 +1610,12 @@
     <Content Include="Views\General\Index2.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Presupuesto\NotaModi.cshtml" />
+    <Content Include="Views\NotasModifica\Mantenimiento.cshtml" />
+    <Content Include="Views\NotasModifica\Registro.cshtml" />
+    <Content Include="Views\Reportes\FiltroAÑO+FF.cshtml" />
+    <Content Include="Views\Reportes\FiltroAÑO+FF+MT.cshtml" />
+    <Content Include="Views\Reportes\FiltroAÑO+FF+MT+SM.cshtml" />
+    <Content Include="Views\Reportes\FiltroAÑO+FF+MT+SM+AC.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

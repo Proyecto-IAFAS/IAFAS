@@ -18,6 +18,10 @@ var idPlan = 1;
 var idCenCos, idMeta, idSubMeta, idActividad;
 var listaActividad = [];
 
+var listaMetaReporte = [];
+var listaSubMetaReporte = [];
+var listaActividadReporte = [];
+
 window.onload = function () {
     getConfigMn();
     vista = window.sessionStorage.getItem("Vista");
@@ -51,9 +55,18 @@ function mostrarlistaPlan(rpta) {
         var listaMeta = listas[2].split("¬");
         listaSubMetaItem_v = listas[3].split("¬");
         listaActividad = listas[4].split("¬");
+
+        var listaFuenteF = listas[5].split("¬");
+        listaMetaReporte = listas[6].split("¬");
+        listaSubMetaReporte = listas[7].split("¬");
+        listaActividadReporte = listas[8].split("¬");
+
         grillaItem = new GrillaScroll(lista, "divLista", 100, 6, vista, controller, null, null, null, null, 25, false, null);
         crearCombo(listaCentroCosto, "cboCentroCosto", "Seleccione");
         crearCombo(listaMeta, "cboMeta", "Seleccione");
+
+        //Combos para Reporte
+        crearCombo(listaFuenteF, "cboFuenteRep", "Todos");
     }
 }
 
@@ -268,7 +281,6 @@ function listarSubMetaItem() {
     }
 }
 
-
 function listarActividadItem() {
     var idMeta = cboMeta.value;
     var idSubMeta = cboSubMeta.value;
@@ -290,6 +302,85 @@ function listarActividadItem() {
         }
     }
     var cbo = document.getElementById("cboActividad");
+    if (cbo != null) {
+        cbo.innerHTML = contenido;
+    }
+}
+
+function listarMetaItemReporte() {
+    var idFuenteF = cboFuenteRep.value;
+    var nRegistros = listaMetaReporte.length;
+    var contenido = "<option value=''>Todos</option>";
+    var campos, idCodigo, nombre, idxMetaItem;
+    for (var i = 0; i < nRegistros; i++) {
+        campos = listaMetaReporte[i].split('|');
+        idCodigo = campos[0];
+        nombre = campos[1];
+        idxFuenteFItem = campos[2];
+        if (idxFuenteFItem == idFuenteF) {
+            contenido += "<option value='";
+            contenido += idCodigo;
+            contenido += "'>";
+            contenido += nombre;
+            contenido += "</option>";
+        }
+    }
+    var cbo = document.getElementById("cboMetaRep");
+    if (cbo != null) {
+        cbo.innerHTML = contenido;
+    }
+}
+
+
+function listarSubMetaItemReporte() {
+    var idFuenteF = cboFuenteRep.value;
+    var idMeta = cboMetaRep.value;
+    var nRegistros = listaSubMetaReporte.length;
+    var contenido = "<option value=''>Todos</option>";
+    var campos, idCodigo, nombre, idxMetaItem;
+    for (var i = 0; i < nRegistros; i++) {
+        campos = listaSubMetaReporte[i].split('|');
+        idCodigo = campos[0];
+        nombre = campos[1];
+        idxFuenteF = campos[2];
+        idxMetaItem = campos[3];
+        if (idxMetaItem == idMeta && idxFuenteF == idFuenteF) {
+            contenido += "<option value='";
+            contenido += idCodigo;
+            contenido += "'>";
+            contenido += nombre;
+            contenido += "</option>";
+        }
+    }
+    var cbo = document.getElementById("cboSubMetaRep");
+    if (cbo != null) {
+        cbo.innerHTML = contenido;
+    }
+}
+
+function listarActividadItemReporte() {
+    var idFuenteF = cboFuenteRep.value;
+    var idMeta = cboMetaRep.value;
+    var idSubMeta = cboSubMetaRep.value;
+    var nRegistros = listaActividadReporte.length;
+    var contenido = "<option value=''>Todos</option>";
+    var campos, idCodigo, nombre, idxMetaItem, idxSubMetaItem;
+    for (var i = 0; i < nRegistros; i++) {
+        campos = listaActividadReporte[i].split('|');
+        idCodigo = campos[0];
+        nombre = campos[1];
+        idxFuenteF = campos[2];
+        idxMetaItem = campos[3];
+        idxSubMetaItem = campos[4];
+        if (idxFuenteF == idFuenteF && idxMetaItem == idMeta && idxSubMetaItem == idSubMeta) {
+            contenido += "<option value='";
+            contenido += idCodigo;
+            contenido += "'>";
+            contenido += nombre;
+            contenido += "</option>";
+        }
+    }
+    var cbo = document.getElementById("cboActividadRep");
     if (cbo != null) {
         cbo.innerHTML = contenido;
     }
@@ -846,6 +937,86 @@ function configurarBotones() {
             getListar();
         }
     }
+
+    var btnImprimir = document.getElementById("btnImprimir");
+    if (btnImprimir != null) btnImprimir.onclick = function () {
+
+        if (vista == "PIA") {
+            btnSeleccionarOpcionReporte.disabled = false;
+            btnSeleccionarOpcionReporte.innerText = "Generar";
+
+            txtAnioRep.value = new Date().getFullYear();
+            cboFuenteRep.value = "";
+            cboMetaRep.value = "";
+            cboSubMetaRep.value = "";
+            cboActividadRep.value = "";
+
+            seleccionarControlSelect2(cboFuenteRep, 'Todos');
+            seleccionarControlSelect2(cboMetaRep, 'Todos');
+            seleccionarControlSelect2(cboSubMetaRep, 'Todos');
+            seleccionarControlSelect2(cboActividadRep, 'Todos');
+        }
+
+        divPopupContainerOpcionReporte.style.display = 'block';
+    }
+
+    var btnCancelarOpcionReporte = document.getElementById("btnCancelarOpcionReporte");
+    if (btnCancelarOpcionReporte != null) btnCancelarOpcionReporte.onclick = function () {
+        divPopupContainerOpcionReporte.style.display = 'none';
+    }
+
+    var btnSeleccionarOpcionReporte = document.getElementById("btnSeleccionarOpcionReporte");
+    if (btnSeleccionarOpcionReporte != null) btnSeleccionarOpcionReporte.onclick = function () {
+        btnSeleccionarOpcionReporte.innerHTML = "Generando <i class='fa fa-circle-o-notch fa-spin' style='color:white'></i>";
+        btnSeleccionarOpcionReporte.disabled = true;
+
+        if (vista == 'PIA') {
+            var data = obtenerDatosGrabar("PopupRep");
+            var datos = data.split('|');
+
+            var anioRep = datos[0];
+            var fuenteRep = datos[1];
+            var metaRep = datos[2];
+            var subMetaRep = datos[3];
+            var actividadRep = datos[4];
+
+            var url = location.origin;
+            var idReporte = 20;
+            var params = anioRep;
+
+            if (fuenteRep) {
+                params = params + '|' + fuenteRep;
+                idReporte = 21;
+            }
+            if (metaRep) {
+                params = params + '|' + metaRep;
+                idReporte = 22;
+            }
+            if (subMetaRep) {
+                params = params + '|' + subMetaRep;
+                idReporte = 23;
+            }
+            if (actividadRep) {
+                params = params + '|' + actividadRep;
+                idReporte = 24;
+            }
+
+            url = url + '/Reportes/ShowRpt/?id=' + idReporte + '&par=' + params + '&r=1'
+            console.log(url);
+
+            ifrmVistaPrevia.src = url;
+
+            document.getElementById("divPopupContainerReporte").style.display = 'block';
+
+            btnSeleccionarOpcionReporte.innerHTML = "<i class='fa fa-search'></i> Ver Reporte";
+            btnSeleccionarOpcionReporte.disabled = false;
+        }
+    }
+
+    var btnCancelarReporte = document.getElementById("btnCancelarReporte");
+    if (btnCancelarReporte != null) btnCancelarReporte.onclick = function () {
+        divPopupContainerReporte.style.display = 'none';
+    }
 }
 
 function configurarCombos() {
@@ -863,6 +1034,25 @@ function configurarCombos() {
     var cboActividad = document.getElementById("cboActividad");
     if (cboActividad != null) cboActividad.onchange = function () {
         listarClasificadorItem();
+    }
+
+
+    var cboFuenteRep = document.getElementById("cboFuenteRep");
+    if (cboFuenteRep != null) cboFuenteRep.onchange = function () {
+        listarMetaItemReporte();
+        listarSubMetaItemReporte();
+        listarActividadItemReporte();
+    }
+
+    var cboMetaRep = document.getElementById("cboMetaRep");
+    if (cboMetaRep != null) cboMetaRep.onchange = function () {
+        listarSubMetaItemReporte();
+        listarActividadItemReporte();
+    }
+
+    var cboSubMetaRep = document.getElementById("cboSubMetaRep");
+    if (cboSubMetaRep != null) cboSubMetaRep.onchange = function () {
+        listarActividadItemReporte();
     }
 
     var cboTipoBien = document.getElementById("cboTipoBien");
@@ -1105,4 +1295,16 @@ function mostrarClasificadorItem(rpta) {
     tbDetalleClasificador.innerHTML = contenido;
     // spnNroItems.innerHTML = 'Items: ' + nRegistros;
     //configurarEnterCantidad(tbDetallePedido, 8);
+}
+
+function seleccionarControlSelect2(control, texto) {
+    var controlSelect = 'select2-' + control.id + '-container';
+    var cboControlSelect = document.getElementById(controlSelect);
+    if (cboControlSelect != null) {
+        var selected = control.options[control.selectedIndex]?.text;
+        if (selected)
+            cboControlSelect.innerHTML = selected;
+        else
+            cboControlSelect.innerHTML = texto ? texto : "Seleccione";
+    }
 }

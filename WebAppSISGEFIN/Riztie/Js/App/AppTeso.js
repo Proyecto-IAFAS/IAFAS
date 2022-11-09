@@ -68,20 +68,18 @@ function configurarBotones() {
 
     var btnGuardar = document.getElementById("btnGuardar");
     if (btnGuardar != null) btnGuardar.onclick = function () {
-        var validar = false;
-        //if (vista == "Persona") {
-
-        //    let inputs = document.querySelectorAll('.chkTipoPersonaId:checked');
-        //    if (inputs.length == 0) {
-        //        mostrarMensaje("Seleccionar Tipo de Persona", "error")
-        //        return;
-        //    }
-        //}
-
         btnGuardar.disabled = true;
+
+        var validar = false;
 
         if (validarInformacion("Reque") == true) {
             validar = true;
+        }
+        if (vista == "CuentaBanca") {
+            if (txtCCI.value && txtCCI.value.length != 20) {
+                validar = false;
+                mostrarMensaje("La cuenta interbancaria debe de tener 20 digitos", "error")
+            }
         }
 
         if (validar == true) {
@@ -105,6 +103,9 @@ function configurarBotones() {
                             Swal.showLoading()
                         }
                     })
+                }
+                else {
+                    btnGuardar.disabled = false;
                 }
             })
         }
