@@ -1615,6 +1615,7 @@
     <Content Include="Views\Reportes\FiltroAÑO+FF.cshtml" />
     <Content Include="Views\Reportes\FiltroAÑO+FF+MT.cshtml" />
     <Content Include="Views\Reportes\FiltroAÑO+FF+MT+SM.cshtml" />
+    <Content Include="Views\Reportes\FiltroAÑO+FF+MT+SM+AC.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

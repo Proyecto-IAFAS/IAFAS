@@ -66,7 +66,6 @@ namespace WebAppSISGEFIN.Controllers
             return _trama;
         }
 
-
         [HttpGet]
         public string GetFuentesFinan()
         {
@@ -92,6 +91,17 @@ namespace WebAppSISGEFIN.Controllers
             var _trama = Runs.GetTrama4Combo(_dataq);
             return _trama;
         }
+
+        [HttpGet]
+        public string GetActidadesXFuente(string añoEjec, string idFuente, string idMeta, string idSubM)
+        {
+            string _where = $"AñoEjecuc={añoEjec} And IdFuente={idFuente} And IdMeta='{idMeta}' And IdSubMeta='{idSubM}'";
+            string _dataq = $"vActividadesXFuente|IdActividad|NombreActividad|{_where}";
+            var _trama = Runs.GetTrama4Combo(_dataq);
+            return _trama;
+        }
+
+        
 
     }
 
