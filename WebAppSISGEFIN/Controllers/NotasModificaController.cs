@@ -26,7 +26,7 @@ namespace WebAppSISGEFIN.Controllers
             ViewBag.idEnt = ide;
             ViewBag.Menu = new Menu().Listar(IdPerfil);
             ViewBag.AnhoActual = Convert.ToString(DateTime.Now.Year);
-            return View();
+            return View(); 
         }
 
         /// <summary>
