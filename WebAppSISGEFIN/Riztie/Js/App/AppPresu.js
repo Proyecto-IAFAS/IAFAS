@@ -18,6 +18,10 @@ var idPlan = 1;
 var idCenCos, idMeta, idSubMeta, idActividad;
 var listaActividad = [];
 
+var listaMetaReporte = [];
+var listaSubMetaReporte = [];
+var listaActividadReporte = [];
+
 window.onload = function () {
     getConfigMn();
     vista = window.sessionStorage.getItem("Vista");
@@ -51,12 +55,18 @@ function mostrarlistaPlan(rpta) {
         var listaMeta = listas[2].split("¬");
         listaSubMetaItem_v = listas[3].split("¬");
         listaActividad = listas[4].split("¬");
+
+        var listaFuenteF = listas[5].split("¬");
+        listaMetaReporte = listas[6].split("¬");
+        listaSubMetaReporte = listas[7].split("¬");
+        listaActividadReporte = listas[8].split("¬");
+
         grillaItem = new GrillaScroll(lista, "divLista", 100, 6, vista, controller, null, null, null, null, 25, false, null);
         crearCombo(listaCentroCosto, "cboCentroCosto", "Seleccione");
         crearCombo(listaMeta, "cboMeta", "Seleccione");
 
-        crearCombo(listaCentroCosto, "cboFuenteRep", "Todos");
-        crearCombo(listaMeta, "cboMetaRep", "Todos");
+        //Combos para Reporte
+        crearCombo(listaFuenteF, "cboFuenteRep", "Todos");
     }
 }
 
@@ -297,17 +307,44 @@ function listarActividadItem() {
     }
 }
 
-function listarSubMetaItemReporte() {
-    var idMeta = cboMetaRep.value;
-    var nRegistros = listaSubMetaItem_v.length;
+function listarMetaItemReporte() {
+    var idFuenteF = cboFuenteRep.value;
+    var nRegistros = listaMetaReporte.length;
     var contenido = "<option value=''>Todos</option>";
     var campos, idCodigo, nombre, idxMetaItem;
     for (var i = 0; i < nRegistros; i++) {
-        campos = listaSubMetaItem_v[i].split('|');
+        campos = listaMetaReporte[i].split('|');
         idCodigo = campos[0];
         nombre = campos[1];
-        idxMetaItem = campos[2];
-        if (idxMetaItem == idMeta) {
+        idxFuenteFItem = campos[2];
+        if (idxFuenteFItem == idFuenteF) {
+            contenido += "<option value='";
+            contenido += idCodigo;
+            contenido += "'>";
+            contenido += nombre;
+            contenido += "</option>";
+        }
+    }
+    var cbo = document.getElementById("cboMetaRep");
+    if (cbo != null) {
+        cbo.innerHTML = contenido;
+    }
+}
+
+
+function listarSubMetaItemReporte() {
+    var idFuenteF = cboFuenteRep.value;
+    var idMeta = cboMetaRep.value;
+    var nRegistros = listaSubMetaReporte.length;
+    var contenido = "<option value=''>Todos</option>";
+    var campos, idCodigo, nombre, idxMetaItem;
+    for (var i = 0; i < nRegistros; i++) {
+        campos = listaSubMetaReporte[i].split('|');
+        idCodigo = campos[0];
+        nombre = campos[1];
+        idxFuenteF = campos[2];
+        idxMetaItem = campos[3];
+        if (idxMetaItem == idMeta && idxFuenteF == idFuenteF) {
             contenido += "<option value='";
             contenido += idCodigo;
             contenido += "'>";
@@ -322,18 +359,20 @@ function listarSubMetaItemReporte() {
 }
 
 function listarActividadItemReporte() {
+    var idFuenteF = cboFuenteRep.value;
     var idMeta = cboMetaRep.value;
     var idSubMeta = cboSubMetaRep.value;
-    var nRegistros = listaActividad.length;
+    var nRegistros = listaActividadReporte.length;
     var contenido = "<option value=''>Todos</option>";
     var campos, idCodigo, nombre, idxMetaItem, idxSubMetaItem;
     for (var i = 0; i < nRegistros; i++) {
-        campos = listaActividad[i].split('|');
+        campos = listaActividadReporte[i].split('|');
         idCodigo = campos[0];
         nombre = campos[1];
-        idxMetaItem = campos[2];
-        idxSubMetaItem = campos[3];
-        if (idxMetaItem == idMeta && idxSubMetaItem == idSubMeta) {
+        idxFuenteF = campos[2];
+        idxMetaItem = campos[3];
+        idxSubMetaItem = campos[4];
+        if (idxFuenteF == idFuenteF && idxMetaItem == idMeta && idxSubMetaItem == idSubMeta) {
             contenido += "<option value='";
             contenido += idCodigo;
             contenido += "'>";
@@ -914,24 +953,24 @@ function configurarBotones() {
             var actividadRep = datos[4];
 
             var url = location.origin;
-            var idReporte = 21;
+            var idReporte = 20;
             var params = anioRep;
 
             if (fuenteRep) {
                 params = params + '|' + fuenteRep;
-                idReporte = 22;
+                idReporte = 21;
             }
             if (metaRep) {
                 params = params + '|' + metaRep;
-                idReporte = 23;
+                idReporte = 22;
             }
             if (subMetaRep) {
                 params = params + '|' + subMetaRep;
-                idReporte = 24;
+                idReporte = 23;
             }
             if (actividadRep) {
                 params = params + '|' + actividadRep;
-                idReporte = 25;
+                idReporte = 24;
             }
 
             url = url + '/Reportes/ShowRpt/?id=' + idReporte + '&par=' + params + '&r=1'
@@ -967,6 +1006,14 @@ function configurarCombos() {
     var cboActividad = document.getElementById("cboActividad");
     if (cboActividad != null) cboActividad.onchange = function () {
         listarClasificadorItem();
+    }
+
+
+    var cboFuenteRep = document.getElementById("cboFuenteRep");
+    if (cboFuenteRep != null) cboFuenteRep.onchange = function () {
+        listarMetaItemReporte();
+        listarSubMetaItemReporte();
+        listarActividadItemReporte();
     }
 
     var cboMetaRep = document.getElementById("cboMetaRep");
