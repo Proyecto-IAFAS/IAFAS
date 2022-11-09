@@ -18,27 +18,28 @@
                         <div class="form-group col-md-5 m-3">
                             <button class="input-group-inverse btn btn-inverse" id="btnConsultar" data-toggle="tooltip" data-placement="bottom" title="Consultar"><i class="fa fa-search fa-lg" aria-hidden="true"></i></button>
                             <button class="input-group-inverse btn btn-primary" id="btnNuevo" data-toggle="tooltip" data-placement="bottom" title="Nuevo"><i class="fa fa-plus-circle fa-lg" aria-hidden="true"></i></button>
+                            <button class="btn btn-out waves-effect waves-light btn-info btn-square" id="btnImprimir" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="Imprimir"><i class="fa fa-print fa-lg" aria-hidden="true"></i></button>
+                            <button class="input-group-inverse btn btn-success" id="btnCierre" data-toggle="tooltip" data-placement="bottom" title="Cerrar PIA"><i class="fa fa-key fa-lg" aria-hidden="true"></i></button>
                         </div>
-
                     </div>
                     <div class="row">
                         <div class="col-lg-12">
                             <div class="tab-header card">
                                 <ul class="nav nav-tabs md-tabs tab-timeline" role="tablist" id="mytab">
                                     <li class="nav-item">
-                                        <a class="nav-link active" id="btnTabBasico" data-toggle="tab" href="#items" role="tab">BASICO</a>
+                                        <a class="nav-link active" id="btnTabBasico" data-id="1" data-toggle="tab" href="#items" role="tab">BASICO</a>
                                         <div class="slide"></div>
                                     </li>
                                     <li class="nav-item">
-                                        <a class="nav-link" id="btnTabOnconaval" data-toggle="tab" href="#items" role="tab">ONCONAVAL</a>
+                                        <a class="nav-link" id="btnTabOnconaval" data-id="2" data-toggle="tab" href="#items" role="tab">ONCONAVAL</a>
                                         <div class="slide"></div>
                                     </li>
                                     <li class="nav-item">
-                                        <a class="nav-link" id="btnTabSegundaCapa" data-toggle="tab" href="#items" role="tab">SEGUNDA CAPA</a>
+                                        <a class="nav-link" id="btnTabSegundaCapa" data-id="3" data-toggle="tab" href="#items" role="tab">SEGUNDA CAPA</a>
                                         <div class="slide"></div>
                                     </li>
                                     <li class="nav-item">
-                                        <a class="nav-link" id="btnTabCopagos" data-toggle="tab" href="#items" role="tab">COPAGOS</a>
+                                        <a class="nav-link" id="btnTabCopagos" data-id="4" data-toggle="tab" href="#items" role="tab">COPAGOS</a>
                                         <div class="slide"></div>
                                     </li>
                                 </ul>
@@ -50,7 +51,7 @@
                                             <div class="card">
                                                 <div class="card-block">
                                                     <div class="form-row">
-                                                        <div class="col-xl-4 col-md-12">
+                                                        <div class="col-xl-3 col-md-12">
                                                             <div class="card table-card">
                                                                 <div class="card-header">
                                                                     <h5>CENTRO DE COSTO</h5>
@@ -62,10 +63,10 @@
                                                                 </div>
                                                             </div>
                                                         </div>
-                                                        <div class="col-xl-4 col-md-12">
+                                                        <div class="col-xl-9 col-md-12">
                                                             <div class="card table-card">
                                                                 <div class="card-header">
-                                                                    <h5>META</h5>
+                                                                    <h5>MARCO PRESUPUESTAL</h5>
                                                                 </div>
                                                                 <div class="card-block">
                                                                     <div class="table-responsive">
@@ -74,91 +75,98 @@
                                                                 </div>
                                                             </div>
                                                         </div>
-                                                        <div class="col-xl-4 col-md-12">
-                                                            <div class="card table-card">
-                                                                <div class="card-header">
-                                                                    <h5>SUB META</h5>
-                                                                </div>
-                                                                <div class="card-block">
-                                                                    <div class="table-responsive">
-                                                                        <div class="table-responsive" id="divListaSubMeta"></div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-xl-6 col-md-12">
+                                                            <fieldset class="fieldset">
+                                                                <legend class="legend">DETALLE DEL PRESUPUESTO</legend>
+                                                                <div class="form-row">
+                                                                    <div class="col-md-12">
+                                                                        <div class="row">
+                                                                            <label class="control-label col-sm-3">PLAN SALUDOS:</label>
+                                                                            <div class="form-group col-sm-9">
+                                                                                <label class="control-form Lectura" id="lblPlanSalud"></label>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="row">
+                                                                            <label class="control-label col-sm-3">CENTRO COSTO:</label>
+                                                                            <div class="form-group col-sm-9">
+                                                                                <label class="control-form Lectura" id="lblCentroCosto"></label>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="row">
+                                                                            <label class="control-label col-sm-3">META:</label>
+                                                                            <div class="form-group col-sm-9">
+                                                                                <label class="control-form Lectura" id="lblMeta"></label>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="row">
+                                                                            <label class="control-label col-sm-3">SUB META:</label>
+                                                                            <div class="form-group col-sm-9">
+                                                                                <label class="control-form Lectura" id="lblSubMeta"></label>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="row">
+                                                                            <label class="control-label col-sm-3">ACTIVIDAD:</label>
+                                                                            <div class="form-group col-sm-9">
+                                                                                <label class="control-form Lectura" id="lblActividad"></label>
+                                                                            </div>
+                                                                        </div>
                                                                     </div>
                                                                 </div>
-                                                            </div>
+                                                            </fieldset>
                                                         </div>
-                                                    </div>
-                                                </div>
+                                                        <div class="col-xl-6 col-md-12">
+                                                            <fieldset class="fieldset">
+                                                                <legend class="legend">CLASIFICADOR DE GASTO</legend>
+                                                                <div class="row">
+                                                                    <div class="col-md-12">
+                                                                        <div class="form-row">
+                                                                            <label class="control-label col-sm-3">TIPO TRANSACCION:</label>
+                                                                            <div class="form-group col-sm-9">
+                                                                                <label class="control-form Lectura" id="lblTipo"></label>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="row">
+                                                                            <label class="control-label col-sm-3">GENERICA:</label>
+                                                                            <div class="form-group col-sm-9">
+                                                                                <label class="control-form Lectura" id="lblGenerica"></label>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="row">
+                                                                            <label class="control-label col-sm-3">SUB GENERICA 1:</label>
+                                                                            <div class="form-group col-sm-9">
+                                                                                <label class="control-form Lectura" id="lblSubGenerica1"></label>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="row">
+                                                                            <label class="control-label col-sm-3">SUB GENERICA 2:</label>
+                                                                            <div class="form-group col-sm-9">
+                                                                                <label class="control-form Lectura" id="lblSubGenerica2"></label>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="row">
+                                                                            <label class="control-label col-sm-3">SUB ESPECIFICA 1:</label>
+                                                                            <div class="form-group col-sm-9">
+                                                                                <label class="control-form Lectura" id="lblSubEspecifica1"></label>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="row">
+                                                                            <label class="control-label col-sm-3">SUB ESPECIFICA 2:</label>
+                                                                            <div class="form-group col-sm-9">
+                                                                                <label class="control-form Lectura" id="lblSubEspecifica2"></label>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                              </fieldset>
+                                                                        
+</div>
+                                                                </div>
+                                                        </div>
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="row">
-                                        <div class="col-xl-12">
-                                            <div class="card">
-                                                <div class="card-block">
-                                                    <div class="form-row">
-                                                        <div class="col-xl-6 col-md-12">
-                                                            <div class="card table-card">
-                                                                <div class="card-header">
-                                                                    <h5>ACTIVIDAD</h5>
-                                                                </div>
-                                                                <div class="card-block">
-                                                                    <div class="table-responsive">
-                                                                        <div class="table-responsive" id="divListaActividad"></div>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                        <div class="col-xl-6 col-md-12">
-                                                            <div class="card table-card">
-                                                                <div class="card-header">
-                                                                    <h5>CLASIFICADOR</h5>
-                                                                </div>
-                                                                <div class="card-block">
-                                                                    <div class="table-responsive">
-                                                                        <div class="table-responsive" id="divListaClasificador"></div>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <!--<div class="row">
-                                    <div class="col-xl-12">
-                                        <div class="card">
-                                            <div class="card-block">
-                                                <div class="form-row">
-                                                    <div class="col-xl-6 col-md-12">
-                                                        <div class="card table-card">
-                                                            <div class="card-header">
-                                                                <h5>CLASIFICADOR</h5>
-                                                            </div>
-                                                            <div class="card-block">
-                                                                <div class="table-responsive">
-                                                                    <div class="table-responsive" id="divListaClasificador"></div>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>-->
-                                    @*<div class="col-xl-6 col-md-12">
-                                            <div class="card table-card">
-                                                <div class="card-header">
-                                                    <h5>ACTIVIDAD</h5>
-                                                </div>
-                                                <div class="card-block">
-                                                    <div class="table-responsive">
-                                                        <div class="table-responsive" id="divListaActividad"></div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>*@
-                                    <!--</div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>-->
                                 </div>
                             </div>
                         </div>
@@ -196,28 +204,108 @@
                                                 <select id="cboActividad" class="SelectSearch control-form Reque Popup"></select>
                                             </div>
                                         </div>
-                                        <div class="form-row">
-                                            <div class="form-group col-md-12">
-                                                <div class="table-responsive" id="divListaClasificadorActivar">
-                                                    <table class="grilla bordered Tabla" id="tblItem">
-                                                    <thead>
-                                                        <tr class="FilaHead">
-                                                        <th style="white-space:pre-wrap;width:10px;display:none">id</th>
-                                                        <th style="white-space:pre-wrap;width:140px">Código</th>
-                                                        <th style="white-space:pre-wrap;width:350px">Nombre Clasificador</th>
-                                                        <th style="white-space:pre-wrap;width:130px">Monto</th>
-                                                            </tr>
-                                                        </thead>
-                                                    <tbody id="tbDetalleClasificador">
-                                                        </tbody>
-                                                    </table>
-                                                </div>
+                                        <div class="row">
+                                            <div class="form-group col-sm-10">
+                                                <label class="control-label">Clasificador Gasto</label>
+                                                <select id="cboClasificador" class="SelectSearch control-form Reque Popup"></select>
                                             </div>
                                         </div>
+                                        <div class="row">
+                                            <div class="form-group col-sm-5">
+                                                <label class="control-label">Monto asignado</label>
+                                                <input type="number" class="control-form Reque Popup" id="txtMonto" />
+                                            </div>
+                                        </div>
+                                        @*<div class="form-row">
+                                                <div class="form-group col-md-12">
+                                                    <div class="table-responsive" id="divListaClasificadorActivar">
+                                                        <table class="grilla bordered Tabla" id="tblItem">
+                                                        <thead>
+                                                            <tr class="FilaHead">
+                                                            <th style="white-space:pre-wrap;width:10px;display:none">id</th>
+                                                            <th style="white-space:pre-wrap;width:140px">Código</th>
+                                                            <th style="white-space:pre-wrap;width:350px">Nombre Clasificador</th>
+                                                            <th style="white-space:pre-wrap;width:130px">Monto</th>
+                                                                </tr>
+                                                            </thead>
+                                                        <tbody id="tbDetalleClasificador">
+                                                            </tbody>
+                                                        </table>
+                                                    </div>
+                                                </div>
+                                            </div>*@
                                     </div>
                                     <div class="modal-footer">
                                         <button id="btnCancelar" class="btnCancelarForm" title="Cancelar"><i class="fa fa-undo" aria-hidden="true"></i>&nbsp;Cancelar</button>
                                         <button id="btnGuardar" class="btnGuardarForm bg-customer" title="Guardar datos"><span class="fa fa-save"></span>&nbsp;Grabar</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="modal custom-modal" tabindex="-1" role="dialog" aria-hidden="true" id="divPopupContainerOpcionReporte" style="overflow-y:auto;">
+                            <div class="modal-dialog modal-xl bg-personalizado" id="divPopupWindowOpcionReporte">
+                                <div class="modal-content">
+                                    <div id="divBarraOpcionReporte" class="modal-header bg-personalizado" style="cursor:move;">
+                                        <h5 class="modal-title"><i class="fa fa-users"></i> Reportes</h5>
+                                        <button type="button" id="btnCancelarOpcionReporte" class="close"><span aria-hidden="true">&times;</span><span class="sr-only"></span></button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <div class="row">
+                                            <div class="col-sm-12 mb-2">
+                                                <fieldset class="fieldset h-100 p-3">
+                                                    <div class="row">
+                                                        <div class="col-sm-12 p-0">
+                                                            <div class="row m-0">
+                                                                <div class="form-group col-sm-2 divOptReporte">
+                                                                    <label class="control-label">Año</label>
+                                                                    <input type="number" class="control-form RequeRep PopupRep" id="txtAnioRep" maxlength="4">
+                                                                </div>
+                                                                <div class="form-group col-sm-5 divOptReporte">
+                                                                    <label class="control-label">Fuente Financiamiento</label>
+                                                                    <select class="control-form PopupRep" id="cboFuenteRep"></select>
+                                                                </div>
+                                                                <div class="form-group col-sm-5 divOptReporte">
+                                                                    <label class="control-label">Meta</label>
+                                                                    <select class="SelectSearch control-form PopupRep" id="cboMetaRep"></select>
+                                                                </div>
+                                                                <div class="form-group col-sm-6 divOptReporte">
+                                                                    <label class="control-label">SubMeta</label>
+                                                                    <select class="SelectSearch control-form PopupRep" id="cboSubMetaRep"></select>
+                                                                </div>
+                                                                <div class="form-group col-sm-6 divOptReporte">
+                                                                    <label class="control-label">Actividad</label>
+                                                                    <select class="SelectSearch control-form PopupRep" id="cboActividadRep"></select>
+                                                                </div>
+                                                                <div class="form-group col-sm-5 divOptReporte" id="OptCodItemRep" style="display:none">
+                                                                    <label class="control-label">Cod. Patrimonio</label>
+                                                                    <input type="text" autocomplete="off" class="control-lectura PopupRep" readonly id="txtCodigoPatrimonioRep">
+                                                                    <input type="hidden" autocomplete="off" class="control-lectura PopupRep" readonly id="txtCodItemRep">
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </fieldset>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button id="btnSeleccionarOpcionReporte" class="btnGuardarForm bg-customer" title="Ver Reporte"><span class="fa fa-search"></span>&nbsp;Ver Reporte</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="modal custom-modal" tabindex="-1" role="dialog" aria-hidden="true" id="divPopupContainerReporte" style="overflow-y:auto;">
+                            <div class="modal-dialog modal-xl bg-personalizado" id="divPopupWindowReporte">
+                                <div class="modal-content">
+                                    <div id="divBarraReporte" class="modal-header bg-personalizado" style="cursor:move">
+                                        <h5 class="modal-title"><i class="fa fa-search"></i> Vista Previa</h5>
+                                        <button type="button" id="btnCancelarReporte" class="close"><span aria-hidden="true">&times;</span><span class="sr-only"></span></button>
+                                    </div>
+                                    <div class="modal-body p-0">
+                                        <iframe id="ifrmVistaPrevia" style="width:100%;height:800px"></iframe>
                                     </div>
                                 </div>
                             </div>

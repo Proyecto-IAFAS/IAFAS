@@ -47,6 +47,8 @@ function NumCheck(e, field) {
 
 function getListar() {
     var data = "";
+    var anio = txtAnioFiscal?.value
+    data = anio;
     Http.get("General/listarTabla?tbl=" + controller + vista + "&data=" + data, mostrarlistas);
 }
 
@@ -114,12 +116,12 @@ function mostrarlistas(rpta) {
 
             crearCombo(listaEntidad, "cboEntidadEdit", "Seleccione");
             crearCombo(listaTipoBien, "cboTipoBienEdit", "Seleccione");
-            crearCombo(listaGrupo, "cboGrupoEdit", "Seleccione");
-            crearCombo(listaClase, "cboClaseEdit", "Seleccione");
-            crearCombo(listaFamilia, "cboFamiliaEdit", "Seleccione");
+
             crearComboCtaContable(listaCtaContable, "cboCtaContableEdit", "Seleccione");
         }
-
+        else if (vista == "TipoCambio") {
+            grillaItem = new GrillaScroll(lista, "divLista", 100, 6, vista, controller, null, null, true, null, 38, false, null);
+        }
         else {
             grillaItem = new GrillaScroll(lista, "divLista", 100, 6, vista, controller, null, null, true, botones, 38, false, null);
         }
@@ -419,11 +421,17 @@ function mostrarRegistro(rpta) {
             txtIdRegistroEdit.value = campos[0];
             cboEntidadEdit.value = campos[1];
             cboTipoBienEdit.value = campos[2];
-            cboGrupoEdit.value = campos[3];
-            cboClaseEdit.value = campos[4];
-            cboFamiliaEdit.value = campos[5];
             cboCtaContableEdit.value = campos[6];
             seleccionarControlSelect2(cboCtaContableEdit);
+
+            listarItemsPorIdPadre(listaGrupo, cboTipoBienEdit.value, 'cboGrupoEdit', 'Seleccione');
+            cboGrupoEdit.value = campos[3];
+
+            listarItemsPorIds(listaClase, [cboTipoBienEdit.value, cboGrupoEdit.value], 'cboClaseEdit', 'Todos', validarItemsClase);
+            cboClaseEdit.value = campos[4];
+
+            listarItemsPorIds(listaFamilia, [cboTipoBienEdit.value, cboGrupoEdit.value, cboClaseEdit.value], 'cboFamiliaEdit', 'Todos', validarItemsFamilia);
+            cboFamiliaEdit.value = campos[5];
 
             var divPopupContainerForm1 = document.getElementById("divPopupContainerForm1");
             if (divPopupContainerForm1 != null) { divPopupContainerForm1.style.display = 'block'; };

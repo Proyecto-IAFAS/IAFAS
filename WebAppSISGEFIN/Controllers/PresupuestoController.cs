@@ -143,32 +143,8 @@ namespace WebAppSISGEFIN.Controllers
             return View();
         }
 
-
-
         [FiltroAutenticacion]
-        public ActionResult NotaIafas()
-        {
-            string[] Data = Session["DataUsuario"].ToString().Split('|');
-            string IdPerfil = Data[3];
-            ViewBag.Menu = new Menu().Listar(IdPerfil);
-            ViewBag.AnhoActual = Convert.ToString(DateTime.Now.Year);
-            ViewBag.idEnt = 1;
-            return View();
-        }
-
-        [FiltroAutenticacion]
-        public ActionResult NotaDisamar()
-        {
-            string[] Data = Session["DataUsuario"].ToString().Split('|');
-            string IdPerfil = Data[3];
-            ViewBag.Menu = new Menu().Listar(IdPerfil);
-            ViewBag.AnhoActual = Convert.ToString(DateTime.Now.Year);
-            ViewBag.idEnt = 2;
-            return View();
-        }
-
-        [FiltroAutenticacion]
-        public ActionResult NotaAprobacion()
+        public ActionResult NotaModi()
         {
             string[] Data = Session["DataUsuario"].ToString().Split('|');
             string IdPerfil = Data[3];
@@ -177,6 +153,7 @@ namespace WebAppSISGEFIN.Controllers
             return View();
         }
 
+        
         public ActionResult MarcoPresu()
         {
             string[] Data = Session["DataUsuario"].ToString().Split('|');
