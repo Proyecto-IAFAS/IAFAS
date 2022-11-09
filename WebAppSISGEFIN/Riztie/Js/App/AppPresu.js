@@ -366,8 +366,8 @@ function mostrarGrabarPIA(rpta) {
         var tipo = mensajeResul[0];
         var mensaje = mensajeResul[1];
         divPopupContainer.style.display = 'none';
-        grilla = new GrillaScroll(lista, "divListaClasificador", 100, 6, vista, controller, null, null, null, botones, 25, false, null);
-
+        grilla = new GrillaScroll(lista, "divListaMeta", 100, 6, vista, controller, null, null, null, botones, 25, false, null);
+        limpiarPresupuesto();
         if (tipo == 'A') {
             Swal.fire({
                 title: 'Finalizado!',
@@ -448,7 +448,7 @@ function mostrarGrabar(rpta) {
 }
 
 function seleccionarBoton(idGrilla, idRegistro, idBoton) {
-    if (idGrilla == "divLista") {
+    if (idGrilla == "divLista" || idGrilla == "divListaMeta") {
         if (idBoton == "Editar") {
             let tituloModal = document.getElementById("tituloModal");
             if (tituloModal != null) {
@@ -634,28 +634,28 @@ function mostrarRegistro(rpta) {
 function configurarBotones() {
     var btnTabBasico = document.getElementById("btnTabBasico");
     if (btnTabBasico != null) btnTabBasico.onclick = function () {
-        limpiarGrilla();
+        limpiarPresupuesto();
         idPlan = btnTabBasico.getAttribute('data-id');
         getListarProgramacion(idPlan);
     }
 
     var btnTabOnconaval = document.getElementById("btnTabOnconaval");
     if (btnTabOnconaval != null) btnTabOnconaval.onclick = function () {
-        limpiarGrilla();
+        limpiarPresupuesto();
         idPlan = btnTabOnconaval.getAttribute('data-id');
         getListarProgramacion(idPlan);
     }
 
     var btnTabSegundaCapa = document.getElementById("btnTabSegundaCapa");
     if (btnTabSegundaCapa != null) btnTabSegundaCapa.onclick = function () {
-        limpiarGrilla();
+        limpiarPresupuesto();
         idPlan = btnTabSegundaCapa.getAttribute('data-id');
         getListarProgramacion(idPlan);
     }
 
     var btnTabCopagos = document.getElementById("btnTabCopagos");
     if (btnTabCopagos != null) btnTabCopagos.onclick = function () {
-        limpiarGrilla();
+        limpiarPresupuesto();
         idPlan = btnTabCopagos.getAttribute('data-id');
         getListarProgramacion(idPlan);
     }
@@ -734,6 +734,34 @@ function configurarBotones() {
         }
     }
 
+    var btnCierre = document.getElementById("btnCierre");
+    if (btnCierre != null) btnCierre.onclick = function () {
+        var anio = txtAnioFiscal.value;
+
+        Swal.fire({
+            title: '¿Desea realizar el cierre del PIA Año ' + anio +'?',
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Si',
+            cancelButtonText: 'No'
+        }).then((result) => {
+            if (result.value) {
+                alert('cerrando PIA');
+                //grabarDatos();
+
+                //Swal.fire({
+                //    title: 'Procesando...',
+                //    allowEscapeKey: false,
+                //    allowOutsideClick: false,
+                //    onOpen: () => {
+                //        Swal.showLoading()
+                //    }
+                //})
+            }
+        })
+    }
 
     var btnGuardar = document.getElementById("btnGuardar");
     if (btnGuardar != null) btnGuardar.onclick = function () {
@@ -904,64 +932,55 @@ function seleccionarFila(fila, id, prefijo) {
         if (prefijo == "divLista") {
             var data = "";
             var anioFiscal = document.getElementById("txtAnioFiscal")?.value;
-            limpiarGrilla();
+            limpiarPresupuesto();
             idCenCos = idRegistro
             data = anioFiscal + '|' + idPlan + '|' + idCenCos;
             Http.get("General/listarTabla?tbl=" + controller + vista + "Meta&data=" + data, function (response) {
                 if (response) {
                     var lista = response.split("¬");
-                    grillaItems = new GrillaScroll(lista, "divListaMeta", 100, 6, vista, controller, null, null, null, null, 25, false, null);
+                    grillaItems = new GrillaScroll(lista, "divListaMeta", 100, 6, vista, controller, null, null, null, botones, 25, false, null);
                 }
             });
         }
         else if (prefijo == "divListaMeta") {
             var data = "";
-            var anioFiscal = document.getElementById("txtAnioFiscal")?.value;
-            idMeta = idRegistro;
-            data = anioFiscal + '-' + idPlan + '-' + idCenCos + '-' + idMeta;
-            Http.get("General/listarTabla?tbl=" + controller + vista + "Clasificador&data=" + data, function (datos) {
+            var codigoclasificador = fila.childNodes[5].innerHTML;
+            var data = idRegistro + '|' + codigoclasificador
+            Http.get("General/listarTabla?tbl=" + controller + vista + "ClasificadorDetalle&data=" + data, function (datos) {
                 if (datos) {
-                    var lista = datos.split("¬");
-                    grillaItems = new GrillaScroll(lista, "divListaSubMeta", 100, 6, vista, controller, null, null, null, null, 25, false, null);
+                    var listas = datos.split("¯");
+                    var camposPresu = listas[0].split("|");
+                    var camposClasi = listas[1].split("|");
+
+                    lblPlanSalud.innerHTML = camposPresu[0];
+                    lblCentroCosto.innerHTML =camposPresu[1];
+                    lblMeta.innerHTML =camposPresu[2];
+                    lblSubMeta.innerHTML =camposPresu[3];
+                    lblActividad.innerHTML =camposPresu[4];
+
+                    /*DETALLE CLASIFICADOR*/ 
+                    lblTipo.innerHTML = camposClasi[0];
+                    lblGenerica.innerHTML =camposClasi[1];
+                    lblSubGenerica1.innerHTML = camposClasi[2];
+                    lblSubGenerica2.innerHTML = camposClasi[3];
+                    lblSubEspecifica1.innerHTML =camposClasi[4];
+                    lblSubEspecifica2.innerHTML =camposClasi[5];
                 }
             });
 
-        }
-        else if (prefijo == "divListaSubMeta") {
-            var data = "";
-            var codigoclasificador = fila.childNodes[1].innerHTML;
-            Http.get("General/listarTabla?tbl=" + controller + vista + "ClasificadorDetalle&data=" + codigoclasificador, function (datos) {
-                if (datos) {
-                    var campos = datos.split("|");
-                    lblTipo.innerHTML = 'TIPO: ' +campos[0];
-                    lblGenerica.innerHTML = 'GENERICA: ' +campos[1];
-                    lblSubGenerica1.innerHTML = 'SUB GENERICA 1: ' +campos[2];
-                    lblSubGenerica2.innerHTML = 'SUB GENERICA 2: ' +campos[3];
-                    lblSubEspecifica1.innerHTML = 'SUB ESPECIFICA 1: ' +campos[4];
-                    lblSubEspecifica2.innerHTML = 'SUB ESPECIFICA 2: ' +campos[5];
-                }
-            });
-        }
-        else if (prefijo == "divListaActividad") {
-            var data = "";
-            var anioFiscal = document.getElementById("txtAnioFiscal")?.value;
-            idActividad = idRegistro;
-            data = anioFiscal + '|' + idPlan + '|' + idCenCos + '|' + idMeta + '|' + idSubMeta + '|' + idActividad;
-            Http.get("General/listarTabla?tbl=" + controller + vista + "Clasificador&data=" + data, function (datos) {
-                if (datos) {
-                    var lista = datos.split("¬");
-                    grilla = new GrillaScroll(lista, "divListaClasificador", 100, 6, vista, controller, null, null, null, botones, 25, false, null);
-                }
-            });
         }
     }
 }
 
-function limpiarGrilla() {
-    divListaClasificador.innerHTML = "";
-   // divListaActividad.innerHTML = "";
-    divListaSubMeta.innerHTML = "";
+function limpiarPresupuesto() {
     divListaMeta.innerHTML = "";
+    var controles = document.getElementsByClassName("Lectura");
+    var nControles = controles.length;
+    var control;
+    for (var i = 0; i < nControles; i++) {
+        control = controles[i];
+        control.innerHTML = "";
+    }
 }
 
 function listarClasificadorItem() {
@@ -970,7 +989,6 @@ function listarClasificadorItem() {
         if (datos) {
             var lista = datos.split("¬");
             crearCombo(lista, "cboClasificador", "Seleccionar");
-            //mostrarClasificadorItem(datos)
         }
     });
 }

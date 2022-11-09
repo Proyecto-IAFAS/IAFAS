@@ -18,6 +18,7 @@
                         <div class="form-group col-md-5 m-3">
                             <button class="input-group-inverse btn btn-inverse" id="btnConsultar" data-toggle="tooltip" data-placement="bottom" title="Consultar"><i class="fa fa-search fa-lg" aria-hidden="true"></i></button>
                             <button class="input-group-inverse btn btn-primary" id="btnNuevo" data-toggle="tooltip" data-placement="bottom" title="Nuevo"><i class="fa fa-plus-circle fa-lg" aria-hidden="true"></i></button>
+                            <button class="input-group-inverse btn btn-success" id="btnCierre" data-toggle="tooltip" data-placement="bottom" title="Cerrar PIA"><i class="fa fa-key fa-lg" aria-hidden="true"></i></button>
                         </div>
                     </div>
                     <div class="row">
@@ -61,10 +62,10 @@
                                                                 </div>
                                                             </div>
                                                         </div>
-                                                        <div class="col-xl-6 col-md-12">
+                                                        <div class="col-xl-9 col-md-12">
                                                             <div class="card table-card">
                                                                 <div class="card-header">
-                                                                    <h5>META-ACTIVIDAD</h5>
+                                                                    <h5>MARCO PRESUPUESTAL</h5>
                                                                 </div>
                                                                 <div class="card-block">
                                                                     <div class="table-responsive">
@@ -73,73 +74,95 @@
                                                                 </div>
                                                             </div>
                                                         </div>
-                                                        <div class="col-xl-3 col-md-12">
-                                                            <div class="card table-card">
-                                                                <div class="card-header">
-                                                                    <h5>MONTO ASIGNADO</h5>
-                                                                </div>
-                                                                <div class="card-block">
-                                                                    <div class="table-responsive">
-                                                                        <div class="table-responsive" id="divListaSubMeta"></div>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </div>
                                                     </div>
-                                                    <div class="form-row">
+                                                    <div class="row">
                                                         <div class="col-xl-6 col-md-12">
-                                                            <div class="card table-card">
-                                                                <div class="card-header">
-                                                                    <h5>DESCRIPCION DE LA META</h5>
-                                                                </div>
-                                                                <div class="card-block">
-                                                                    <div class="table-responsive">
-                                                                        <div class="table-responsive" id="divListaClasificador"></div>
+                                                            <fieldset class="fieldset">
+                                                                <legend class="legend">DETALLE DEL PRESUPUESTO</legend>
+                                                                <div class="form-row">
+                                                                    <div class="col-md-12">
+                                                                        <div class="row">
+                                                                            <label class="control-label col-sm-3">PLAN SALUDOS:</label>
+                                                                            <div class="form-group col-sm-9">
+                                                                                <label class="control-form Lectura" id="lblPlanSalud"></label>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="row">
+                                                                            <label class="control-label col-sm-3">CENTRO COSTO:</label>
+                                                                            <div class="form-group col-sm-9">
+                                                                                <label class="control-form Lectura" id="lblCentroCosto"></label>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="row">
+                                                                            <label class="control-label col-sm-3">META:</label>
+                                                                            <div class="form-group col-sm-9">
+                                                                                <label class="control-form Lectura" id="lblMeta"></label>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="row">
+                                                                            <label class="control-label col-sm-3">SUB META:</label>
+                                                                            <div class="form-group col-sm-9">
+                                                                                <label class="control-form Lectura" id="lblSubMeta"></label>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="row">
+                                                                            <label class="control-label col-sm-3">ACTIVIDAD:</label>
+                                                                            <div class="form-group col-sm-9">
+                                                                                <label class="control-form Lectura" id="lblActividad"></label>
+                                                                            </div>
+                                                                        </div>
                                                                     </div>
                                                                 </div>
-                                                            </div>
+                                                            </fieldset>
                                                         </div>
                                                         <div class="col-xl-6 col-md-12">
-                                                            <div class="card table-card">
-                                                                <div class="card-header">
-                                                                    <h5>CLASIFICADOR DE GASTO</h5>
+                                                            <fieldset class="fieldset">
+                                                                <legend class="legend">CLASIFICADOR DE GASTO</legend>
+                                                                <div class="row">
+                                                                    <div class="col-md-12">
+                                                                        <div class="form-row">
+                                                                            <label class="control-label col-sm-3">TIPO TRANSACCION:</label>
+                                                                            <div class="form-group col-sm-9">
+                                                                                <label class="control-form Lectura" id="lblTipo"></label>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="row">
+                                                                            <label class="control-label col-sm-3">GENERICA:</label>
+                                                                            <div class="form-group col-sm-9">
+                                                                                <label class="control-form Lectura" id="lblGenerica"></label>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="row">
+                                                                            <label class="control-label col-sm-3">SUB GENERICA 1:</label>
+                                                                            <div class="form-group col-sm-9">
+                                                                                <label class="control-form Lectura" id="lblSubGenerica1"></label>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="row">
+                                                                            <label class="control-label col-sm-3">SUB GENERICA 2:</label>
+                                                                            <div class="form-group col-sm-9">
+                                                                                <label class="control-form Lectura" id="lblSubGenerica2"></label>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="row">
+                                                                            <label class="control-label col-sm-3">SUB ESPECIFICA 1:</label>
+                                                                            <div class="form-group col-sm-9">
+                                                                                <label class="control-form Lectura" id="lblSubEspecifica1"></label>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="row">
+                                                                            <label class="control-label col-sm-3">SUB ESPECIFICA 2:</label>
+                                                                            <div class="form-group col-sm-9">
+                                                                                <label class="control-form Lectura" id="lblSubEspecifica2"></label>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
                                                                 </div>
-                                                                <div class="card-body">
-                                                                    <div class="form-row">
-                                                                        <div class="form-group col-sm-12">
-                                                                            <label class="control-label" id="lblTipo"></label>
-                                                                        </div>
-                                                                    </div>
-                                                                    <div class="form-row">
-                                                                        <div class="form-group col-sm-12">
-                                                                            <label class="control-label" id="lblGenerica"></label>
-                                                                        </div>
-                                                                    </div>
-                                                                    <div class="form-row">
-                                                                        <div class="form-group col-sm-12">
-                                                                            <label class="control-label" id="lblSubGenerica1"></label>
-                                                                        </div>
-                                                                    </div>
-                                                                    <div class="form-row">
-                                                                        <div class="form-group col-sm-12">
-                                                                            <label class="control-label" id="lblSubGenerica2"></label>
-                                                                        </div>
-                                                                    </div>
-                                                                    <div class="row">
-                                                                        <div class="form-group col-sm-12">
-                                                                            <label class="control-label" id="lblSubEspecifica1"></label>
-                                                                        </div>
-                                                                    </div>
-                                                                    <div class="row">
-                                                                        <div class="form-group col-sm-12">
-                                                                            <label class="control-label" id="lblSubEspecifica2"></label>
-                                                                        </div>
-                                                                    </div>
+                                                              </fieldset>
+                                                                        
+</div>
                                                                 </div>
-                                                            </div>
                                                         </div>
-                                                    </div>
-                                                </div>
                                             </div>
                                         </div>
                                     </div>
