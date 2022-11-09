@@ -23,6 +23,10 @@ var totalViajes = 0;
 var listaCatalogo = [];
 var grillaCatalogo;
 
+var listaSubMeta = [];
+var listaActividad = [];
+var listaClasificador = [];
+
 var botonesProceso = [
     { "cabecera": "Proceso", "clase": "fa fa-plus-circle btn btn-primary btnCirculo", "id": "Proceso" },
     { "cabecera": "Editar", "clase": "fa fa-pencil btn btn-info btnCirculo", "id": "Editar" },
@@ -612,6 +616,27 @@ function configurarCombos() {
     var cboMeta = document.getElementById("cboMeta");
     if (cboMeta != null) cboMeta.onchange = function () {
         listarSubMeta();
+        listarActividad();
+        listarClasificador();
+        txtMontoAsignado.value = "";
+    }
+
+    var cboSubMeta = document.getElementById("cboSubMeta");
+    if (cboSubMeta != null) cboSubMeta.onchange = function () {
+        listarActividad();
+        listarClasificador();
+        txtMontoAsignado.value = "";
+    }
+
+    var cboActividad = document.getElementById("cboActividad");
+    if (cboActividad != null) cboActividad.onchange = function () {
+        listarClasificador();
+        txtMontoAsignado.value = "";
+    }
+
+    var cboClasif = document.getElementById("cboClasif");
+    if (cboClasif != null) cboClasif.onchange = function () {
+        seleccionarMontoAsignado();
     }
 
     var cboTipoBien = document.getElementById("cboTipoBien");
@@ -690,17 +715,17 @@ function configurarCombos() {
             txtNombres.value = "";
             txtRUC.value = "";
             txtRazonSocial.value = "";
-          
+
         }
         else if (cboTipoContribuyente.value == "2") {
             tipoPersonaNatural.style.display = "none";
             tipoPersonaJuridica.style.display = "block";
             tipoPersonaJuridicaRuc.style.display = "block";
-           
+
             txtApePaterno.value = "";
             txtApeMaterno.value = "";
             txtNombres.value = "";
-         
+
         }
         else if (cboTipoContribuyente.value == "3") {
             tipoPersonaNatural.style.display = "block";
@@ -708,7 +733,7 @@ function configurarCombos() {
             tipoPersonaJuridica.style.display = "none";
 
             txtRazonSocial.value = "";
-          
+
         }
 
     }
@@ -849,7 +874,7 @@ function configurarBotones() {
 
     var btnTabBienes = document.getElementById("btnTabBienes");
     if (btnTabBienes != null) btnTabBienes.onclick = function () {
-       // getListarArticulo('B')
+        // getListarArticulo('B')
         codigoFilt.value = "";
         nombreFilt.value = "";
         unidaMedidaFilt.value = "";
@@ -885,7 +910,7 @@ function configurarBotones() {
 
     var btnTabObras = document.getElementById("btnTabObras");
     if (btnTabObras != null) btnTabObras.onclick = function () {
-      //  getListarArticulo('O')
+        //  getListarArticulo('O')
         codigoFilt.value = "";
         nombreFilt.value = "";
         unidaMedidaFilt.value = "";
@@ -930,7 +955,7 @@ function configurarBotones() {
                     break;
             }
 
-            let data = idTipo + '|' + codigoFilt.value + '|' + nombreFilt.value + '|' + unidaMedidaFilt.value+'|1';
+            let data = idTipo + '|' + codigoFilt.value + '|' + nombreFilt.value + '|' + unidaMedidaFilt.value + '|1';
             Http.get("General/listarTabla?tbl=" + controller + vista + "Filtro" + "&data=" + data, function (response) {
                 if (response) {
                     var listas = response.split("¯");
@@ -1410,9 +1435,9 @@ function configurarBotones() {
             var idTipo = "";
             switch (idTabActivo) {
                 case "btnTabBienes": idTipo = "B"; break;
-                case "btnTabServicios":idTipo = "S"; break;
-                case "btnTabObras":idTipo = "O";  break;
-                default:idTipo = "B";break;
+                case "btnTabServicios": idTipo = "S"; break;
+                case "btnTabObras": idTipo = "O"; break;
+                default: idTipo = "B"; break;
             }
             filtro = idTipo + '||||1';
 
@@ -1422,7 +1447,7 @@ function configurarBotones() {
                     id = fila[0];
                     data += (id + ",");
                 }
-            }            
+            }
             data = data.substring(0, data.length - 1);
             let datos = data + '¯' + filtro;
             var frm = new FormData();
@@ -1445,7 +1470,7 @@ function configurarBotones() {
                 }
             }
             obtenerItems(data);
-        } 
+        }
     }
 
     if (vista == "PAC") {
@@ -1599,7 +1624,7 @@ function configurarBotones() {
             });
             divPopupContainerForm1.style.display = 'block';
         }
-        
+
     }
 
     var btnConsultarInact = document.getElementById("btnConsultarInact");
@@ -1608,7 +1633,7 @@ function configurarBotones() {
         if (vista == "Articulo") {
             document.getElementById("spnLoadData").style.display = "block";
             listaInactivo.style.display = 'none';
-            data = cboTipoBienInact.value + '|' + codigoInact.value + '|' + nombreInact.value + '|' + unidaMedidaInact.value+'|2';
+            data = cboTipoBienInact.value + '|' + codigoInact.value + '|' + nombreInact.value + '|' + unidaMedidaInact.value + '|2';
             Http.get("General/listarTabla?tbl=" + controller + vista + "Filtro" + "&data=" + data, function (response) {
                 if (response) {
                     var listas = response.split("¯");
@@ -1622,7 +1647,7 @@ function configurarBotones() {
 
     }
 
-    
+
 }
 
 function mostrarListadoPeriodo(rpta) {
@@ -2022,7 +2047,7 @@ function mostrarDatosSunat(rpta) {
             listarDistritos();
             cboDistrito.value = idDist;
             document.getElementById('select2-cboDistrito-container').innerHTML = cboDistrito.options[cboDistrito.selectedIndex].text;
-           
+
             spnLoad.style.display = 'none';
         }
         else {
@@ -2122,7 +2147,7 @@ function mostrarDatosDNI(rpta) {
         spnDniDocumento.style.color = "red";
         spnLoadDoc.style.display = 'none';
     }
-} 
+}
 
 function seleccionarFila(fila, id, prefijo) {
     idRegistro = id;
@@ -2130,7 +2155,7 @@ function seleccionarFila(fila, id, prefijo) {
     if (window["fila" + prefijo] != null) window["fila" + prefijo].className = "FilaDatos";
     fila.className = "FilaSeleccionada";
     window["fila" + prefijo] = fila;
-    
+
     if (vista == "Articulo") {
         spnArticulo.innerHTML = fila.childNodes[4].innerHTML;
     }
@@ -5131,15 +5156,26 @@ function mostrarAsignarAyudas(rpta) {
     if (rpta) {
         divPopupContainerForm1.style.display = 'block';
         var listas = rpta.split('¯');
-        var listaPCA = listas[0].split('¬');
-        var listaMeta = listas[1].split('¬');
-        listaSubMeta = listas[2].split('¬');
-        var listaPartida = listas[3].split('¬');
-        crearCombo(listaPCA, "cboPCA", "Seleccionar");
+
+        var listaMeta = listas[0].split('¬');
+        listaSubMeta = listas[1].split('¬');
+        listaActividad = listas[2].split('¬');
+        listaClasificador = listas[3].split('¬');
+
         crearCombo(listaMeta, "cboMeta", "Seleccionar");
-        cboSubMeta.disabled = true;
+
         cboSubMeta.innerHTML = "";
-        crearCombo(listaPartida, "cboClasificador", "Seleccionar");
+        seleccionarControlSelect2(cboSubMeta);
+
+        cboActividad.innerHTML = "";
+        seleccionarControlSelect2(cboActividad);
+
+        cboClasif.innerHTML = "";
+        seleccionarControlSelect2(cboClasif);
+
+        txtMontoAsignado.value = "";
+
+
     }
     else {
         mostrarMensaje("No se obtuvo respuesta de las ayudas", "error")
@@ -5194,30 +5230,112 @@ function mostrarGrabarPeriodo(rpta) {
     }
 }
 
-
 function listarSubMeta() {
+    var idMeta = cboMeta.value;
     var nRegistros = listaSubMeta.length;
-    var campos = [];
     var contenido = "<option value=''>Seleccione</option>";
-    var idMeta, idSubMeta, nombre, idxMeta;
-    var idMeta = document.getElementById("cboMeta").value;
+    var campos, idCodigo, nombre, idxMetaItem;
     for (var i = 0; i < nRegistros; i++) {
         campos = listaSubMeta[i].split('|');
-        idSubMeta = campos[0];
+        idCodigo = campos[0];
         nombre = campos[1];
-        idxMeta = campos[2];
-
-        if (idxMeta == idMeta) {
+        idxMetaItem = campos[2];
+        if (idxMetaItem == idMeta) {
             contenido += "<option value='";
-            contenido += idSubMeta;
+            contenido += idCodigo;
             contenido += "'>";
             contenido += nombre;
             contenido += "</option>";
         }
     }
-    document.getElementById("cboSubMeta").disabled = false;
     var cbo = document.getElementById("cboSubMeta");
-    if (cbo != null) cbo.innerHTML = contenido;
+    if (cbo != null) {
+        cbo.innerHTML = contenido;
+    }
+}
+
+function listarActividad() {
+    var idMeta = cboMeta.value;
+    var idSubMeta = cboSubMeta.value;
+    var nRegistros = listaActividad.length;
+    var contenido = "<option value=''>Seleccione</option>";
+    var campos, idCodigo, nombre, idxMetaItem, idxSubMetaItem;
+    for (var i = 0; i < nRegistros; i++) {
+        campos = listaActividad[i].split('|');
+        idCodigo = campos[0];
+        nombre = campos[1];
+        idxMetaItem = campos[2];
+        idxSubMetaItem = campos[3];
+        if (idxMetaItem == idMeta && idxSubMetaItem == idSubMeta) {
+            contenido += "<option value='";
+            contenido += idCodigo;
+            contenido += "'>";
+            contenido += nombre;
+            contenido += "</option>";
+        }
+    }
+    var cbo = document.getElementById("cboActividad");
+    if (cbo != null) {
+        cbo.innerHTML = contenido;
+    }
+}
+
+function listarClasificador() {
+    var idMeta = cboMeta.value;
+    var idSubMeta = cboSubMeta.value;
+    var idActividad = cboActividad.value;
+    var nRegistros = listaClasificador.length;
+    var contenido = "<option value=''>Seleccione</option>";
+    var campos, idCodigo, nombre, idxMetaItem, idxSubMetaItem, idxActividadItem;
+    for (var i = 0; i < nRegistros; i++) {
+        campos = listaClasificador[i].split('|');
+        idCodigo = campos[0];
+        nombre = campos[1];
+        idxMetaItem = campos[2];
+        idxSubMetaItem = campos[3];
+        idxActividadItem = campos[4];
+        if (idxMetaItem == idMeta && idxSubMetaItem == idSubMeta && idxActividadItem == idActividad) {
+            contenido += "<option value='";
+            contenido += idCodigo;
+            contenido += "'>";
+            contenido += nombre;
+            contenido += "</option>";
+        }
+    }
+    var cbo = document.getElementById("cboClasif");
+    if (cbo != null) {
+        cbo.innerHTML = contenido;
+    }
+}
+
+function seleccionarMontoAsignado() {
+    var idMeta = cboMeta.value;
+    var idSubMeta = cboSubMeta.value;
+    var idActividad = cboActividad.value;
+    var idClasificador = cboClasif.value;
+
+    var nRegistros = listaClasificador.length;
+    var contenido = "";
+    var campos, idxMetaItem, idxSubMetaItem, idxActividadItem, idxClasificadorItem, montoAsignado;
+    for (var i = 0; i < nRegistros; i++) {
+        campos = listaClasificador[i].split('|');
+
+        idxMetaItem = campos[2];
+        idxSubMetaItem = campos[3];
+        idxActividadItem = campos[4];
+        idxClasificadorItem = campos[0];
+        montoAsignado = campos[5];
+        if (idxMetaItem == idMeta
+            && idxSubMetaItem == idSubMeta
+            && idxActividadItem == idActividad
+            && idxClasificadorItem == idClasificador) {
+            contenido = montoAsignado ? parseFloat(montoAsignado).toFixed(2) : '';
+        }
+    }
+    var txtMontoAsignado = document.getElementById("txtMontoAsignado");
+    if (txtMontoAsignado != null) {
+        txtMontoAsignado.value = contenido;
+    }
 }
 
 function configurarOptions() {
@@ -5384,3 +5502,15 @@ function mostarlistaActualizarEstado(response) {
         grillaItem = new GrillaScroll(lista, "divLista", 100, 6, vista, controller, null, null, true, botones, 38, false, null);
     }
 };
+
+function seleccionarControlSelect2(control, texto) {
+    var controlSelect = 'select2-' + control.id + '-container';
+    var cboControlSelect = document.getElementById(controlSelect);
+    if (cboControlSelect != null) {
+        var selected = control.options[control.selectedIndex]?.text;
+        if (selected)
+            cboControlSelect.innerHTML = selected;
+        else
+            cboControlSelect.innerHTML = texto ? texto : "Seleccione";
+    }
+}
