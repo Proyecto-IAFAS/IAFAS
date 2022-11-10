@@ -47,7 +47,8 @@ namespace WebAppTurnera.Controllers
         {
             string rpta = "";
             daSQL odaSQL = new daSQL("conSISGEFIN");
-            rpta = odaSQL.EjecutarComando("usp" + tbl + "ListarCsv", "@Data", data);
+            string spName = "usp" + tbl + "ListarCsv";
+            rpta = odaSQL.EjecutarComando(spName, "@Data", data);
             return rpta;
         }
 

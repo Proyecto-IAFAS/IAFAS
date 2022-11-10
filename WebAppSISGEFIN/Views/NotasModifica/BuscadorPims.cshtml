@@ -16,28 +16,17 @@
 
             <div class="row">
 
-                <table class="table">
-                    <tr>
-                        <td>
-                            Año de Ejec.
-                        </td>
-                        <td>:</td>
-                        <td>
-                            <input type="number" class="form-control" id="txtAñoEjec" value="2022" min="2000" max="2100" />
-                        </td>
-                        <td></td>
-                        <td>                            
-                            Descripción                                              
-                        </td>
-                        <td>:</td>
-                        <td>
-                            <input type="text" class="form-control" id="txtDescrip" value="" />
-                        </td>
-                        <td align="center">
-                            <input type="button" onclick="BuscarDatos()" value="Buscar" />
-                        </td>
-                    </tr>
-                </table>
+                <div class="col-sm-2">
+                    Año de Ejec.
+                    <input type="number" class="form-control" id="txtAñoEjec" value="2022" min="2000" max="2100" />
+                </div>
+                <div class="col-sm-8">
+                    Descripción
+                    <input type="text" class="form-control" id="txtDescrip" value="" />
+                </div>
+                <div class="col-sm-2">
+                    <input type="button" onclick="BuscarDatos()" value="Buscar" />
+                </div>
 
             </div>
 

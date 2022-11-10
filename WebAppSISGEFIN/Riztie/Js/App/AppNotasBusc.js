@@ -35,7 +35,7 @@ function MostrarDatos(data) {
 
     var lista = data.split("¬");
 
-    grillaItem = new GrillaScroll(lista, "divGrilla", 100, 6, vista, controller, null, null, true, botones, 38, false, null);
+    grillaItem = new GrillaScroll(lista, "divGrilla", 100, 6, vista, controller, null, true, true, botones, 35, false, true, false, false);
 
 }
 
