@@ -46,7 +46,7 @@ namespace WebAppSISGEFIN.Controllers
             }
             return View(_vName);
         }
-
+        
         [HttpGet]
         public ActionResult MsgRpt(string msg, byte e)
         {

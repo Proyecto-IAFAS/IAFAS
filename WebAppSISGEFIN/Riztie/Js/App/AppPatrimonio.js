@@ -452,6 +452,7 @@ function mostrarlistas(rpta) {
         }
     }
 }
+
 function configurarTabs() {
 
     var tabAltas = document.getElementById("tabAltas");

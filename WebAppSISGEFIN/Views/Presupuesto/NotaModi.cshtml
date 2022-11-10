@@ -4,13 +4,25 @@
     Layout = "~/Views/_LayoutPage.cshtml";
 }
 
+<style>
+    .row {
+        margin-bottom: 5px;
+    }
+
+    .modal-body {
+        padding: 0px !important;
+    }
+</style>
+
 <div class="pcoded-content">
     <div class="pcoded-inner-content">
         <div class="main-body">
             <div class="card">
+
                 <div class="card-header bg-primary">
-                    <h3><i class="fa fa-industry" aria-hidden="true"></i> Modificacion presupuestal</h3>
+                    <h3><i class="fa fa-industry" aria-hidden="true"></i> Modificacion Presupuestal</h3>
                 </div>
+
                 <div class="card-block">
                     <div class="form-row">
                         <div class="form-group col-sm-3">
@@ -28,55 +40,50 @@
                         </div>
                     </div>
                     <div class="form-row">
-                        <div class="modal custom-modal" tabindex="-1" role="dialog" aria-hidden="true" id="divPopupContainer" style="overflow-y:auto;">
-                            <div class="modal-dialog modal-lg bg-personalizado" id="divPopupWindow" style="margin-top:1px;">
+
+                        <div class="modal custom-modal" tabindex="-1" role="dialog" aria-hidden="true" id="divRegistro" style="overflow-y: auto;">
+                            <div class="modal-dialog modal-xl bg-personalizado" id="divPopupWindow" style="margin-top:20px;">
                                 <div class="modal-content">
+
                                     <div id="divBarra" class="modal-header bg-personalizado" style="cursor:move">
-                                        <h5 class="modal-title">Registrar Marco</h5>
-                                        <button type="button" id="btnCerrarFormato" class="close"><span aria-hidden="true">&times;</span><span class="sr-only"></span></button>
+                                        <h5 class="modal-title" id="tituloModal"></h5>
                                     </div>
+
                                     <div class="modal-body">
 
-                                        <div class="form-row">
-                                            <input type="hidden" class="control-form Popup" id="txtIdRegistro">
-                                            <div class="form-group col-sm-12">
-                                                <label class="control-label">P.C.A.</label>
-                                                <select id="cboPCA" class="SelectSearch control-form Reque Popup"></select>
-                                            </div>
-                                        </div>
-                                        <div class="form-row">
-                                            <div class="form-group col-sm-12">
-                                                <label class="control-label">Meta</label>
-                                                <select id="cboMeta" class="SelectSearch control-form Reque Popup"></select>
-                                            </div>
-                                        </div>
-                                        <div class="form-row">
-                                            <div class="form-group col-sm-12">
-                                                <label class="control-label">Sub-Meta</label>
-                                                <select id="cboSubMeta" class="SelectSearch control-form Reque Popup"></select>
-                                            </div>
-                                        </div>
-                                        <div class="form-row">
-                                            <div class="form-group col-sm-12">
-                                                <label class="control-label">Clasificador</label>
-                                                <select id="cboClasificador" class="SelectSearch control-form Reque Popup"></select>
-                                            </div>
-                                        </div>
+                                        <iframe id="ifmRegist"
+                                                src="about://black"
+                                                frameborder="0"
+                                                style="position:relative;
+                                                       left:0; top:0;
+                                                       width:100%;
+                                                       height:80vh">
+                                        </iframe>
+
                                     </div>
+
                                     <div class="modal-footer">
-                                        <button class="btnCancelarForm" id="btnCancelar" title="Cancelar"><i class="fa fa-undo" aria-hidden="true"></i>&nbsp;Cancelar</button>
-                                        <button class="btnGuardarForm bg-customer" id="btnGuardar" title="Guardar"><span class="fa fa-save"></span>&nbsp;Guardar</button>
+                                        <button id="btnCancelar" class="btnCancelarForm" title="Cancelar"><i class="fa fa-undo" aria-hidden="true"></i>&nbsp;Cancelar</button>
+                                        <button id="btnGuardar" class="btnGuardarForm bg-customer" title="Guardar datos"><span class="fa fa-save"></span>&nbsp;Grabar</button>
                                     </div>
+
                                 </div>
+
                             </div>
                         </div>
+
                     </div>
                 </div>
+
             </div>
+        </div>
+        <div id="styleSelector">
         </div>
     </div>
 </div>
-<iframe name="print_frame" width="0" height="0" frameborder="0" src="about:blank"></iframe>
-<script src="~/Riztie/Js/App/AppPresu.js"></script>
+
+@*<iframe name="print_frame" width="0" height="0" frameborder="0" src="about:blank"></iframe>*@
+
+<script src="~/Riztie/Js/App/AppNotasMant.js"></script>
 
 

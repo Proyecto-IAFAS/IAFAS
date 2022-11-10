@@ -129,21 +129,15 @@
         _Params.value += '|' + _cboFamils.value;
     }
 
-    async function CargarCombo(nombre, params, saved = false) {
+    async function CargarCombo(nombre, params, saved = true) {
 
         const _cboName = 'cbo' + nombre;
         const _actName = 'Get' + nombre;
 
         var _getData = async function () {
-            const _basUrl = '@Url.Action("X", "Data4Combo")';
-            const _actUrl = _basUrl.replace('X', _actName);
-            let _newUrl = "";
-            if (params != null) {
-                _newUrl = _actUrl + "/?" + params;
-            }
-            else {
-                _newUrl = _actUrl;
-            }
+            const _auxUrl = '@Url.Action("X", "Data4Combo")';
+            const _newUrl = _auxUrl.replace('X', _actName);
+            if (params != null) { _newUrl += '/?' + params; }
             const _response = await fetch(_newUrl);
             return await _response.text();
         }

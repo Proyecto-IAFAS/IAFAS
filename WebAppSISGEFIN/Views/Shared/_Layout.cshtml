@@ -13,25 +13,50 @@
 
     <link rel="icon" type="image/x-icon" href="~/Riztie/Images/logoEmpresa.png">
 
-    <script src="~/Riztie/Js/Design/jquery.min.js"></script>
-    <script src="~/Riztie/Js/Design/popper.min.js"></script>
-    <script src="~/Riztie/Js/Design/bootstrap.min.js"></script>
-    <script src="~/Riztie/Js/Design/waves.min.js"></script>
-    <script src="~/Riztie/Js/Design/jquery.slimscroll.js"></script>
-    <script src="~/Riztie/Js/Design/modernizr.js"></script>
-    <script src="~/Riztie/Js/Design/task-board.js"></script>
-    <script src="~/Riztie/Js/Design/toastr.min.js"></script>
+    <link rel="apple-touch-icon-precomposed" sizes="144x144" href="~/Riztie/Images/logoEmpresa.png">
+    <link rel="apple-touch-icon-precomposed" sizes="72x72" href="~/Riztie/Images/logoEmpresa.png">
+    <link rel="apple-touch-icon-precomposed" href="~/Riztie/Images/logoEmpresa.png">
+    <!-- Google font-->
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,600,700" rel="stylesheet">
+    <!-- waves.css -->
+    <link href="~/Riztie/Css/waves.min.css" rel="stylesheet" />
+    <link href="~/Riztie/Css/bootstrap.min.css" rel="stylesheet" />
+    <link href="~/Riztie/Css/themify-icons.css" rel="stylesheet" />
+    <link href="~/Riztie/Css/font-awesome.min.css" rel="stylesheet" />
+    <link href="~/Riztie/Css/jquery.mCustomScrollbar.css" rel="stylesheet" />
+    <link href="~/Riztie/Css/bootstrap-toggle.min.css" rel="stylesheet" />
+    <link href="~/Riztie/Css/morris.css" rel="stylesheet" />
+    <link href="~/Riztie/Css/toastr.min.css" rel="stylesheet" />
+    <link href="~/Riztie/Css/select2.min.css" rel="stylesheet" />
+    <link href="~/Riztie/Css/style.css" rel="stylesheet" />
+    <link href="~/Riztie/Css/daymevatech.css" rel="stylesheet" />
 
+    <!--JSPDF -->
+    <link href="~/Riztie/Js/Design/jspdf/grids-responsive-min.css" rel="stylesheet" />
+    <link href="~/Riztie/Js/Design/jspdf/pure-min.css" rel="stylesheet" />
+
+    <!--Tabla.css -->
+    <link href="~/Riztie/Css/perfect-scrollbar.css" rel="stylesheet" />
+    <link href="~/Riztie/Css/main.css" rel="stylesheet" />
 
 </head>
 
+
+
 <body>
 
-    @RenderSection("header")
+    <input id="hdfRaiz" type="hidden" value="@Url.Content("~")" />
 
     @RenderBody()
 
     @RenderSection("scripts", false)
+
+    <script src="~/Riztie/Js/Design/jquery.min.js"></script>
+    <script src="~/Riztie/Js/Design/popper.min.js"></script>
+    <script src="~/Riztie/Js/Design/bootstrap.min.js"></script>
+    <script src="~/Riztie/Js/Design/toastr.min.js"></script>
+    <script src="~/Riztie/Js/Design/sweetalert.min.js"></script>
+    <script src="~/Riztie/Js/App/General.js?v=1.6"></script>
 
 </body>
 

@@ -107,42 +107,24 @@
         ActualizarSel();
     }
 
-    async function CargarCombo(nombre, params, saved = false) {
-
+    async function CargarCombo(nombre, params) {
         const _cboName = 'cbo' + nombre;
         const _actName = 'Get' + nombre;
 
-        var _getData = async function () {
-            const _basUrl = '@Url.Action("X", "Data4Combo")';
-            const _actUrl = _basUrl.replace('X', _actName);
-            let _newUrl = "";
-            if (params != null) {
-                _newUrl = _actUrl + "/?" + params;
-            }
-            else {
-                _newUrl = _actUrl;
-            }
-            const _response = await fetch(_newUrl);
-            return await _response.text();
-        }
+        const _basUrl = '@Url.Action("X", "Data4Combo")';
+        const _auxUrl = _basUrl.replace('X', _actName);
 
-        var _data = null;
-
-        if (saved == true) {
-            _data = sessionStorage.getItem(_cboName);
-            if ((_data == null) || (typeof (_data) == 'undefined')) {
-                _data = await _getData();
-                sessionStorage.setItem(_cboName, _data);
+        let _newUrl = _auxUrl;
+        if (params != null) {
+                _newUrl = _auxUrl + '/?' + params;
             }
-        }
-        else {
-            _data = await _getData();
-        }
+
+        const response = await fetch(_newUrl);
+        _data = await response.text();
+        sessionStorage.setItem(_cboName, _data);
 
         var _lista = _data.split('¬');
-
-        crearCombo(_lista, _cboName, "Seleccione un item");
-
+        crearCombo(_lista, _cboName, "Seleccione un item.")
     }
 
     window.onload = async function ()

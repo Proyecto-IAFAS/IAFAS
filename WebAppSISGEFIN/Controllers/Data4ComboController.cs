@@ -59,14 +59,6 @@ namespace WebAppSISGEFIN.Controllers
         }
 
         [HttpGet]
-        public string GetEntidades()
-        {
-            string _data = "M_ENTIDAD|ENTI_SECUENCIA|ENTI_NOMBRE|DEST_SECUENCIA=1";
-            var _trama = Runs.GetTrama4Combo(_data);
-            return _trama;
-        }
-
-        [HttpGet]
         public string GetFuentesFinan()
         {
             string _data = "vFuentesFinan|IdFuente|NombreFuente|";
@@ -75,33 +67,19 @@ namespace WebAppSISGEFIN.Controllers
         }
 
         [HttpGet]
-        public string GetMetasXFuente(string añoEjec, string idFuente)
-        { 
-            string _where = $"AñoEjecuc={añoEjec} And IdFuente={idFuente}";
-            string _dataq = $"vMetasXFuente|IdMeta|NombreMeta|{_where}";
-            var _trama = Runs.GetTrama4Combo(_dataq);
-            return _trama;
-        }
-
-        [HttpGet]
-        public string GetSubMetasXFuente(string añoEjec, string idFuente, string idMeta)
+        public string GetEntidades()
         {
-            string _where = $"AñoEjecuc={añoEjec} And IdFuente={idFuente} And IdMeta='{idMeta}'";
-            string _dataq = $"vSubMetasXFuente|IdSubMeta|NombreSubMeta|{_where}";
-            var _trama = Runs.GetTrama4Combo(_dataq);
+            string _data = "M_ENTIDAD|ENTI_SECUENCIA|ENTI_NOMBRE|DEST_SECUENCIA=1";
+            var _trama = Runs.GetTrama4Combo(_data);
             return _trama;
         }
 
-        [HttpGet]
-        public string GetActidadesXFuente(string añoEjec, string idFuente, string idMeta, string idSubM)
+        public string GetTiposNota()
         {
-            string _where = $"AñoEjecuc={añoEjec} And IdFuente={idFuente} And IdMeta='{idMeta}' And IdSubMeta='{idSubM}'";
-            string _dataq = $"vActividadesXFuente|IdActividad|NombreActividad|{_where}";
-            var _trama = Runs.GetTrama4Combo(_dataq);
+            string _data = "vTiposNotasMod|IdTipoNota|NombreTipoNota|";
+            var _trama = Runs.GetTrama4Combo(_data);
             return _trama;
         }
-
-        
 
     }
 
