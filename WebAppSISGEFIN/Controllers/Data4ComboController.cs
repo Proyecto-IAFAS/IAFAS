@@ -74,7 +74,12 @@ namespace WebAppSISGEFIN.Controllers
             return _trama;
         }
 
-
+        public string GetTiposNota()
+        {
+            string _data = "vTiposNotasMod|IdTipoNota|NombreTipoNota|";
+            var _trama = Runs.GetTrama4Combo(_data);
+            return _trama;
+        }
 
     }
 

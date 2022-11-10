@@ -1334,6 +1334,9 @@
     <Content Include="Riztie\Images\navbar-img-6.jpg" />
     <Content Include="Riztie\Images\NOFOTO.jpg" />
     <Content Include="Riztie\Images\user-bg.jpg" />
+    <Content Include="Riztie\Js\App\AppNotasBusc.js" />
+    <Content Include="Riztie\Js\App\AppNotasMant.js" />
+    <Content Include="Riztie\Js\App\AppNotasRegt.js" />
     <Content Include="Riztie\Js\App\AppTeso.js" />
     <Content Include="Riztie\Js\App\AppIngresos.js" />
     <Content Include="Riztie\Js\App\AppRRHH.js" />
@@ -1399,6 +1402,7 @@
     <Compile Include="Controllers\InventarioController.cs" />
     <Compile Include="Controllers\LicitacionController.cs" />
     <Compile Include="Controllers\LogisticaController.cs" />
+    <Compile Include="Controllers\NotasModificaController.cs" />
     <Compile Include="Controllers\PatrimonioController.cs" />
     <Compile Include="Controllers\PlaneamientoController.cs" />
     <Compile Include="Controllers\PresupuestoController.cs" />
@@ -1610,12 +1614,12 @@
     <Content Include="Views\General\Index2.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Presupuesto\NotaModi.cshtml" />
-    <Content Include="Views\NotasModifica\Mantenimiento.cshtml" />
     <Content Include="Views\NotasModifica\Registro.cshtml" />
     <Content Include="Views\Reportes\FiltroAÑO+FF.cshtml" />
     <Content Include="Views\Reportes\FiltroAÑO+FF+MT.cshtml" />
     <Content Include="Views\Reportes\FiltroAÑO+FF+MT+SM.cshtml" />
     <Content Include="Views\Reportes\FiltroAÑO+FF+MT+SM+AC.cshtml" />
+    <Content Include="Views\NotasModifica\BuscadorPims.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

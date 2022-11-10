@@ -40,6 +40,7 @@ window.onload = function () {
     configurarBotones();
     configurarCombos();
 }
+
 function getListarProgramacion(idPlan) {
     var data = "";
     var anioFiscal = document.getElementById("txtAnioFiscal")?.value;
@@ -77,10 +78,8 @@ function getListarClasificador(idEstado) {
 
 function getListar() {
     var data = "";
-
     var anio = document.getElementById("txtAnio")?.value;
     data = anio;
-
     Http.get("General/listarTabla?tbl=" + controller + vista + "&data=" + data, mostrarlistas);
 }
 
@@ -208,7 +207,6 @@ function mostrarlistas(rpta) {
     }
 }
 
-
 function listarMetaItem() {
     var nRegistros = listaMetaItem_VG.length;
     var contenido = "<option value=''>Seleccione</option>";
@@ -331,7 +329,6 @@ function listarMetaItemReporte() {
     }
 }
 
-
 function listarSubMetaItemReporte() {
     var idFuenteF = cboFuenteRep.value;
     var idMeta = cboMetaRep.value;
@@ -405,7 +402,6 @@ function grabarDatos() {
     }
 }
 
-
 function obtenerDatosGrabar(clase) {
     var data = "";
     var controles = document.getElementsByClassName(clase);
@@ -446,7 +442,6 @@ function obtenerDatosGrabar(clase) {
 
     return data;
 }
-
 
 function mostrarGrabarPIA(rpta) {
     var mensajeResul = [];

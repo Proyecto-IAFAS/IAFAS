@@ -1,0 +1,57 @@
+﻿@{
+    ViewBag.Title = "Buscador Pims";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+}
+
+<div id="divBarra" class="modal-header bg-personalizado" style="cursor:move">
+    <h5 class="modal-title" id="tituloModal"></h5>
+</div>
+
+<div class="modal-body">
+
+    <div class="row">
+
+        <div class="form-group col-sm-12">
+
+            <div class="row">
+
+                <table class="table">
+                    <tr>
+                        <td>
+                            Año de Ejec.
+                        </td>
+                        <td>:</td>
+                        <td>
+                            <input type="number" class="form-control" id="txtAñoEjec" value="2022" min="2000" max="2100" />
+                        </td>
+                        <td></td>
+                        <td>                            
+                            Descripción                                              
+                        </td>
+                        <td>:</td>
+                        <td>
+                            <input type="text" class="form-control" id="txtDescrip" value="" />
+                        </td>
+                        <td align="center">
+                            <input type="button" onclick="BuscarDatos()" value="Buscar" />
+                        </td>
+                    </tr>
+                </table>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <div class="row">
+        <div id="divGrilla">
+            Datos
+        </div>
+    </div>
+
+</div>
+
+<script src="~/Riztie/Js/App/AppNotasBusc.js"></script>
+
